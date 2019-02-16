@@ -10,7 +10,7 @@ namespace Fibonachhi
             Console.ReadKey();
         }
 
-        static int Fibonachhi (int n)
+        static int Fibonachhi(int n)
         {
             if (n == 0)
             {
