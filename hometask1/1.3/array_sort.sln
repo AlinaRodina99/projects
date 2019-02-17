@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "array_sort", "array_sort\array_sort.csproj", "{C7F451D0-AD33-4481-B12E-6D7F697D326B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "array_sort", "array_sort.csproj", "{C7F451D0-AD33-4481-B12E-6D7F697D326B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {52BE2DB8-3AB0-420C-A5DF-288159D91C82}
+		SolutionGuid = {578C91E3-3F5F-4EB4-9E46-2B4249F161F7}
 	EndGlobalSection
 EndGlobal

@@ -1,33 +1,33 @@
 ﻿using System;
 
-namespace array_sort
+namespace ArraySort
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] array = new int[5] { 2, 9, 4, 3, 5 };
+            var array = new [] { 2, 9, 4, 3, 5 };
             SelectionSort(array);
             Console.ReadKey();
         }
 
         static void SelectionSort(int[] array)
         {
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
-                int current_minimum = i;
-                for (int j = i + 1; j < array.Length-1; j++)
+                int currentMinimum = i;
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    if (array[j] < array[current_minimum])
+                    if (array[j] < array[currentMinimum])
                     {
-                        current_minimum = j;
+                        currentMinimum = j;
                     }
                 }
-                if (current_minimum != i)
+                if (currentMinimum != i)
                 {
                     int temp = array[i];
-                    array[i] = array[current_minimum];
-                    array[current_minimum] = temp;
+                    array[i] = array[currentMinimum];
+                    array[currentMinimum] = temp;
                 }
             }
             foreach (int element in array)
