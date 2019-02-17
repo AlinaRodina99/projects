@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace array_sort
+namespace ArraySort
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] array = new int[5] { 2, 9, 4, 3, 5 };
+            var array = new [] { 2, 9, 4, 3, 5 };
             SelectionSort(array);
             Console.ReadKey();
         }
@@ -15,19 +15,19 @@ namespace array_sort
         {
             for (int i = 0; i < array.Length; i++)
             {
-                int current_minimum = i;
+                int currentminimum = i;
                 for (int j = i + 1; j < array.Length-1; j++)
                 {
-                    if (array[j] < array[current_minimum])
+                    if (array[j] < array[currentminimum])
                     {
-                        current_minimum = j;
+                        currentminimum = j;
                     }
                 }
-                if (current_minimum != i)
+                if (currentminimum != i)
                 {
                     int temp = array[i];
-                    array[i] = array[current_minimum];
-                    array[current_minimum] = temp;
+                    array[i] = array[currentminimum];
+                    array[currentminimum] = temp;
                 }
             }
             foreach (int element in array)
