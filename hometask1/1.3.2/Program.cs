@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace SortArray
+namespace ArraySort
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var array = new [] { 2, 9, 4, 3, 5 };
+            var array = new[] { 2, 9, 4, 3, 5 };
             SelectionSort(array);
             Console.ReadKey();
         }
 
         static void SelectionSort(int[] array)
         {
-            for (int i = 0; i < array.Length-1; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
                 int currentMinimum = i;
                 for (int j = i + 1; j < array.Length; j++)
