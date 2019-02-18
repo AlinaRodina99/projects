@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArraySort
+namespace SortArray
 {
     class Program
     {
@@ -13,7 +13,7 @@ namespace ArraySort
 
         static void SelectionSort(int[] array)
         {
-            for (int i = 0; i < array.Length - 1; i++)
+            for (int i = 0; i < array.Length-1; i++)
             {
                 int currentMinimum = i;
                 for (int j = i + 1; j < array.Length; j++)
