@@ -26,7 +26,7 @@ namespace MatrixSort
                 int currentMin = j;
                 for (int k = j + 1; k < countOfColumns; k++)
                 {
-                    if (matrix[i,k] < matrix[i,currentMin])
+                    if (matrix[i, k] < matrix[i, currentMin])
                     {
                         currentMin = k;
                     }
@@ -35,42 +35,12 @@ namespace MatrixSort
                 {
                     for (i = 0; i < countOfRows; i++)
                     {
-                        
+
                         int temp = matrix[i, j];
                         matrix[i, j] = matrix[i, currentMin];
                         matrix[i, currentMin] = temp;
-                        
+
                     }
                 }
             }
         }
-
-        static void FillingOfMatrix(int[,] matrix)
-        {
-            int countOfRows = matrix.GetLength(0);
-            int countOfColumns = matrix.Length / countOfRows;
-            for (int i = 0; i < countOfRows; i++)
-            {
-                for (int j = 0; j < countOfColumns; j++)
-                {
-                    Console.WriteLine("Enter the element of matrix: ");
-                    matrix[i, j] = Convert.ToInt32(Console.ReadLine());
-                }
-            }
-        }
-
-       static void PrintOfMatrix(int[,] matrix)
-        {
-            int countOfRows = matrix.GetLength(0);
-            int countOfColumns = matrix.Length / countOfRows;
-            for (int i = 0; i < countOfRows; i++)
-            {
-                for (int j = 0; j < countOfColumns; j++)
-                {
-                    Console.Write(matrix[i, j] + " ");
-                }
-                Console.WriteLine();
-            }
-        }
-    }
-}
