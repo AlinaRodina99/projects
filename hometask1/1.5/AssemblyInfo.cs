@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("MatrixSort")]
+[assembly: AssemblyTitle("SortOfMatrix")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("MatrixSort")]
+[assembly: AssemblyProduct("SortOfMatrix")]
 [assembly: AssemblyCopyright("Copyright © HP Inc. 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("ae213ce5-6a41-4457-821f-85c6cbc27a03")]
+[assembly: Guid("5a8943a1-0647-4e8d-83d7-21afa471370c")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //
