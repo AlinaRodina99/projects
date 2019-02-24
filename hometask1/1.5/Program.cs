@@ -35,12 +35,12 @@ namespace MatrixSort
                 {
                     for (i = 0; i < countOfRows; i++)
                     {
-
                         int temp = matrix[i, j];
                         matrix[i, j] = matrix[i, currentMin];
                         matrix[i, currentMin] = temp;
-
                     }
                 }
             }
         }
+    }
+}
