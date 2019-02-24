@@ -8,7 +8,6 @@ namespace ArraySort
         {
             var array = new[] { 2, 9, 4, 3, 5 };
             SelectionSort(array);
-            Console.ReadKey();
         }
 
         static void SelectionSort(int[] array)
