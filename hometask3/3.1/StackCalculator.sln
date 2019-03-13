@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackCalculator", "StackCalculator\StackCalculator.csproj", "{205A85D3-B50D-48DE-879B-C79DD786D656}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackCalculator.Tests", "NUnitTestProject3\StackCalculator.Tests.csproj", "{9C667A31-105E-47A1-B103-A6CCF2289532}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{205A85D3-B50D-48DE-879B-C79DD786D656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205A85D3-B50D-48DE-879B-C79DD786D656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205A85D3-B50D-48DE-879B-C79DD786D656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205A85D3-B50D-48DE-879B-C79DD786D656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C667A31-105E-47A1-B103-A6CCF2289532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C667A31-105E-47A1-B103-A6CCF2289532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C667A31-105E-47A1-B103-A6CCF2289532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C667A31-105E-47A1-B103-A6CCF2289532}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1EEFC3EC-CA92-4CA2-A3E5-92C59E45A267}
+	EndGlobalSection
+EndGlobal
