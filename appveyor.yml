@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+
+before_build:
+  - nuget restore C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln
+
+build:
+  project: C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln
+
+test_script:
+  - nunit3-console C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln \
+    --result=myresults.xml;format=AppVeyor
