@@ -1,11 +1,11 @@
 image: Visual Studio 2017
 
 before_build:
-  - nuget restore C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln
+  - nuget restore C:\Users\alnar\source\repos\HashTable.sln
 
 build:
-  project: C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln
+  project: C:\Users\alnar\source\repos\HashTable.sln
 
 test_script:
-  - nunit3-console C:\Users\alnar\projects\hometask1\1.2\Fibonachhi.sln \
+  - nunit3-console C:\Users\alnar\source\repos\HashTable.sln \
     --result=myresults.xml;format=AppVeyor
