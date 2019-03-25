@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+
+before_build:
+  - nuget restore Proj/hometask1/1.2/Fibonachhi.sln
+
+build:
+  project:Proj/hometask1/1.2/Fibonachhi.sln
+
+test_script:
+  - nunit3-console hometask2/2.3/StackCalculator.sln\
+    --result=myresults.xml;format=AppVeyor
