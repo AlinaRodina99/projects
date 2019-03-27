@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+
+before_build:
+  - nuget restore projects/hometask2/2.3/StackCalculator.sln
+
+build:
+   project: projects/hometask2/2.3/StackCalculator.sln
+
+test_script:
+  - nunit3-console projects/hometask2/2.3/StackCalculator.sln \
+    --result=myresults.xml;format=AppVeyor
