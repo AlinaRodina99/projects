@@ -1,0 +1,11 @@
+image: Visual Studio 2017
+
+before_build:
+  - nuget restore myCoolHomework/Homework.sln
+
+build:
+   project: myCoolHomework/Homework.sln
+
+test_script:
+  - nunit3-console myCoolHomework/Homework.sln \
+    --result=myresults.xml;format=AppVeyor
