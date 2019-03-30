@@ -7,5 +7,4 @@ build:
    project: hometask3/3.2/HashTable/HashTable.sln
 
 test_script:
-  - nunit3-console hometask3/3.2/HashTable/HashTable.sln \
-    --result=myresults.xml;format=AppVeyor
+  - dotnet test hometask3/3.2/HashTable/HashTable.sln
