@@ -24,7 +24,7 @@ namespace HashTable
         {
             int position = GetArrayPosition(key);
             MyList linkedList = GetLinkedList(position);
-            ElementOfList currentElement = new ElementOfList(linkedList[0], key);
+            ElementOfList currentElement = linkedList.Head;
             for (int i = 0; i < linkedList.Size; ++i)
             {
                 if (currentElement.Key.Equals(key))
@@ -48,7 +48,7 @@ namespace HashTable
         {
             int position = GetArrayPosition(key);
             MyList linkedList = GetLinkedList(position);
-            ElementOfList currentElement = new ElementOfList(linkedList[0], key);
+            ElementOfList currentElement = linkedList.Head;
             string currentData;
             for (int i = 0; i < linkedList.Size; ++i)
             {
