@@ -19,6 +19,14 @@ namespace LinkedList
             }
         }
 
+        public ElementOfList Head
+        {
+            get
+            {
+                return head;
+            }
+        }
+
         public bool IsEmpty
         {
             get

@@ -12,7 +12,7 @@ namespace HashTable
             hashTable.Add(5, "lemon");
             hashTable.Remove(2);
             hashTable.PrintHashTable();
-            Console.WriteLine(hashTable.FindValue(3));
+            Console.WriteLine(hashTable.FindValue(2));
         }
     }
 }
