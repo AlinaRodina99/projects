@@ -4,68 +4,66 @@ namespace LinkedList
 {
     class MyList
     {
+        private class ElementOfList
+        {
+            public string Data { get; set; }
+            public ElementOfList Next { get; set; }
+            public ElementOfList Previous { get; set; }
+            public ElementOfList(string data)
+            {
+                Data = data;
+            }
+        }
+
         private ElementOfList head;
-        private int size;
-        public MyList()
-        {
-            size = 0;
-        }
 
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public int Size { get; private set; }
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return size == 0;
-            }
-        }
+        public bool IsEmpty => Size == 0;
 
         public void AddAt(int index, string data)
         {
-            ElementOfList thisElement = new ElementOfList(data);
-            ElementOfList current = head;
-            int currentIndex = 0;
-            if (index == 0)
+            if (index < 0 || index > Size)
             {
-                ElementOfList temp = head;
-                head = thisElement;
-                head.Next = temp;
-                ++size;
-            }
-            else if (index == size)
-            {
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = thisElement;
-                ++size;
+                Console.WriteLine("Index is negative or larger than the list size!");
             }
             else
             {
-                while (current != null)
+                var thisElement = new ElementOfList(data);
+                ElementOfList current = head;
+                int currentIndex = 0;
+                if (index == 0)
                 {
-                    if (currentIndex == index)
+                    ElementOfList temp = head;
+                    head = thisElement;
+                    head.Next = temp;
+                    ++Size;
+                }
+                else if (index == Size)
+                {
+                    while (current.Next != null)
                     {
-                        ElementOfList currentPrevios = current.Previous;
-                        current.Previous = thisElement;
-                        ElementOfList newElement = current.Previous;
-                        newElement.Next = current;
-                        newElement.Previous = currentPrevios;
-                        if (currentPrevios != null)
-                        {
-                            currentPrevios.Next = newElement;
-                        }
-                        ++size;
+                        current = current.Next;
                     }
-                    current = current.Next;
+                    current.Next = thisElement;
+                    ++Size;
+                }
+                else
+                {
+                    while (current != null)
+                    {
+                        if (currentIndex == index)
+                        {
+                            thisElement.Next = current;
+                            thisElement.Previous = current.Previous;
+                            if (thisElement.Previous != null)
+                            {
+                                thisElement.Previous.Next = thisElement;
+                            }
+                            ++Size;
+                        }
+                        current = current.Next;
+                    }
                 }
             }
         }
@@ -82,26 +80,33 @@ namespace LinkedList
 
         public void RemoveAt(int index)
         {
-            ElementOfList current = head;
-            ElementOfList currentPrevious = null;
-            int currentIndex = 0;
-            while (current != null)
+            if (index < 0 || index > Size)
             {
-                if (currentIndex == index)
+                Console.WriteLine("Index is negative or larger than the list size!");
+            }
+            else
+            {
+                ElementOfList current = head;
+                ElementOfList currentPrevious = null;
+                int currentIndex = 0;
+                while (current != null)
                 {
-                    if (currentPrevious == null)
+                    if (currentIndex == index)
                     {
-                        head = head.Next;
+                        if (currentPrevious == null)
+                        {
+                            head = head.Next;
+                        }
+                        else
+                        {
+                            currentPrevious.Next = current.Next;
+                        }
+                        --Size;
                     }
-                    else
-                    {
-                        currentPrevious.Next = current.Next;
-                    }
-                    --size;
+                    ++currentIndex;
+                    currentPrevious = current;
+                    current = current.Next;
                 }
-                ++currentIndex;
-                currentPrevious = current;
-                current = current.Next;
             }
         }
 
@@ -109,21 +114,28 @@ namespace LinkedList
         {
             get
             {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
-                {
-                    current = current.Next;
-                }
-                return current.Data;
+                return GetElement(index);
             }
             set
+            {
+                string currentElement = GetElement(index);
+            }
+        }
+
+        private string GetElement(int index)
+        {
+            if (index < 0 || index > Size)
+            {
+                return "Your index is negative or larger than the list size!";
+            }
+            else
             {
                 ElementOfList current = head;
                 for (int i = 0; i < index; ++i)
                 {
                     current = current.Next;
                 }
-                current.Data = value;
+                return current.Data;
             }
         }
     }
