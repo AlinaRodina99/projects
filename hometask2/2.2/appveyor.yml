@@ -1,7 +1,0 @@
-image: Visual Studio 2017
-
-before_build:
-  - nuget restore hometask2/2.2/HashTable/HashTable.sln
-
-build:
-   project: hometask2/2.2/HashTable/HashTable.sln
