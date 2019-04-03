@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace HashTable
+namespace HashTableNameSpace
 {
     class Program
     {
         static void Main(string[] args)
         {
-            HashTableFunctionality hashTable = new HashTableFunctionality(3);
+            var hashTable = new HashTable(3);
             hashTable.Add(2, "apple");
             hashTable.Add(3, "melon");
             hashTable.Add(5, "lemon");

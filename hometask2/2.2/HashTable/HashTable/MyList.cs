@@ -4,83 +4,75 @@ namespace LinkedList
 {
     class MyList
     {
+        private class ElementOfList
+        {
+            public string Data { get; set; }
+            public ElementOfList Next { get; set; }
+            public ElementOfList Previous { get; set; }
+            public int Key { get; set; }
+            public ElementOfList(string data, int key)
+            {
+                Key = key;
+                Data = data;
+            }
+        }
+
         private ElementOfList head;
-        private int size;
-        public MyList()
-        {
-            size = 0;
-        }
 
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public int Size { get; private set; }
 
-        public ElementOfList Head
-        {
-            get
-            {
-                return head;
-            }
-        }
-
-        public bool IsEmpty
-        {
-            get
-            {
-                return size == 0;
-            }
-        }
+        public bool IsEmpty => Size == 0;
 
         public void AddAt(int index, string data, int key)
         {
-            ElementOfList thisElement = new ElementOfList(data, key);
-            ElementOfList current = head;
-            int currentIndex = 0;
-            if (index == 0)
+            if (index < 0 || index > Size)
             {
-                ElementOfList temp = head;
-                head = thisElement;
-                head.Next = temp;
-                ++size;
-            }
-            else if (index == size)
-            {
-                while (current.Next != null)
-                {
-                    current = current.Next;
-                }
-                current.Next = thisElement;
-                ++size;
+                Console.WriteLine("Index is negative or larger than the list size!");
             }
             else
             {
-                while (current != null)
+                var thisElement = new ElementOfList(data, key);
+                ElementOfList current = head;
+                int currentIndex = 0;
+                if (index == 0)
                 {
-                    if (currentIndex == index)
+                    ElementOfList temp = head;
+                    head = thisElement;
+                    head.Next = temp;
+                    ++Size;
+                }
+                else if (index == Size)
+                {
+                    while (current.Next != null)
                     {
-                        ElementOfList currentPrevios = current.Previous;
-                        current.Previous = thisElement;
-                        ElementOfList newElement = current.Previous;
-                        newElement.Next = current;
-                        newElement.Previous = currentPrevios;
-                        if (currentPrevios != null)
-                        {
-                            currentPrevios.Next = newElement;
-                        }
-                        ++size;
+                        current = current.Next;
                     }
-                    current = current.Next;
+                    current.Next = thisElement;
+                    ++Size;
+                }
+                else
+                {
+                    while (current != null)
+                    {
+                        if (currentIndex == index)
+                        {
+                            thisElement.Next = current;
+                            thisElement.Previous = current.Previous;
+                            if (thisElement.Previous != null)
+                            {
+                                thisElement.Previous.Next = thisElement;
+                            }
+                            ++Size;
+                        }
+                        current = current.Next;
+                    }
                 }
             }
         }
 
         public void PrintList()
         {
-            ElementOfList current = head;
+            var current = head;
             while (current != null)
             {
                 Console.WriteLine(current.Data);
@@ -90,58 +82,71 @@ namespace LinkedList
 
         public void RemoveAt(int index)
         {
-            ElementOfList current = head;
-            ElementOfList currentPrevious = null;
-            int currentIndex = 0;
-            while (current != null)
+            if (index < 0 || index > Size)
             {
-                if (currentIndex == index)
+                Console.WriteLine("Index is negative or larger than the list size!");
+            }
+            else
+            {
+                var current = head;
+                ElementOfList currentPrevious = null;
+                int currentIndex = 0;
+                while (current != null)
                 {
-                    if (currentPrevious == null)
+                    if (currentIndex == index)
                     {
-                        head = head.Next;
+                        if (currentPrevious == null)
+                        {
+                            head = head.Next;
+                        }
+                        else
+                        {
+                            currentPrevious.Next = current.Next;
+                        }
+                        --Size;
                     }
-                    else
-                    {
-                        currentPrevious.Next = current.Next;
-                    }
-                    --size;
+                    ++currentIndex;
+                    currentPrevious = current;
+                    current = current.Next;
                 }
-                ++currentIndex;
-                currentPrevious = current;
-                current = current.Next;
             }
         }
 
-        public string this[int index]
+        public void Remove(int key)
         {
-            get
+            var currentElement = head;
+            for (int i = 0; i < Size; ++i)
             {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
+                if (currentElement.Key == key)
                 {
-                    current = current.Next;
+                    string currentData = currentElement.Data;
+                    RemoveFromTheList(currentData);
                 }
-                return current.Data;
-            }
-            set
-            {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
-                {
-                    current = current.Next;
-                }
-                current.Data = value;
+                currentElement = currentElement.Next;
             }
         }
 
-        public void Remove(string data)
+        public bool FindValueInList(int key)
         {
-            ElementOfList currentElement = head;
+            var currentElement = head;
+            for (int i = 0; i < Size; ++i)
+            {
+                if (currentElement.Key == key)
+                {
+                    return true;
+                }
+                currentElement = currentElement.Next;
+            }
+            return false;
+        }
+
+        private void RemoveFromTheList(string data)
+        {
+            var currentElement = head;
             ElementOfList previous = null;
             while (currentElement != null)
             {
-                if (currentElement.Data.Equals(data))
+                if (currentElement.Data == data)
                 {
                     if (previous != null)
                     {
@@ -151,7 +156,7 @@ namespace LinkedList
                     {
                         head = head.Next;
                     }
-                    --size;
+                    --Size;
                 }
                 previous = currentElement;
                 currentElement = currentElement.Next;
