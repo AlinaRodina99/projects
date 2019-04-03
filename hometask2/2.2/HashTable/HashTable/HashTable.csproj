@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashTable.cs" />
-    <Compile Include="HashTableFunctionality.cs" />
     <Compile Include="MyList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
