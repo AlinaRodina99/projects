@@ -26,44 +26,42 @@ namespace LinkedList
             if (index < 0 || index > Size)
             {
                 Console.WriteLine("Index is negative or larger than the list size!");
+                return;
+            }
+            var thisElement = new ElementOfList(data);
+            ElementOfList current = head;
+            int currentIndex = 0;
+            if (index == 0)
+            {
+                ElementOfList temp = head;
+                head = thisElement;
+                head.Next = temp;
+                ++Size;
+            }
+            else if (index == Size)
+            {
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                }
+                current.Next = thisElement;
+                ++Size;
             }
             else
             {
-                var thisElement = new ElementOfList(data);
-                ElementOfList current = head;
-                int currentIndex = 0;
-                if (index == 0)
+                while (current != null)
                 {
-                    ElementOfList temp = head;
-                    head = thisElement;
-                    head.Next = temp;
-                    ++Size;
-                }
-                else if (index == Size)
-                {
-                    while (current.Next != null)
+                    if (currentIndex == index)
                     {
-                        current = current.Next;
-                    }
-                    current.Next = thisElement;
-                    ++Size;
-                }
-                else
-                {
-                    while (current != null)
-                    {
-                        if (currentIndex == index)
+                        thisElement.Next = current;
+                        thisElement.Previous = current.Previous;
+                        if (thisElement.Previous != null)
                         {
-                            thisElement.Next = current;
-                            thisElement.Previous = current.Previous;
-                            if (thisElement.Previous != null)
-                            {
-                                thisElement.Previous.Next = thisElement;
-                            }
-                            ++Size;
+                            thisElement.Previous.Next = thisElement;
                         }
-                        current = current.Next;
+                        ++Size;
                     }
+                    current = current.Next;
                 }
             }
         }
@@ -83,42 +81,37 @@ namespace LinkedList
             if (index < 0 || index > Size)
             {
                 Console.WriteLine("Index is negative or larger than the list size!");
+                return;
             }
-            else
+            ElementOfList current = head;
+            ElementOfList currentPrevious = null;
+            int currentIndex = 0;
+            while (current != null)
             {
-                ElementOfList current = head;
-                ElementOfList currentPrevious = null;
-                int currentIndex = 0;
-                while (current != null)
+                if (currentIndex == index)
                 {
-                    if (currentIndex == index)
+                    if (currentPrevious == null)
                     {
-                        if (currentPrevious == null)
-                        {
-                            head = head.Next;
-                        }
-                        else
-                        {
-                            currentPrevious.Next = current.Next;
-                        }
-                        --Size;
+                        head = head.Next;
                     }
-                    ++currentIndex;
-                    currentPrevious = current;
-                    current = current.Next;
+                    else
+                    {
+                        currentPrevious.Next = current.Next;
+                    }
+                    --Size;
                 }
+                ++currentIndex;
+                currentPrevious = current;
+                current = current.Next;
             }
         }
 
         public string this[int index]
         {
-            get
+            get => GetElement(index);
+            set 
             {
-                return GetElement(index);
-            }
-            set
-            {
-                string currentElement = GetElement(index);
+                string currentElement = value;
             }
         }
 
