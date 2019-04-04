@@ -1,4 +1,4 @@
-﻿namespace StackCalculator
+﻿namespace StackCalculatorNameSpace
 {
     public interface IStack<T>
     {

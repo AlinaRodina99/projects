@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B283127C-2FEF-43DE-8AD8-284DAE6C9259}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>StackCalculator</RootNamespace>
+    <RootNamespace>StackCalculatorNameSpace</RootNamespace>
     <AssemblyName>StackCalculator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,11 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayStack.cs" />
-    <Compile Include="ElementOfList.cs" />
     <Compile Include="IStack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StackCalculatorFunctionality.cs" />
+    <Compile Include="StackCalculator.cs" />
     <Compile Include="StackOnList.cs" />
   </ItemGroup>
   <ItemGroup>

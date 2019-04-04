@@ -1,43 +1,26 @@
-﻿namespace StackCalculator
+﻿namespace StackCalculatorNameSpace
 {
     public class ArrayStack<T> : IStack<T>
     {
         private T[] items;
-        private int size;
-        const int n = 10;
-        public ArrayStack(int length)
-        {
-            items = new T[length];
-        }
+        private const int arraySizeByDefault = 10;
 
-        public ArrayStack()
-        {
-            items = new T[n];
-        }
+        public ArrayStack(int length) => items = new T[length];
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return size == 0;
-            }
-        }
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public ArrayStack() => items = new T[arraySizeByDefault];
+        
+        public bool IsEmpty => Size == 0;
+       
+        public int Size { get; private set; }
 
         public void Push(T data)
         {
-            if (size == items.Length)
+            if (Size == items.Length)
             {
-                Resize(items.Length + 10);
+                Resize(items.Length * 2);
             }
-            items[size] = data;
-            ++size;
+            items[Size] = data;
+            ++Size;
         }
 
         public T Pop()
@@ -48,33 +31,23 @@
             }
             else
             {
-                --size;
-                T data = items[size];
-                items[size] = default(T);
-                if (size > 0 && size < items.Length - 10)
+                --Size;
+                T data = items[Size];
+                items[Size] = default(T);
+                if (Size > 0 && Size < items.Length / 2)
                 {
-                    Resize(items.Length - 10);
+                    Resize(items.Length / 2);
                 }
                 return data;
             }
         }
 
-        public T Peek()
-        {
-            if (IsEmpty)
-            {
-                return default(T);
-            }
-            else
-            {
-                return items[size - 1];
-            }
-        }
-
+        public T Peek() => IsEmpty ? default(T) : items[Size - 1];
+       
         public void Resize(int max)
         {
-            T[] tempItems = new T[max];
-            for (int i = 0; i < size; i++)
+            var tempItems = new T[max];
+            for (int i = 0; i < Size; i++)
             {
                 tempItems[i] = items[i];
             }

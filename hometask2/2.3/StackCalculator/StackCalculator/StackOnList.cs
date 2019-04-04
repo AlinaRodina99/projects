@@ -1,64 +1,49 @@
-﻿namespace StackCalculator
+﻿namespace StackCalculatorNameSpace
 {
     public class StackOnList<T> : IStack<T>
     {
-        ElementOfList<T> head;
-        int size;
-        public StackOnList()
+        private class ElementOfList<W>
         {
-            size = 0;
+            public ElementOfList(W data)
+            {
+                Data = data;
+            }
+            public W Data { get; set; }
+            public ElementOfList<W> Next { get; set; }
         }
 
-        public bool IsEmpty
-        {
-            get
-            {
-                return size == 0;
-            }
-        }
+        private ElementOfList<T> head;
 
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public StackOnList() => Size = 0;
+        
+        public bool IsEmpty => Size == 0;
+        
+        public int Size { get; private set; }
 
         public void Push(T data)
         {
-            ElementOfList<T> newElement = new ElementOfList<T>(data);
+            var newElement = new ElementOfList<T>(data);
             newElement.Next = head;
             head = newElement;
-            size++;
+            Size++;
         }
 
         public T Pop()
         {
-            if (IsEmpty == true)
+            if (IsEmpty)
             {
                 return default(T);
             }
             else
             {
-                ElementOfList<T> temp = head;
+                var temp = head;
                 head = head.Next;
-                size--;
+                Size--;
                 return temp.Data;
             }
         }
 
-        public T Peek()
-        {
-            if (IsEmpty == true)
-            {
-                return default(T);
-            }
-            else
-            {
-                return head.Data;
-            }
-        }
+        public T Peek() => IsEmpty ? default(T) : head.Data;
     }
 }
 
