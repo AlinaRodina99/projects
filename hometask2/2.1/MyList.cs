@@ -108,28 +108,26 @@ namespace LinkedList
 
         public string this[int index]
         {
-            get => GetElement(index);
+            get => GetElement(index).Data;
             set 
             {
-                string currentElement = value;
+                GetElement(index).Data = value;
             }
         }
 
-        private string GetElement(int index)
+        private ElementOfList GetElement(int index)
         {
             if (index < 0 || index > Size)
             {
-                return "Your index is negative or larger than the list size!";
+                Console.WriteLine("Your index is negative or larger than the list size!");
+                return default(ElementOfList);
             }
-            else
+            ElementOfList current = head;
+            for (int i = 0; i < index; ++i)
             {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
-                {
-                    current = current.Next;
-                }
-                return current.Data;
+                current = current.Next;
             }
+            return current;
         }
     }
 }
