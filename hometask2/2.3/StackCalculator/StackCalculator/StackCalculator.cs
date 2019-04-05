@@ -49,10 +49,14 @@ namespace StackCalculatorNameSpace
                     }
                     stack.Push(result);
                 }
+                else if (IsDelimeter(input[i]))
+                {
+                    continue;
+                }
                 else
                 {
                     Console.WriteLine("You entered incorrect data!");
-                    break;
+                    return default(char);
                 }
             }
             return stack.Peek();
