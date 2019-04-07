@@ -4,9 +4,9 @@ namespace StackCalculatorNameSpace
 {
     class StackCalculator
     {
-        private static bool IsDelimeter(char c) => " =".IndexOf(c) != -1; /*? true : false;*/
+        private static bool IsDelimeter(char c) => " =".IndexOf(c) != -1; 
 
-        private static bool IsOperator(char c) => "+-/()*".IndexOf(c) != -1; /*? true : false;*/
+        private static bool IsOperator(char c) => "+-/()*".IndexOf(c) != -1; 
        
         public static double Counting(string input, IStack<double> stack)
         {
