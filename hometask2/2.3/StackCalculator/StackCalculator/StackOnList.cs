@@ -14,8 +14,6 @@
 
         private ElementOfList<T> head;
 
-        public StackOnList() => Size = 0;
-        
         public bool IsEmpty => Size == 0;
         
         public int Size { get; private set; }

@@ -4,9 +4,9 @@ namespace StackCalculatorNameSpace
 {
     class StackCalculator
     {
-        private static bool IsDelimeter(char c) => " =".IndexOf(c) != -1 ? true : false;
-        
-        private static bool IsOPerator(char c) => "+-/()*".IndexOf(c) != -1 ? true : false;
+        private static bool IsDelimeter(char c) => " =".IndexOf(c) != -1; /*? true : false;*/
+
+        private static bool IsOperator(char c) => "+-/()*".IndexOf(c) != -1; /*? true : false;*/
        
         public static double Counting(string input, IStack<double> stack)
         {
@@ -16,7 +16,7 @@ namespace StackCalculatorNameSpace
                 if (Char.IsDigit(input[i]))
                 {
                     string currentString = string.Empty;
-                    while (!IsDelimeter(input[i]) && !IsOPerator(input[i]))
+                    while (!IsDelimeter(input[i]) && !IsOperator(input[i]))
                     {
                         currentString += input[i];
                         i++;
@@ -28,25 +28,11 @@ namespace StackCalculatorNameSpace
                     stack.Push(double.Parse(currentString));
                     i--;
                 }
-                else if (IsOPerator(input[i]))
+                else if (IsOperator(input[i]))
                 {
                     double firstNumber = stack.Pop();
                     double secondNumber = stack.Pop();
-                    switch (input[i])
-                    {
-                        case '+':
-                            result = secondNumber + firstNumber;
-                            break;
-                        case '-':
-                            result = secondNumber - firstNumber;
-                            break;
-                        case '*':
-                            result = secondNumber * firstNumber;
-                            break;
-                        case '/':
-                            result = secondNumber / firstNumber;
-                            break;
-                    }
+                    result = GetResult(input[i], firstNumber, secondNumber);
                     stack.Push(result);
                 }
                 else if (IsDelimeter(input[i]))
@@ -56,10 +42,31 @@ namespace StackCalculatorNameSpace
                 else
                 {
                     Console.WriteLine("You entered incorrect data!");
-                    return default(char);
+                    return '\0';
                 }
             }
             return stack.Peek();
+        }
+
+        private static double GetResult(char operation, double firstNumber, double secondNumber)
+        {
+            double result = 0;
+            switch(operation)
+            {
+                case '+':
+                    result = secondNumber + firstNumber;
+                    break;
+                case '-':
+                    result = secondNumber - firstNumber;
+                    break;
+                case '*':
+                    result = secondNumber * firstNumber;
+                    break;
+                case '/':
+                    result = secondNumber / firstNumber;
+                    break;
+            }
+            return result;
         }
     }
 }
