@@ -155,6 +155,6 @@ namespace Tests
             Assert.AreEqual(0, newList.Count);
         }
 
-        Functions functions;
+        private Functions functions;
     }
 }
