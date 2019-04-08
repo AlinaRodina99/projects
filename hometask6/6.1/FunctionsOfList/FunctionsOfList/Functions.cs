@@ -14,7 +14,19 @@ namespace FunctionsOfList
         /// <param name="list">List taken as an argument.</param>
         /// <param name="function">Delegate which connected with lambda expression.</param>
         /// <returns>Modified list.</returns>
-        public List<int> Map(List<int> list, Func<int, int> function)
+        public static List<int> Map(List<int> list, Func<int, int> function)
+        {
+            FunctionOfElement(list, function);
+            return list;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="function"></param>
+        /// <returns></returns>
+        private static List<int> FunctionOfElement(List <int> list, Func<int, int> function)
         {
             for (int i = 0; i < list.Count; ++i)
             {
@@ -22,18 +34,18 @@ namespace FunctionsOfList
             }
             return list;
         }
+
         /// <summary>
         /// Method that filters list depending on the logical condition.
         /// </summary>
         /// <param name="list">List taken as an argument.</param>
         /// <param name="function">Delegate which connected with lambda expression.</param>
         /// <returns>Modified list.</returns>
-        public List<int> Filter(List<int> list, Func<int, bool> function)
+        public static List<int> Filter(List<int> list, Func<int, bool> function)
         {
             for (int i = 0; i < list.Count; ++i)
             {
-                bool result = function(list[i]);
-                if (!result)
+                if (!function(list[i]))
                 {
                     list.RemoveAt(i);
                     --i;
@@ -41,6 +53,7 @@ namespace FunctionsOfList
             }
             return list;
         }
+
         /// <summary>
         /// Method that returns integer result by a certain multiplication of elements.
         /// </summary>
@@ -48,9 +61,9 @@ namespace FunctionsOfList
         /// <param name="element">Current accumulated value.</param>
         /// <param name="function">Delegate which cinnected with lambda expression.</param>
         /// <returns>Integer result.</returns>
-        public int Fold(List<int> list, int acc, Func<int,int,int> function)
+        public static int Fold(List<int> list, int acc, Func<int, int, int> function)
         {
-            int result = list[0];
+            int result = acc;
             for (int i = 0; i < list.Count; ++i)
             {
                 result = function(result, list[i]);

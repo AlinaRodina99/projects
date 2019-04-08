@@ -20,12 +20,11 @@ namespace FunctionsOfList
 
         static void Main(string[] args)
         {
-            var functions = new Functions();
-            var newList = functions.Map(new List<int>() { 1, 2, 3 }, x => x * 2);
+            var newList = Functions.Map(new List<int>() { 1, 2, 3 }, x => x * 2);
             WriteList(newList);
-            newList = functions.Filter(new List<int>() { -1, 0, 3, 4 }, x => x >= 4);
+            newList = Functions.Filter(new List<int>() { -1, 0, 3, 4 }, x => x >= 4);
             WriteList(newList);
-            int result = functions.Fold(new List<int>() { 1, 2, 3 }, 1, (acc, elem) => acc * elem);
+            int result = Functions.Fold(new List<int>() { 1, 2, 3 }, 1, (acc, elem) => acc * elem);
             Console.WriteLine(result);
         }
     }
