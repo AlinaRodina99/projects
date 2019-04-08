@@ -16,17 +16,17 @@ namespace FunctionsOfList
         /// <returns>Modified list.</returns>
         public static List<int> Map(List<int> list, Func<int, int> function)
         {
-            FunctionOfElement(list, function);
+            MapFunctionOfElement(list, function);
             return list;
         }
 
         /// <summary>
-        /// 
+        /// Method that modified the element and is used in Map method.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="function"></param>
-        /// <returns></returns>
-        private static List<int> FunctionOfElement(List <int> list, Func<int, int> function)
+        /// <param name="list">List taken as an argument.</param>
+        /// <param name="function">Delegate which connected with lambda expression.</param>
+        /// <returns>Modified list.</returns>
+        private static List<int> MapFunctionOfElement(List <int> list, Func<int, int> function)
         {
             for (int i = 0; i < list.Count; ++i)
             {
@@ -42,6 +42,18 @@ namespace FunctionsOfList
         /// <param name="function">Delegate which connected with lambda expression.</param>
         /// <returns>Modified list.</returns>
         public static List<int> Filter(List<int> list, Func<int, bool> function)
+        {
+            FilterFunctionOfElement(list, function);
+            return list;
+        }
+
+        /// <summary>
+        /// Method that removes elements from the list depending on logical condition and is used in filter method.
+        /// </summary>
+        /// <param name="list">List take as an argument.</param>
+        /// <param name="function">Delegate which connected with lambda expression.</param>
+        /// <returns></returns>
+        private static List<int> FilterFunctionOfElement(List<int> list, Func<int, bool> function)
         {
             for (int i = 0; i < list.Count; ++i)
             {
