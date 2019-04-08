@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HashTable
+namespace HashTableNameSpace
 {
     /// <summary>
     /// Class for multiplicative hash function.

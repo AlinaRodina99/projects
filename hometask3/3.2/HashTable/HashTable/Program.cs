@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace HashTable
+namespace HashTableNameSpace
 {
     class Program
     {
         static void Main(string[] args)
         {
-            HashTableFunctionality hashTable = new HashTableFunctionality(6);
+            var hashTable = new HashTable(6);
             Console.WriteLine("Select type of hash-function:1 - Modal,2 - Multiplicative");
             string choice = Console.ReadLine();
             hashTable.SelectionOfHashFunction(choice);

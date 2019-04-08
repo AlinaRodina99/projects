@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E239ED65-427B-46BD-B4B3-04FA126D1EB4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>HashTable</RootNamespace>
+    <RootNamespace>HashTableNameSpace</RootNamespace>
     <AssemblyName>HashTable</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,8 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementOfList.cs" />
-    <Compile Include="HashTableFunctionality.cs" />
+    <Compile Include="HashTable.cs" />
     <Compile Include="IHashFunction.cs" />
     <Compile Include="ModalHashFunction.cs" />
     <Compile Include="MultiplicativeHashFunction.cs" />

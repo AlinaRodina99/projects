@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HashTable
+namespace HashTableNameSpace
 {
     /// <summary>
     /// Class for modular hash function.

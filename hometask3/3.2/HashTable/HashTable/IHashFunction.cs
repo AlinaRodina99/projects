@@ -1,4 +1,4 @@
-﻿namespace HashTable
+﻿namespace HashTableNameSpace
 {
     /// <summary>
     ///Interface for implementing different types of hash functions.

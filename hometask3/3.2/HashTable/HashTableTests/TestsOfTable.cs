@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using HashTable;
+using HashTableNameSpace;
 
 namespace Tests
 {
@@ -79,13 +79,13 @@ namespace Tests
 
         public void SetUpForModalHash()
         {
-            hashTable = new HashTableFunctionality(10);
+            hashTable = new HashTable(10);
             hashTable.SelectionOfHashFunction("1");
         }
 
         public void SetUpForMultiplicativeHash()
         {
-            hashTable = new HashTableFunctionality(10);
+            hashTable = new HashTable(10);
             hashTable.SelectionOfHashFunction("2");
         }
 
@@ -201,6 +201,6 @@ namespace Tests
             AddElementsWithSameKeysAndThenRemoveOneOfThemTest();
         }
 
-        private HashTableFunctionality hashTable;
+        private HashTable hashTable;
     }
 }

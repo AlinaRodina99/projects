@@ -2,66 +2,53 @@
 
 namespace LinkedList
 {
-    /// <summary>
-    /// Class of list which contains different values with standard methods:
-    /// Pop, Push, Peek.
-    /// </summary>
-    public class MyList
+    class MyList
     {
         /// <summary>
-        /// Head of the list.
+        /// Private class of the element of the list.
+        /// </summary>
+        private class ElementOfList
+        {
+            public string Data { get; set; }
+            public ElementOfList Next { get; set; }
+            public ElementOfList Previous { get; set; }
+            public int Key { get; set; }
+            public ElementOfList(string data, int key)
+            {
+                Key = key;
+                Data = data;
+            }
+        }
+
+        /// <summary>
+        /// Top of the list.
         /// </summary>
         private ElementOfList head;
+
         /// <summary>
-        /// Size of the list.
+        /// Property for the size of the list.
         /// </summary>
-        private int size;
+        public int Size { get; private set; }
+
         /// <summary>
-        /// Class constructor initializing list size to zero.
+        /// Property to find out whether list is empty or not.
         /// </summary>
-        public MyList()
-        {
-            size = 0;
-        }
+        public bool IsEmpty => Size == 0;
+
         /// <summary>
-        ///List size read-only properties.
+        /// Method of adding elements to the list by its position and its key.
         /// </summary>
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
-        /// <summary>
-        /// Read-only head properties.
-        /// </summary>
-        public ElementOfList Head
-        {
-            get
-            {
-                return head;
-            }
-        }
-        /// <summary>
-        ///Property to check the list for emptiness.
-        /// </summary>
-        public bool IsEmpty
-        {
-            get
-            {
-                return size == 0;
-            }
-        }
-        /// <summary>
-        /// Method for adding elements by position in list.
-        /// </summary>
-        /// <param name="index">Position of element in list.</param>
-        /// <param name="data">Element value.</param>
-        /// <param name="key">Unique key of element.</param>
+        /// <param name="index">Position of the element.</param>
+        /// <param name="data">String value.</param>
+        /// <param name="key">Key of the element.</param>
         public void AddAt(int index, string data, int key)
         {
-            ElementOfList thisElement = new ElementOfList(data, key);
+            if (index < 0 || index > Size)
+            {
+                Console.WriteLine("Index is negative or larger than the list size!");
+                return;
+            }
+            var thisElement = new ElementOfList(data, key);
             ElementOfList current = head;
             int currentIndex = 0;
             if (index == 0)
@@ -69,16 +56,16 @@ namespace LinkedList
                 ElementOfList temp = head;
                 head = thisElement;
                 head.Next = temp;
-                ++size;
+                ++Size;
             }
-            else if (index == size)
+            else if (index == Size)
             {
                 while (current.Next != null)
                 {
                     current = current.Next;
                 }
                 current.Next = thisElement;
-                ++size;
+                ++Size;
             }
             else
             {
@@ -86,40 +73,44 @@ namespace LinkedList
                 {
                     if (currentIndex == index)
                     {
-                        ElementOfList currentPrevios = current.Previous;
-                        current.Previous = thisElement;
-                        ElementOfList newElement = current.Previous;
-                        newElement.Next = current;
-                        newElement.Previous = currentPrevios;
-                        if (currentPrevios != null)
+                        thisElement.Next = current;
+                        thisElement.Previous = current.Previous;
+                        if (thisElement.Previous != null)
                         {
-                            currentPrevios.Next = newElement;
+                            thisElement.Previous.Next = thisElement;
                         }
-                        ++size;
+                        ++Size;
                     }
                     current = current.Next;
                 }
             }
         }
+    
         /// <summary>
         /// Method for printing list.
         /// </summary>
         public void PrintList()
         {
-            ElementOfList current = head;
+            var current = head;
             while (current != null)
             {
                 Console.WriteLine(current.Data);
                 current = current.Next;
             }
         }
+
         /// <summary>
-        /// Method for removing elements by position.
+        /// Method for removing elements by its position.
         /// </summary>
-        /// <param name="index">Position of element in list.</param>
+        /// <param name="index">Position of the element.</param>
         public void RemoveAt(int index)
         {
-            ElementOfList current = head;
+            if (index < 0 || index > Size)
+            {
+                Console.WriteLine("Index is negative or larger than the list size!");
+                return;
+            }
+            var current = head;
             ElementOfList currentPrevious = null;
             int currentIndex = 0;
             while (current != null)
@@ -134,58 +125,62 @@ namespace LinkedList
                     {
                         currentPrevious.Next = current.Next;
                     }
-                    --size;
+                    --Size;
                 }
                 ++currentIndex;
                 currentPrevious = current;
                 current = current.Next;
             }
         }
+
         /// <summary>
-        ///indexer for getting element by position.
+        /// Method for removing elements by its key.
         /// </summary>
-        /// <param name="index">Position of element in list.</param>
-        /// <returns></returns>
-        public string this[int index]
+        /// <param name="key">Key of the element.</param>
+        public void Remove(int key)
         {
-            get
+            var currentElement = head;
+            for (int i = 0; i < Size; ++i)
             {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
+                if (currentElement.Key == key)
                 {
-                    current = current.Next;
+                    string currentData = currentElement.Data;
+                    RemoveFromTheList(currentData);
                 }
-                if (current != null)
-                {
-                    return current.Data;
-                }
-                else
-                {
-                    Console.WriteLine("Element was not found!");
-                    return default(string);
-                }
-            }
-            set
-            {
-                ElementOfList current = head;
-                for (int i = 0; i < index; ++i)
-                {
-                    current = current.Next;
-                }
-                current.Data = value;
+                currentElement = currentElement.Next;
             }
         }
+
         /// <summary>
-        /// Method for removing elements by data.
+        /// Method for finding value by its key which is used in method of hash-table.
         /// </summary>
-        /// <param name="data">Element value.</param>
-        public void Remove(string data)
+        /// <param name="key">Key of the element.</param>
+        /// <returns>Bool result if there is current value in the list.</returns>
+        public bool FindValueInList(int key)
         {
-            ElementOfList currentElement = head;
+            var currentElement = head;
+            for (int i = 0; i < Size; ++i)
+            {
+                if (currentElement.Key == key)
+                {
+                    return true;
+                }
+                currentElement = currentElement.Next;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Method for removing elements by its data.
+        /// </summary>
+        /// <param name="data">String value.</param>
+        private void RemoveFromTheList(string data)
+        {
+            var currentElement = head;
             ElementOfList previous = null;
             while (currentElement != null)
             {
-                if (currentElement.Data.Equals(data))
+                if (currentElement.Data == data)
                 {
                     if (previous != null)
                     {
@@ -195,7 +190,7 @@ namespace LinkedList
                     {
                         head = head.Next;
                     }
-                    --size;
+                    --Size;
                 }
                 previous = currentElement;
                 currentElement = currentElement.Next;
