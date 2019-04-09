@@ -6,7 +6,7 @@ namespace FunctionsOfList
     /// <summary>
     /// Class for functions of the list.
     /// </summary>
-    public class Functions
+    public static class Functions
     {
         /// <summary>
         /// Method that returns list with modified numbers.
@@ -16,54 +16,32 @@ namespace FunctionsOfList
         /// <returns>Modified list.</returns>
         public static List<int> Map(List<int> list, Func<int, int> function)
         {
-            MapFunctionOfElement(list, function);
-            return list;
-        }
-
-        /// <summary>
-        /// Method that modified the element and is used in Map method.
-        /// </summary>
-        /// <param name="list">List taken as an argument.</param>
-        /// <param name="function">Delegate which connected with lambda expression.</param>
-        /// <returns>Modified list.</returns>
-        private static List<int> MapFunctionOfElement(List <int> list, Func<int, int> function)
-        {
-            for (int i = 0; i < list.Count; ++i)
+            var newList = new List<int>(list);
+            for (int i = 0; i < newList.Count; ++i)
             {
-                list[i] = function(list[i]);
+                newList[i] = function(newList[i]);
             }
-            return list;
+            return newList;
         }
 
         /// <summary>
-        /// Method that filters list depending on the logical condition.
+        /// Method that filters elements of the list depending on the condition.
         /// </summary>
         /// <param name="list">List taken as an argument.</param>
         /// <param name="function">Delegate which connected with lambda expression.</param>
         /// <returns>Modified list.</returns>
-        public static List<int> Filter(List<int> list, Func<int, bool> function)
+        public static List<int> Filter(List<int> list,Func<int, bool> function)
         {
-            FilterFunctionOfElement(list, function);
-            return list;
-        }
-
-        /// <summary>
-        /// Method that removes elements from the list depending on logical condition and is used in filter method.
-        /// </summary>
-        /// <param name="list">List take as an argument.</param>
-        /// <param name="function">Delegate which connected with lambda expression.</param>
-        /// <returns></returns>
-        private static List<int> FilterFunctionOfElement(List<int> list, Func<int, bool> function)
-        {
-            for (int i = 0; i < list.Count; ++i)
+            var newList = new List<int>(list);
+            for (int i = 0; i < newList.Count; ++i)
             {
-                if (!function(list[i]))
+                if (!function(newList[i]))
                 {
-                    list.RemoveAt(i);
+                    newList.RemoveAt(i);
                     --i;
                 }
             }
-            return list;
+            return newList;
         }
 
         /// <summary>
