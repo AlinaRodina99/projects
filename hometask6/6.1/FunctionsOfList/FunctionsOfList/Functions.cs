@@ -16,10 +16,10 @@ namespace FunctionsOfList
         /// <returns>Modified list.</returns>
         public static List<int> Map(List<int> list, Func<int, int> function)
         {
-            var newList = new List<int>(list);
-            for (int i = 0; i < newList.Count; ++i)
+            var newList = new List<int>();
+            for (int i = 0; i < list.Count; ++i)
             {
-                newList[i] = function(newList[i]);
+                newList.Add(function(list[i]));
             }
             return newList;
         }
@@ -30,15 +30,14 @@ namespace FunctionsOfList
         /// <param name="list">List taken as an argument.</param>
         /// <param name="function">Delegate which connected with lambda expression.</param>
         /// <returns>Modified list.</returns>
-        public static List<int> Filter(List<int> list,Func<int, bool> function)
+        public static List<int> Filter(List<int> list, Func<int, bool> function)
         {
-            var newList = new List<int>(list);
-            for (int i = 0; i < newList.Count; ++i)
+            var newList = new List<int>();
+            for (int i = 0; i < list.Count; ++i)
             {
-                if (!function(newList[i]))
+                if (function(list[i]))
                 {
-                    newList.RemoveAt(i);
-                    --i;
+                    newList.Add(list[i]);
                 }
             }
             return newList;
@@ -53,12 +52,11 @@ namespace FunctionsOfList
         /// <returns>Integer result.</returns>
         public static int Fold(List<int> list, int acc, Func<int, int, int> function)
         {
-            int result = acc;
             for (int i = 0; i < list.Count; ++i)
             {
-                result = function(result, list[i]);
+                acc = function(acc, list[i]);
             }
-            return result;
+            return acc;
         }
     }
 }
