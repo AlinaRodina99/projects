@@ -5,202 +5,136 @@ namespace Tests
 {
     public class Tests
     {
-        public void AddTest()
+        public void AddTest(IHashFunction hashFunction)
         {
-            hashTable.Add(6, "apple");
-            Assert.IsTrue(hashTable.FindValue(6));
+            hashTable.Add(6, "apple", hashFunction);
+            Assert.IsTrue(hashTable.FindValue(6, hashFunction));
         }
 
-        public void RemoveTest()
+        public void RemoveTest(IHashFunction hashFunction)
         {
-            hashTable.Add(5, "lemon");
-            hashTable.Remove(5);
-            Assert.IsFalse(hashTable.FindValue(5));
+            hashTable.Add(5, "lemon", hashFunction);
+            hashTable.Remove(5, hashFunction);
+            Assert.IsFalse(hashTable.FindValue(5, hashFunction));
         }
 
-        public void AddManyElementsTest()
+        public void AddManyElementsTest(IHashFunction hashFunction)
         {
-            hashTable.Add(7, "melon");
-            hashTable.Add(3, "banana");
-            hashTable.Add(10, "John");
-            hashTable.Add(12, "Mark");
-            hashTable.Add(20, "Karl");
-            hashTable.Add(30, "Leon");
-            hashTable.Add(50, "Robin");
+            hashTable.Add(7, "melon", hashFunction);
+            hashTable.Add(3, "banana", hashFunction);
+            hashTable.Add(10, "John", hashFunction);
+            hashTable.Add(12, "Mark", hashFunction);
+            hashTable.Add(20, "Karl", hashFunction);
+            hashTable.Add(30, "Leon", hashFunction);
+            hashTable.Add(50, "Robin", hashFunction);
             Assert.AreEqual(7, hashTable.CountOfElements);
         }
 
-        public void RemoveManyElementsTest()
+        public void RemoveManyElementsTest(IHashFunction hashFunction)
         {
-            hashTable.Add(7, "melon");
-            hashTable.Add(3, "banana");
-            hashTable.Add(10, "John");
-            hashTable.Add(12, "Mark");
-            hashTable.Add(20, "Karl");
-            hashTable.Add(30, "Leon");
-            hashTable.Add(50, "Robin");
-            hashTable.Remove(7);
-            hashTable.Remove(3);
-            hashTable.Remove(10);
-            hashTable.Remove(12);
-            hashTable.Remove(20);
+            hashTable.Add(7, "melon", hashFunction);
+            hashTable.Add(3, "banana", hashFunction);
+            hashTable.Add(10, "John", hashFunction);
+            hashTable.Add(12, "Mark", hashFunction);
+            hashTable.Add(20, "Karl", hashFunction);
+            hashTable.Add(30, "Leon", hashFunction);
+            hashTable.Add(50, "Robin", hashFunction);
+            hashTable.Remove(7, hashFunction);
+            hashTable.Remove(3, hashFunction);
+            hashTable.Remove(10, hashFunction);
+            hashTable.Remove(12, hashFunction);
+            hashTable.Remove(20, hashFunction);
             Assert.AreEqual(2, hashTable.CountOfElements);
         }
 
-        public void AddRemoveAgainAddTest()
+        public void AddRemoveAgainAddTest(IHashFunction hashFunction)
         {
-            hashTable.Add(3, "apple");
-            hashTable.Remove(3);
-            hashTable.Add(3, "apple");
-            Assert.IsTrue(hashTable.FindValue(3));
+            hashTable.Add(3, "apple", hashFunction);
+            hashTable.Remove(3, hashFunction);
+            hashTable.Add(3, "apple", hashFunction);
+            Assert.IsTrue(hashTable.FindValue(3, hashFunction));
         }
 
-        public void FindNonexistentValueTest()
+        public void FindNonexistentValueTest(IHashFunction hashFunction)
         {
-            hashTable.Add(3, "banana");
-            Assert.IsFalse(hashTable.FindValue(4));
+            hashTable.Add(3, "banana", hashFunction);
+            Assert.IsFalse(hashTable.FindValue(4, hashFunction));
         }
 
-        public void AddValuesWithSameKeysTest()
+        public void AddValuesWithSameKeysTest(IHashFunction hashFunction)
         {
-            hashTable.Add(3, "lemon");
-            hashTable.Add(3, "banana");
-            hashTable.Add(3, "apple");
+            hashTable.Add(3, "lemon", hashFunction);
+            hashTable.Add(3, "banana", hashFunction);
+            hashTable.Add(3, "apple", hashFunction);
             Assert.AreEqual(3, hashTable.CountOfElements);
         }
 
-        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTest()
+        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTest(IHashFunction hashFunction)
         {
-            hashTable.Add(3, "apple");
-            hashTable.Add(3, "banana");
-            hashTable.Remove(3);
-            Assert.IsTrue(hashTable.FindValue(3));
+            hashTable.Add(3, "apple", hashFunction);
+            hashTable.Add(3, "banana", hashFunction);
+            hashTable.Remove(3, hashFunction);
+            Assert.IsTrue(hashTable.FindValue(3, hashFunction));
         }
 
-        public void SetUpForModalHash()
-        {
-            hashTable = new HashTable(10);
-            hashTable.SelectionOfHashFunction("1");
-        }
-
-        public void SetUpForMultiplicativeHash()
+        [SetUp]
+        public void SetUp()
         {
             hashTable = new HashTable(10);
-            hashTable.SelectionOfHashFunction("2");
+            modalHash = new ModalHashFunction();
+            multHash = new MultiplicativeHashFunction();
         }
 
         [Test]
-        public void AddTestForModalHash()
-        {
-            SetUpForModalHash();
-            AddTest();
-        }
+        public void AddTestForModalHash() => AddTest(modalHash);
 
         [Test]
-        public void AddTestForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            AddTest();
-        }
+        public void AddTestForMultiplicativeHash() => AddTest(multHash);
 
         [Test]
-        public void RemoveTestForModalHash()
-        {
-            SetUpForModalHash();
-            RemoveTest();
-        }
+        public void RemoveTestForModalHash() => RemoveTest(modalHash);
 
         [Test]
-        public void RemoveTestForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            RemoveTest();
-        }
+        public void RemoveTestForMultiplicativeHash() => RemoveTest(multHash);
 
         [Test]
-        public void AddManyElementsForModalHash()
-        {
-            SetUpForModalHash();
-            AddManyElementsTest();
-        }
+        public void AddManyElementsForModalHash() => AddManyElementsTest(modalHash);
 
         [Test]
-        public void AddManyElementsForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            AddManyElementsTest();
-        }
+        public void AddManyElementsForMultiplicativeHash() => AddManyElementsTest(multHash);
 
         [Test]
-        public void RemoveManyElementsForModalHash()
-        {
-            SetUpForMultiplicativeHash();
-            RemoveManyElementsTest();
-        }
+        public void RemoveManyElementsForModalHash() => RemoveManyElementsTest(modalHash);
 
         [Test]
-        public void RemoveManyElemetsForMultiplicative()
-        {
-            SetUpForMultiplicativeHash();
-            RemoveManyElementsTest();
-        }
+        public void RemoveManyElemetsForMultiplicative() => RemoveManyElementsTest(multHash);
 
         [Test]
-        public void FindNonexistentValueTestForModalHash()
-        {
-            SetUpForModalHash();
-            FindNonexistentValueTest();
-        }
+        public void FindNonexistentValueTestForModalHash() => FindNonexistentValueTest(modalHash);
 
         [Test]
-        public void FindNonExistentValueTestForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            FindNonexistentValueTest();
-        }
+        public void FindNonExistentValueTestForMultiplicativeHash() => FindNonexistentValueTest(multHash);
 
         [Test]
-        public void AddRemoveAgainAddTestForModalHash()
-        {
-            SetUpForModalHash();
-            AddRemoveAgainAddTest();
-        }
+        public void AddRemoveAgainAddTestForModalHash() => AddRemoveAgainAddTest(modalHash);
 
         [Test]
-        public void AddRemoveAgainAddTestForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            AddRemoveAgainAddTest();
-        }
+        public void AddRemoveAgainAddTestForMultiplicativeHash() => AddRemoveAgainAddTest(multHash);
 
         [Test]
-        public void AddValuesWithSameKeysForModalHash()
-        {
-            SetUpForModalHash();
-            AddValuesWithSameKeysTest();
-        }
+        public void AddValuesWithSameKeysForModalHash() => AddValuesWithSameKeysTest(modalHash);
 
         [Test]
-        public void AddValuesWithSameKeysForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            AddValuesWithSameKeysTest();
-        }
+        public void AddValuesWithSameKeysForMultiplicativeHash() => AddValuesWithSameKeysTest(multHash);
 
         [Test]
-        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTestForModalHash()
-        {
-            SetUpForModalHash();
-            AddElementsWithSameKeysAndThenRemoveOneOfThemTest();
-        }
+        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTestForModalHash() => AddElementsWithSameKeysAndThenRemoveOneOfThemTest(modalHash);
 
         [Test]
-        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTestForMultiplicativeHash()
-        {
-            SetUpForMultiplicativeHash();
-            AddElementsWithSameKeysAndThenRemoveOneOfThemTest();
-        }
-
+        public void AddElementsWithSameKeysAndThenRemoveOneOfThemTestForMultiplicativeHash() => AddElementsWithSameKeysAndThenRemoveOneOfThemTest(multHash);
+        
         private HashTable hashTable;
+        private ModalHashFunction modalHash;
+        private MultiplicativeHashFunction multHash;
     }
 }

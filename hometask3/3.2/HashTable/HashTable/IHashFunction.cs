@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="key">Unique key of element.</param>
         /// <param name="size">Size of hash table.</param>
-        /// <returns></returns>
+        /// <returns>Integer value of hash-function.</returns>
         int HashFunction(int key, int size);
     }
 }
