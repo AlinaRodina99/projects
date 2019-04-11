@@ -62,7 +62,7 @@ namespace LinkedList
         {
             if (DoesElementExist(data))
             {
-                throw new AddSameElementsException("You can not add this element!",data);
+                throw new AddSameElementsException("You can not add this element!", data);
             }
             if (index < 0 || index > Size)
             {
