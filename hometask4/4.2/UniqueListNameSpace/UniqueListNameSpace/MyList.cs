@@ -1,4 +1,5 @@
 ﻿using System;
+using UniqueListNameSpace;
 
 namespace LinkedList
 {
@@ -16,14 +17,17 @@ namespace LinkedList
             /// Property for value of the element.
             /// </summary>
             public string Data { get; set; }
+
             /// <summary>
             /// Property for the next element.
             /// </summary>
             public ElementOfList Next { get; set; }
+
             /// <summary>
             /// Property for the previous element.
             /// </summary>
             public ElementOfList Previous { get; set; }
+
             /// <summary>
             /// Constructor that sets value of the element.
             /// </summary>
@@ -33,18 +37,22 @@ namespace LinkedList
                 Data = data;
             }
         }
+
         /// <summary>
         /// Top of the list.
         /// </summary>
         protected ElementOfList Head { get; private set; }
+
         /// <summary>
         /// Property for the size of the list.
         /// </summary>
         public int Size { get; private set; }
+
         /// <summary>
         /// Property to find out whether list is empty or not.
         /// </summary>
         public bool IsEmpty => Size == 0;
+
         /// <summary>
         /// Method for adding elements by its position.
         /// </summary>
@@ -52,6 +60,10 @@ namespace LinkedList
         /// <param name="data">Value of the element.</param>
         public void AddAt(int index, string data)
         {
+            if (DoesElementExist(data))
+            {
+                throw new AddSameElementsException("You can not add this element!",data);
+            }
             if (index < 0 || index > Size)
             {
                 Console.WriteLine("Index is negative or larger than the list size!");
@@ -94,6 +106,7 @@ namespace LinkedList
                 }
             }
         }
+
         /// <summary>
         /// Method for printing list.
         /// </summary>
@@ -106,6 +119,7 @@ namespace LinkedList
                 current = current.Next;
             }
         }
+
         /// <summary>
         /// Method for removing element by its position.
         /// </summary>
@@ -139,6 +153,7 @@ namespace LinkedList
                 current = current.Next;
             }
         }
+
         /// <summary>
         /// Indexor for getting element by its position and setting value of the element.
         /// </summary>
@@ -163,6 +178,7 @@ namespace LinkedList
                 GetElement(index).Data = value;
             }
         }
+
         /// <summary>
         /// Method which is used in indexor.
         /// </summary>
@@ -181,12 +197,17 @@ namespace LinkedList
             }
             return current;
         }
+
         /// <summary>
         /// Method for removing element by its value;
         /// </summary>
         /// <param name="data">Value of the element.</param>
         public void RemoveByData(string data)
         {
+            if (!DoesElementExist(data))
+            {
+                throw new RemoveNotExistentElementException("You can not remove this element!", data);
+            }
             var current = Head;
             ElementOfList currentPrevious = null;
             for (int i = 0; i < Size; i++)
@@ -207,6 +228,25 @@ namespace LinkedList
                 currentPrevious = current;
                 current = current.Next;
             }
+        }
+
+        /// <summary>
+        /// Method to find out whether element is in the list or not.
+        /// </summary>
+        /// <param name="data">Value of the element.</param>
+        /// <returns>Bool result.</returns>
+        public bool DoesElementExist(string data)
+        {
+            var currentElement = Head;
+            while (currentElement != null)
+            {
+                if (currentElement.Data == data)
+                {
+                    return true;
+                }
+                currentElement = currentElement.Next;
+            }
+            return false;
         }
     }
 }

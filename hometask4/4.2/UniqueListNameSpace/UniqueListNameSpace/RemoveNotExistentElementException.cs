@@ -11,10 +11,12 @@ namespace UniqueListNameSpace
         /// Value of the nonexistent element.
         /// </summary>
         public string Value { get; set; }
+
         /// <summary>
         /// Constructor by default.
         /// </summary>
         public RemoveNotExistentElementException() { }
+
         /// <summary>
         /// Consrtuctor which inherited property for the message of the exception.
         /// </summary>
