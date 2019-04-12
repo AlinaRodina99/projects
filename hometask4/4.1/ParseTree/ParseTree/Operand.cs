@@ -5,12 +5,13 @@ namespace ParseTree
     /// <summary>
     /// Class for operand.
     /// </summary>
-    class Operand:INodeTree
+    class Operand : INodeTree
     {
         /// <summary>
         /// Private variable for operand.
         /// </summary>
         private int operand;
+
         /// <summary>
         /// Method for printing operand.
         /// </summary>
@@ -18,6 +19,7 @@ namespace ParseTree
         {
             Console.Write($"{operand} ");
         }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -26,6 +28,7 @@ namespace ParseTree
         {
             this.operand = operand;
         }
+
         /// <summary>
         /// Method to calculate operand.
         /// </summary>
@@ -34,17 +37,10 @@ namespace ParseTree
         {
             return operand;
         }
-        /// <summary>
-        /// Property for the left child.
-        /// </summary>
-        public INodeTree LeftChild { get; set; }
-        /// <summary>
-        /// Property for the right child.
-        /// </summary>
-        public INodeTree RightChild { get; set; }
+        
         /// <summary>
         /// Property for the parent.
         /// </summary>
-        public INodeTree Parent { get; set; }
+        public Operator Parent { get; set; }
     }
 }

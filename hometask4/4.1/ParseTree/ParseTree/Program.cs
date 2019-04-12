@@ -9,7 +9,7 @@ namespace ParseTree
             Console.WriteLine("Enter your file: ");
             string file = Console.ReadLine();
             var tree = new BinaryTree();
-            Console.WriteLine($"Result: {tree.CalculateTree(file)}");
+            Console.WriteLine($"Your result: {tree.CalculateTree(file)}");
             tree.PrintTree();
         }
     }

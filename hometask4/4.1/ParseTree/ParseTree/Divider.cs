@@ -2,8 +2,14 @@
 
 namespace ParseTree
 {
-    class Divider:Operator
+    /// <summary>
+    /// Class for operator of division.
+    /// </summary>
+    class Divider : Operator
     {
+        /// <summary>
+        /// Method of printing operator.
+        /// </summary>
         public override void Print()
         {
             Console.Write(" ( / ");
@@ -12,6 +18,10 @@ namespace ParseTree
             Console.Write(" ) ");
         }
 
+        /// <summary>
+        /// Method to calculate operator.
+        /// </summary>
+        /// <returns>Result of applying the operator to the left child and to the right child.</returns>
         public override int Calculate()
         {
             try

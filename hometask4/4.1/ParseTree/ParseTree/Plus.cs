@@ -5,7 +5,7 @@ namespace ParseTree
     /// <summary>
     /// Class of operation plus.
     /// </summary>
-    class Plus:Operator
+    class Plus : Operator
     {
         /// <summary>
         /// Method for printing part of our expression with plus.
@@ -17,6 +17,7 @@ namespace ParseTree
             RightChild.Print();
             Console.Write(" ) ");
         }
+
         /// <summary>
         /// Method to calculate operation.
         /// </summary>

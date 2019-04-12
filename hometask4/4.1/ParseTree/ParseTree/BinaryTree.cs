@@ -11,7 +11,8 @@ namespace ParseTree
         /// <summary>
         /// Top of the tree.
         /// </summary>
-        private INodeTree head = null;
+        private Operator head = null;
+
         /// <summary>
         /// Method to define the operation.
         /// </summary>
@@ -19,7 +20,7 @@ namespace ParseTree
         /// <returns></returns>
         private Operator SwitchOperator(string operation)
         {
-            switch(operation)
+            switch (operation)
             {
                 case "+":
                     return new Plus();
@@ -31,6 +32,7 @@ namespace ParseTree
                     return new Divider();
             }
         }
+
         /// <summary>
         /// Method for building the tree.
         /// </summary>
@@ -56,14 +58,14 @@ namespace ParseTree
                         {
                             var temp = currentOperator;
                             currentOperator.LeftChild = SwitchOperator(partsOfExpression[i + 1]);
-                            currentOperator = currentOperator.LeftChild;
+                            currentOperator = (Operator)currentOperator.LeftChild;
                             currentOperator.Parent = temp;
                         }
                         else if (currentOperator.RightChild == null)
                         {
                             var temp = currentOperator;
                             currentOperator.RightChild = SwitchOperator(partsOfExpression[i + 1]);
-                            currentOperator = currentOperator.RightChild;
+                            currentOperator = (Operator)currentOperator.RightChild;
                             currentOperator.Parent = temp;
                         }
                         else
@@ -74,7 +76,7 @@ namespace ParseTree
                             }
                             var temp = currentOperator;
                             currentOperator.RightChild = SwitchOperator(partsOfExpression[i + 1]);
-                            currentOperator = currentOperator.RightChild;
+                            currentOperator = (Operator)currentOperator.RightChild;
                             currentOperator.Parent = temp;
                         }
                         ++i;
@@ -85,12 +87,12 @@ namespace ParseTree
                         if (currentOperator.LeftChild == null)
                         {
                             currentOperator.LeftChild = currentOperand;
-                            currentOperator.LeftChild.Parent = currentOperator;
+                            currentOperand.Parent = currentOperator;
                         }
                         else if (currentOperator.RightChild == null)
                         {
-                            currentOperator.RightChild = new Operand(currentNumber);
-                            currentOperator.RightChild.Parent = currentOperator;
+                            currentOperator.RightChild = currentOperand;
+                            currentOperand.Parent = currentOperator;
                         }
                         else
                         {
@@ -98,8 +100,8 @@ namespace ParseTree
                             {
                                 currentOperator = currentOperator.Parent;
                             }
-                            currentOperator.RightChild = new Operand(currentNumber);
-                            currentOperator.RightChild.Parent = currentOperator;
+                            currentOperator.RightChild = currentOperand;
+                            currentOperand.Parent = currentOperator;
                         }
                     }
                     else if (i != partsOfExpression.Length - 1)
@@ -113,6 +115,7 @@ namespace ParseTree
                 }
             }
         }
+
         /// <summary>
         /// Method to calculate expression using the tree.
         /// </summary>
@@ -124,12 +127,13 @@ namespace ParseTree
                 BinaryTreeBuild(file);
                 return head.Calculate();
             }
-            catch(FileNotFoundException exception)
+            catch (FileNotFoundException exception)
             {
                 Console.WriteLine($"Error: {exception.Message}");
                 return default(int);
             }
         }
+
         /// <summary>
         /// Method to print the tree.
         /// </summary>
@@ -137,6 +141,7 @@ namespace ParseTree
         {
             head.Print();
         }
+
         /// <summary>
         /// Method for reading expression from file.
         /// </summary>
