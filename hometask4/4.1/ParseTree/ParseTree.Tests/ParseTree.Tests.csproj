@@ -7,56 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="FileTests\AddTest.txt" />
-    <None Remove="FileTests\AnotherLongExpressionTest.txt" />
-    <None Remove="FileTests\BigNumbersTest.txt" />
-    <None Remove="FileTests\BothNumbersAreZeroTest.txt" />
-    <None Remove="FileTests\DivideByZeroTest.txt" />
-    <None Remove="FileTests\DivisionTest.txt" />
-    <None Remove="FileTests\LongExpressionTest.txt" />
-    <None Remove="FileTests\MultiplicationTest.txt" />
-    <None Remove="FileTests\NegativeNumbersTest.txt" />
-    <None Remove="FileTests\NumberPlusZeroTest.txt" />
-    <None Remove="FileTests\SubtractionTest.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="FileTests\LongExpressionTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="FileTests\AddTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\AnotherLongExpressionTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\BigNumbersTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\BothNumbersAreZeroTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\DivideByZeroTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\DivisionTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\MultiplicationTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\NegativeNumbersTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\NumberPlusZeroTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FileTests\SubtractionTest.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="FileTests\**" />
+    <EmbeddedResource Remove="FileTests\**" />
+    <None Remove="FileTests\**" />
   </ItemGroup>
 
   <ItemGroup>
