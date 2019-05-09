@@ -163,7 +163,7 @@ namespace CalculatorNameSpace
                         canPressOperation = false;
                     }
                     wasPressedCalculate = false;
-                    point = true;
+                    comma = true;
                 }
             }
             catch(DivideByZeroException)
@@ -285,7 +285,7 @@ namespace CalculatorNameSpace
                     currentExpressionBox.Text = "0,";
                     currentNumber = "0,";
                     currentResult = null;
-                    point = false;
+                    comma = false;
                     wasPressedCalculate = false;
                     wasPressedBinaryOperation = false;
                 }
@@ -294,7 +294,7 @@ namespace CalculatorNameSpace
                     expressionBox.Text = "0,";
                     currentExpressionBox.Text += "0,";
                     currentNumber = "0,";
-                    point = false;
+                    comma = false;
                     wasPressedCalculate = false;
                     wasPressedBinaryOperation = false;
                 }
@@ -303,7 +303,7 @@ namespace CalculatorNameSpace
                     expressionBox.Text += ",";
                     currentExpressionBox.Text += ",";
                     currentNumber += ",";
-                    point = false;
+                    comma = false;
                 }
             }
 
@@ -313,7 +313,7 @@ namespace CalculatorNameSpace
                 currentExpressionBox.Text = "0,";
                 currentNumber = "0,";
                 currentResult = null;
-                point = false;
+                comma = false;
                 wasPressedCalculate = false;
                 wasPressedBinaryOperation = false;
             }
@@ -371,7 +371,7 @@ namespace CalculatorNameSpace
             try
             {
                 canPressOperation = true;
-                point = true;
+                comma = true;
                 if (currentNumber == null)
                 {
                     currentExpressionBox.Text = currentResult;
