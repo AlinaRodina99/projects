@@ -7,4 +7,5 @@ build:
    project: hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
 
 test_script:
-  - dotnet test hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+  - nunit3-console hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln \
+     --result=myresults.xml;format=AppVeyor
