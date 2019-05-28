@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using ParseTree;
+using System;
 
 namespace Tests
 {
@@ -62,7 +63,7 @@ namespace Tests
         [Test]
         public void DivideByZeroTest()
         {
-            Assert.AreEqual(-1, tree.CalculateTree(divideZeroTest));
+            Assert.Throws<DivideByZeroException>(() => tree.CalculateTree(divideZeroTest));
         }
 
         [Test]

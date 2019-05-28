@@ -22,9 +22,6 @@ namespace ParseTree
         /// Method to calculate operator.
         /// </summary>
         /// <returns>Result of applying operator to the left child and to the right child.</returns>
-        public override int Calculate()
-        {
-            return LeftChild.Calculate() * RightChild.Calculate();
-        }
+        public override int Calculate() => LeftChild.Calculate() * RightChild.Calculate();
     }
 }

@@ -3,19 +3,8 @@
     /// <summary>
     /// Abstract class for operator.
     /// </summary>
-    abstract class Operator : INodeTree
+    public class Operator : INodeTree
     {
-        /// <summary>
-        /// Method for printing operator
-        /// </summary>
-        public abstract void Print();
-
-        /// <summary>
-        /// Method to calculate operator.
-        /// </summary>
-        /// <returns>Result of applying operator to the numbers.</returns>
-        public abstract int Calculate();
-
         /// <summary>
         /// Property for the left child.
         /// </summary>
@@ -30,5 +19,19 @@
         /// Property for parent.
         /// </summary>
         public Operator Parent { get; set; }
+
+        /// <summary>
+        /// Method to pring operator.
+        /// </summary>
+        virtual public void Print()
+        {
+
+        }
+
+        /// <summary>
+        /// Method to calculate operator.
+        /// </summary>
+        /// <returns>Integer result.</returns>
+        virtual public int Calculate() => 1; 
     }
 }

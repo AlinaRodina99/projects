@@ -22,9 +22,6 @@ namespace ParseTree
         /// Method to calculate operation.
         /// </summary>
         /// <returns>Integer result of adding left child and right child.</returns>
-        public override int Calculate()
-        {
-            return LeftChild.Calculate() + RightChild.Calculate();
-        }
+        public override int Calculate() => LeftChild.Calculate() + RightChild.Calculate();
     }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for the node of the binary tree.
     /// </summary>
-    interface INodeTree
+    public interface INodeTree
     {
         /// <summary>
         /// Method of printing node.
@@ -11,7 +11,7 @@
         void Print();
 
         /// <summary>
-        /// Method to calculate node of th tree.
+        /// Method to calculate node of the tree.
         /// </summary>
         /// <returns>Result of applying operator to the numbers.</returns>
         int Calculate();

@@ -18,7 +18,7 @@ namespace ParseTree
         /// </summary>
         /// <param name="operation">Current operation.</param>
         /// <returns>Current operator.</returns>
-        private Operator SwitchOperator(string operation)
+        private Operator CreateOperator(string operation)
         {
             switch (operation)
             {
@@ -46,7 +46,7 @@ namespace ParseTree
             {
                 if (head == null)
                 {
-                    head = SwitchOperator(partsOfExpression[i + 1]);
+                    head = CreateOperator(partsOfExpression[i + 1]);
                     currentOperator = head;
                     ++i;
                 }
@@ -57,14 +57,14 @@ namespace ParseTree
                         if (currentOperator.LeftChild == null)
                         {
                             var temp = currentOperator;
-                            currentOperator.LeftChild = SwitchOperator(partsOfExpression[i + 1]);
+                            currentOperator.LeftChild = CreateOperator(partsOfExpression[i + 1]);
                             currentOperator = (Operator)currentOperator.LeftChild;
                             currentOperator.Parent = temp;
                         }
                         else if (currentOperator.RightChild == null)
                         {
                             var temp = currentOperator;
-                            currentOperator.RightChild = SwitchOperator(partsOfExpression[i + 1]);
+                            currentOperator.RightChild = CreateOperator(partsOfExpression[i + 1]);
                             currentOperator = (Operator)currentOperator.RightChild;
                             currentOperator.Parent = temp;
                         }
@@ -75,7 +75,7 @@ namespace ParseTree
                                 currentOperator = currentOperator.Parent;
                             }
                             var temp = currentOperator;
-                            currentOperator.RightChild = SwitchOperator(partsOfExpression[i + 1]);
+                            currentOperator.RightChild = CreateOperator(partsOfExpression[i + 1]);
                             currentOperator = (Operator)currentOperator.RightChild;
                             currentOperator.Parent = temp;
                         }
@@ -130,18 +130,15 @@ namespace ParseTree
             catch (FileNotFoundException exception)
             {
                 Console.WriteLine($"Error: {exception.Message}");
-                return default(int);
+                return 0;
             }
         }
 
         /// <summary>
         /// Method to print the tree.
         /// </summary>
-        public void PrintTree()
-        {
-            head.Print();
-        }
-
+        public void PrintTree() => head.Print();
+        
         /// <summary>
         /// Method for reading expression from file.
         /// </summary>

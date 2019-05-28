@@ -22,17 +22,6 @@ namespace ParseTree
         /// Method to calculate operator.
         /// </summary>
         /// <returns>Result of applying the operator to the left child and to the right child.</returns>
-        public override int Calculate()
-        {
-            try
-            {
-                return LeftChild.Calculate() / RightChild.Calculate();
-            }
-            catch (DivideByZeroException exception)
-            {
-                Console.WriteLine($"Error: {exception.Message}");
-                return -1;
-            }
-        }
+        public override int Calculate() => LeftChild.Calculate() / RightChild.Calculate();
     }
 }
