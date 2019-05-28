@@ -37,7 +37,6 @@ namespace Tests
             eventLoop.RegisterDownHandler(game.Down);
             eventLoop.RegisterUpHandler(game.Up);
             game.PutGamerOnMap();
-            //currCoords = game.CurrCoords;
         }
 
         [Test]
@@ -152,9 +151,7 @@ namespace Tests
 
         private Game game;
         private (int, int) currCoords;
-        private ConsoleKeyInfo key;
         private EventLoop eventLoop;
-        private List<char[]> map;
         private DrawForTests drawForTests;
     }
 }
