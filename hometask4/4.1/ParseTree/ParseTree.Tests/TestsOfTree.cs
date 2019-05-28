@@ -85,16 +85,16 @@ namespace Tests
         }
 
         private BinaryTree tree;
-        private string addTest = "AddTest.txt";
-        private string subtractTest = "SubtractionTest.txt";
-        private string multuplyTest = "MultiplicationTest.txt";
-        private string divideTest = "DivisionTest.txt";
-        private string numPlusZeroTest = "NumberPlusZeroTest.txt";
-        private string longExpressTest = "LongExpressionTest.txt";
-        private string negativeNumTest = "NegativeNumbersTest.txt";
-        private string divideZeroTest = "DivideByZeroTest.txt";
-        private string anotherLongExpressTest = "AnotherLongExpressionTest.txt";
-        private string bothNumsAreZeroTest = "BothNumbersAreZeroTest.txt";
-        private string bigNumsTest = "BigNumbersTest.txt";
+        private string addTest = "TestFiles/AddTest.txt";
+        private string subtractTest = "TestFiles/SubtractionTest.txt";
+        private string multuplyTest = "TestFiles/MultiplicationTest.txt";
+        private string divideTest = "TestFiles/DivisionTest.txt";
+        private string numPlusZeroTest = "TestFiles/NumberPlusZeroTest.txt";
+        private string longExpressTest = "TestFiles/LongExpressionTest.txt";
+        private string negativeNumTest = "TestFiles/NegativeNumbersTest.txt";
+        private string divideZeroTest = "TestFiles/DivideByZeroTest.txt";
+        private string anotherLongExpressTest = "TestFiles/AnotherLongExpressionTest.txt";
+        private string bothNumsAreZeroTest = "TestFiles/BothNumbersAreZeroTest.txt";
+        private string bigNumsTest = "TestFiles/BigNumbersTest.txt";
     }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// Abstract class for operator.
     /// </summary>
-    public class Operator : INodeTree
+    public abstract class Operator : INodeTree
     {
         /// <summary>
         /// Property for the left child.
@@ -20,18 +20,8 @@
         /// </summary>
         public Operator Parent { get; set; }
 
-        /// <summary>
-        /// Method to pring operator.
-        /// </summary>
-        virtual public void Print()
-        {
+        public abstract int Calculate();
 
-        }
-
-        /// <summary>
-        /// Method to calculate operator.
-        /// </summary>
-        /// <returns>Integer result.</returns>
-        virtual public int Calculate() => 1; 
+        public abstract void Print();
     }
 }
