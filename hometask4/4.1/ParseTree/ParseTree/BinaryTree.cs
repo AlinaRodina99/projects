@@ -17,7 +17,7 @@ namespace ParseTree
         /// Method to define the operation.
         /// </summary>
         /// <param name="operation">Current operation.</param>
-        /// <returns></returns>
+        /// <returns>Current operator.</returns>
         private Operator SwitchOperator(string operation)
         {
             switch (operation)
