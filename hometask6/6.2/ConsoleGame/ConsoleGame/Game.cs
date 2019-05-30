@@ -22,17 +22,17 @@ namespace ConsoleGame
         /// <summary>
         /// Variable for the current coordinates of the gamer.
         /// </summary>
-        public static (int, int) currCoords;
+        public static (int, int) currentCoords;
 
         /// <summary>
         /// Variable for the previous coordinates of the gamer.
         /// </summary>
-        private (int, int) prevCoords;
+        private (int, int) previousCoords;
 
         /// <summary>
         /// Property for the current coordinates of the gamer.
         /// </summary>
-        public (int, int) CurrCoords => currCoords;
+        public (int, int) CurrentCoords => currentCoords;
 
         /// <summary>
         /// Constructor that initializes current class for drawing game.
@@ -76,8 +76,8 @@ namespace ConsoleGame
             {
                 Console.WriteLine(string.Join("", map[i]));
             }
-            currCoords = PutGamerOnMap();
-            Console.SetCursorPosition(currCoords.Item2, currCoords.Item1);
+            currentCoords = PutGamerOnMap();
+            Console.SetCursorPosition(currentCoords.Item2, currentCoords.Item1);
             Console.Write('@');
             --Console.CursorLeft;
         }
@@ -94,7 +94,7 @@ namespace ConsoleGame
                 {
                     if (map[i][j] != '#')
                     {
-                        currCoords = (i, j);
+                        currentCoords = (i, j);
                         return (i, j);
                     }
                 }
@@ -108,13 +108,13 @@ namespace ConsoleGame
         /// </summary>
         public void OnRight()
         {
-            prevCoords = currCoords;
-            draw.WriteEmptySpace(prevCoords);
-            if (currCoords.Item2 + 1 < map[currCoords.Item1].Length && map[currCoords.Item1][currCoords.Item2 + 1] != '#')
+            previousCoords = currentCoords;
+            draw.WriteEmptySpace(previousCoords);
+            if (currentCoords.Item2 + 1 < map[currentCoords.Item1].Length && map[currentCoords.Item1][currentCoords.Item2 + 1] != '#')
             {
-                ++currCoords.Item2;
+                ++currentCoords.Item2;
             }
-            draw.WriteGamer(currCoords);
+            draw.WriteGamer(currentCoords);
         }
 
         /// <summary>
@@ -122,41 +122,41 @@ namespace ConsoleGame
         /// </summary>
         public void OnLeft()
         {
-            prevCoords = currCoords;
-            draw.WriteEmptySpace(prevCoords);
-            if (currCoords.Item2 - 1 > 0 && map[currCoords.Item1][currCoords.Item2 - 1] != '#')
+            previousCoords = currentCoords;
+            draw.WriteEmptySpace(previousCoords);
+            if (currentCoords.Item2 - 1 > 0 && map[currentCoords.Item1][currentCoords.Item2 - 1] != '#')
             {
-                --currCoords.Item2;
+                --currentCoords.Item2;
             }
-            draw.WriteGamer(currCoords);
+            draw.WriteGamer(currentCoords);
         }
 
         /// <summary>
         /// Method for moving up.
         /// </summary>
-        public void Up()
+        public void OnUp()
         {
-            prevCoords = currCoords;
-            draw.WriteEmptySpace(prevCoords);
-            if (currCoords.Item1 - 1 >= 0 && map[currCoords.Item1 - 1][currCoords.Item2] != '#')
+            previousCoords = currentCoords;
+            draw.WriteEmptySpace(previousCoords);
+            if (currentCoords.Item1 - 1 >= 0 && map[currentCoords.Item1 - 1][currentCoords.Item2] != '#')
             {
-                --currCoords.Item1;
+                --currentCoords.Item1;
             }
-            draw.WriteGamer(currCoords);
+            draw.WriteGamer(currentCoords);
         }
 
         /// <summary>
         /// Method for moving down.
         /// </summary>
-        public void Down()
+        public void OnDown()
         {
-            prevCoords = currCoords;
-            draw.WriteEmptySpace(prevCoords);
-            if (currCoords.Item1 + 1 < map.Count && map[currCoords.Item1 + 1][currCoords.Item2] != '#')
+            previousCoords = currentCoords;
+            draw.WriteEmptySpace(previousCoords);
+            if (currentCoords.Item1 + 1 < map.Count && map[currentCoords.Item1 + 1][currentCoords.Item2] != '#')
             {
-                ++currCoords.Item1;
+                ++currentCoords.Item1;
             }
-            draw.WriteGamer(currCoords);
+            draw.WriteGamer(currentCoords);
         }
     }
 }

@@ -7,14 +7,10 @@
             var drawOnConsole = new ConsoleDraw();
             var game = new Game(drawOnConsole);
             var eventLoop = new EventLoop();
-            var onRight = new ArrowHandler(game.OnRight);
-            var onLeft = new ArrowHandler(game.OnLeft);
-            var up = new ArrowHandler(game.Up);
-            var down = new ArrowHandler(game.Down);
-            eventLoop.RegisterRightHandler(onRight);
-            eventLoop.RegisterLeftHandler(onLeft);
-            eventLoop.RegisterUpHandler(up);
-            eventLoop.RegisterDownHandler(down);
+            eventLoop.rightHandler += game.OnRight;
+            eventLoop.leftHandler += game.OnLeft;
+            eventLoop.upHandler += game.OnUp;
+            eventLoop.downHandler += game.OnDown;
             game.ReadFromFile("map.txt");
             game.DrawMap();
             eventLoop.Run();

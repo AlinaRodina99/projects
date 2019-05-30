@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using ConsoleGame;
 using System;
-using System.Collections.Generic;
 
 namespace Tests
 {
@@ -32,17 +31,17 @@ namespace Tests
             game = new Game(drawForTests);
             drawForTests = new DrawForTests();
             game.ReadFromFile("map.txt");
-            eventLoop.RegisterRightHandler(game.OnRight);
-            eventLoop.RegisterLeftHandler(game.OnLeft);
-            eventLoop.RegisterDownHandler(game.Down);
-            eventLoop.RegisterUpHandler(game.Up);
+            eventLoop.rightHandler += game.OnRight;
+            eventLoop.leftHandler += game.OnLeft;
+            eventLoop.downHandler += game.OnDown;
+            eventLoop.upHandler += game.OnUp;
             game.PutGamerOnMap();
         }
 
         [Test]
         public void BeginCoordinates()
         {
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 1), currCoords);
         }
 
@@ -50,7 +49,7 @@ namespace Tests
         public void OnRightTest()
         {
             eventLoop.SelectConsoleKey(ConsoleKey.RightArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 2), currCoords);
         }
 
@@ -58,7 +57,7 @@ namespace Tests
         public void OnLeftTest()
         {
             eventLoop.SelectConsoleKey(ConsoleKey.LeftArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 1), currCoords);
         }
 
@@ -66,7 +65,7 @@ namespace Tests
         public void UpTest()
         {
             eventLoop.SelectConsoleKey(ConsoleKey.UpArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 1), currCoords);
         }
 
@@ -74,7 +73,7 @@ namespace Tests
         public void DownTest()
         {
             eventLoop.SelectConsoleKey(ConsoleKey.DownArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((1, 1), currCoords);
         }
 
@@ -87,7 +86,7 @@ namespace Tests
             eventLoop.SelectConsoleKey(ConsoleKey.RightArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.RightArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.RightArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 7), currCoords);
         }
 
@@ -106,7 +105,7 @@ namespace Tests
             eventLoop.SelectConsoleKey(ConsoleKey.LeftArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.LeftArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.LeftArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 1), currCoords);
         }
 
@@ -118,7 +117,7 @@ namespace Tests
             eventLoop.SelectConsoleKey(ConsoleKey.RightArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.DownArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.DownArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((2, 4), currCoords);
         }
 
@@ -134,7 +133,7 @@ namespace Tests
             eventLoop.SelectConsoleKey(ConsoleKey.UpArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.UpArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.UpArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 4), currCoords);
         }
 
@@ -145,7 +144,7 @@ namespace Tests
             eventLoop.SelectConsoleKey(ConsoleKey.DownArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.LeftArrow);
             eventLoop.SelectConsoleKey(ConsoleKey.UpArrow);
-            currCoords = game.CurrCoords;
+            currCoords = game.CurrentCoords;
             Assert.AreEqual((0, 1), currCoords);
         }
 
