@@ -9,6 +9,11 @@ namespace HashTableNameSpace
     public class HashTable
     {
         /// <summary>
+        /// Private variable for current hash function.
+        /// </summary>
+        private IHashFunction hashFunction;
+
+        /// <summary>
         /// Property for count of elements in hash table.
         /// </summary>
         public int CountOfElements { get; private set; }
@@ -27,10 +32,11 @@ namespace HashTableNameSpace
         /// Class constructor that creates the hash table with a specific size.
         /// </summary>
         /// <param name="size">Size of table.</param>
-        public HashTable(int size)
+        public HashTable(int size, IHashFunction hashFunction)
         {
             this.size = size;
             items = new MyList[size];
+            this.hashFunction = hashFunction;
         }
 
         /// <summary>
@@ -38,7 +44,7 @@ namespace HashTableNameSpace
         /// </summary>
         /// <param name="key">Unique key of element.</param>
         /// <returns>Bool result if there is current value in table.</returns>
-        public bool FindValue(int key, IHashFunction hashFunction)
+        public bool FindValue(int key)
         {
             var linkedList = GetLinkedList(hashFunction.HashFunction(key, size));
             return linkedList.FindValueInList(key);
@@ -49,7 +55,7 @@ namespace HashTableNameSpace
         /// </summary>
         /// <param name="key">Unique key of element.</param>
         /// <param name="data">Element value.</param>
-        public void Add(int key, string data, IHashFunction hashFunction)
+        public void Add(int key, string data)
         {
             var linkedlist = GetLinkedList(hashFunction.HashFunction(key, size));
             linkedlist.AddAt(linkedlist.Size, data, key);
@@ -60,7 +66,7 @@ namespace HashTableNameSpace
         /// Method for removing element from the table by key.
         /// </summary>
         /// <param name="key">Unique key of element.</param>
-        public void Remove(int key, IHashFunction hashFunction)
+        public void Remove(int key)
         {
             var linkedList = GetLinkedList(hashFunction.HashFunction(key, size));
             linkedList.Remove(key);
