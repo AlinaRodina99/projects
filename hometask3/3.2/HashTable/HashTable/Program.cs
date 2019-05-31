@@ -26,7 +26,6 @@ namespace HashTableNameSpace
 
         static void Main(string[] args)
         {
-            var hashTable = new HashTable(6);
             Console.WriteLine("Select type of hash-function:1 - Modal,2 - Multiplicative");
             string choice = Console.ReadLine();
             var hashFunction = SelectionOfHashFunction(choice);
@@ -35,16 +34,17 @@ namespace HashTableNameSpace
                 Console.WriteLine("Hash-function was not selected!");
                 return;
             }
-            hashTable.Add(2, "John", hashFunction);
-            hashTable.Add(3, "Ann", hashFunction);
-            hashTable.Add(4, "Mark", hashFunction);
-            hashTable.Add(3, "Kurt", hashFunction);
-            hashTable.Add(4, "Paul", hashFunction);
-            hashTable.Add(10, "Leon", hashFunction);
-            hashTable.Remove(10, hashFunction);
+            var hashTable = new HashTable(6, hashFunction);
+            hashTable.Add(2, "John");
+            hashTable.Add(3, "Ann");
+            hashTable.Add(4, "Mark");
+            hashTable.Add(3, "Kurt");
+            hashTable.Add(4, "Paul");
+            hashTable.Add(10, "Leon");
+            hashTable.Remove(10);
             hashTable.PrintHashTable();
-            Console.WriteLine(hashTable.FindValue(3, hashFunction));
-            Console.WriteLine(hashTable.FindValue(10, hashFunction));
+            Console.WriteLine(hashTable.FindValue(3));
+            Console.WriteLine(hashTable.FindValue(10));
         }
     }
 }
