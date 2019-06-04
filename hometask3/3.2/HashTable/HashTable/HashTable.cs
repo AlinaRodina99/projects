@@ -34,6 +34,11 @@ namespace HashTableNameSpace
         /// <param name="size">Size of table.</param>
         public HashTable(int size, IHashFunction hashFunction)
         {
+            if (hashFunction == null)
+            {
+                throw new ArgumentNullException("Hash function was not put!");
+            }
+
             this.size = size;
             items = new MyList[size];
             this.hashFunction = hashFunction;
@@ -46,7 +51,7 @@ namespace HashTableNameSpace
         /// <returns>Bool result if there is current value in table.</returns>
         public bool FindValue(int key)
         {
-            var linkedList = GetLinkedList(hashFunction.HashFunction(key, size));
+            var linkedList = GetLinkedList(Math.Abs(hashFunction.HashFunction(key, size)) % size);
             return linkedList.FindValueInList(key);
         }
 
@@ -57,7 +62,7 @@ namespace HashTableNameSpace
         /// <param name="data">Element value.</param>
         public void Add(int key, string data)
         {
-            var linkedlist = GetLinkedList(hashFunction.HashFunction(key, size));
+            var linkedlist = GetLinkedList(Math.Abs(hashFunction.HashFunction(key, size)) % size);
             linkedlist.AddAt(linkedlist.Size, data, key);
             ++CountOfElements;
         }
@@ -68,7 +73,7 @@ namespace HashTableNameSpace
         /// <param name="key">Unique key of element.</param>
         public void Remove(int key)
         {
-            var linkedList = GetLinkedList(hashFunction.HashFunction(key, size));
+            var linkedList = GetLinkedList(Math.Abs(hashFunction.HashFunction(key, size)) % size);
             linkedList.Remove(key);
             --CountOfElements;
         }
