@@ -8,3 +8,4 @@ build:
 
 test_script:
   - dotnet test hometask4/4.2/UniqueListNameSpace/UniqueListNameSpace.sln
+
