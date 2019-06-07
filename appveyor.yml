@@ -5,3 +5,4 @@ before_build:
 
 build:
    project: hometask2/2.2/HashTable/HashTable.sln
+
