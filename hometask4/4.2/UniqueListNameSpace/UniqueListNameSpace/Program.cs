@@ -9,15 +9,15 @@ namespace UniqueListNameSpace
             try
             {
                 var uniqueList = new UniqueList();
-                uniqueList.RemoveFromTheUniqueList("apple");
-                uniqueList.AddToTheUniqueList("apple");
-                uniqueList.AddToTheUniqueList("apple");
-                uniqueList.AddToTheUniqueList("lemon");
-                uniqueList.AddToTheUniqueList("banana");
+                uniqueList.RemoveByData("apple");
+                uniqueList.AddAt(0, "apple");
+                uniqueList.AddAt(0, "apple");
+                uniqueList.AddAt(1, "lemon");
+                uniqueList.AddAt(2, "banana");
                 uniqueList.PrintList();
-                uniqueList.RemoveFromTheUniqueList("lemon");
+                uniqueList.RemoveByData("lemon");
                 uniqueList.PrintList();
-                uniqueList.RemoveFromTheUniqueList("melon");
+                uniqueList.RemoveByData("melon");
             }
             catch (AddSameElementsException exception)
             {

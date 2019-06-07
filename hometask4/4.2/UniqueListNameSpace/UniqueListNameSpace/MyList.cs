@@ -41,7 +41,7 @@ namespace LinkedList
         /// <summary>
         /// Top of the list.
         /// </summary>
-        protected ElementOfList Head { get; private set; }
+        private ElementOfList Head { get; set; }
 
         /// <summary>
         /// Property for the size of the list.
@@ -58,12 +58,8 @@ namespace LinkedList
         /// </summary>
         /// <param name="index">Position of the element.</param>
         /// <param name="data">Value of the element.</param>
-        public void AddAt(int index, string data)
+        public virtual void AddAt(int index, string data)
         {
-            if (DoesElementExist(data))
-            {
-                throw new AddSameElementsException("You can not add this element!", data);
-            }
             if (index < 0 || index > Size)
             {
                 Console.WriteLine("Index is negative or larger than the list size!");
@@ -202,12 +198,8 @@ namespace LinkedList
         /// Method for removing element by its value;
         /// </summary>
         /// <param name="data">Value of the element.</param>
-        public void RemoveByData(string data)
+        public virtual void RemoveByData(string data)
         {
-            if (!DoesElementExist(data))
-            {
-                throw new RemoveNotExistentElementException("You can not remove this element!", data);
-            }
             var current = Head;
             ElementOfList currentPrevious = null;
             for (int i = 0; i < Size; i++)

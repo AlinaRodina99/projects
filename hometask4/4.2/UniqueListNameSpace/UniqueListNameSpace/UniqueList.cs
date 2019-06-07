@@ -8,18 +8,26 @@ namespace UniqueListNameSpace
         /// Method for adding elements.
         /// </summary>
         /// <param name="data">Value of the element.</param>
-        public void AddToTheUniqueList(string data)
+        public override void AddAt(int index, string data)
         {
-            AddAt(Size, data);
+            if (DoesElementExist(data))
+            {
+                throw new AddSameElementsException("You can not add this element!", data);
+            }
+            base.AddAt(index, data);
         }
 
         /// <summary>
         /// Method for removing elements.
         /// </summary>
         /// <param name="data">Value of the element.</param>
-        public void RemoveFromTheUniqueList(string data)
+        public override void RemoveByData(string data)
         {
-            RemoveByData(data);
+            if (!DoesElementExist(data))
+            {
+                throw new RemoveNotExistentElementException("You can not remove this element!", data);
+            }
+            base.RemoveByData(data);
         }
     }
 }

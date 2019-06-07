@@ -23,7 +23,7 @@ namespace UniqueListNameSpace
         /// <param name="message">Message about exception.</param>
         /// <param name="data">Value that is not in the list.</param>
         public RemoveNotExistentElementException(string message, string data)
-            :base(message)
+            : base(message)
         {
             Value = data;
         }
