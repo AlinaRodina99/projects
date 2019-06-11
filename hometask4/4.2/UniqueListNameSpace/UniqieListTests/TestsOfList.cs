@@ -83,6 +83,14 @@ namespace Tests
             Assert.IsTrue(uniqueList.DoesElementExist("apple"));
         }
 
+        [Test]
+        public void SetValeByPositionTest()
+        {
+            uniqueList.AddAt(0, "apple");
+            uniqueList.AddAt(1, "lemon");
+            Assert.Throws<AddSameElementsException>(() => uniqueList.SetValueByPosition(0, "apple"));
+        }
+
         private UniqueList uniqueList;
     }
 }
