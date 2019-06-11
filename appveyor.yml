@@ -8,3 +8,4 @@ build:
 
 test_script:
   - dotnet test hometask8/8.1/GenericListNameSpace/GenericListNameSpace.sln
+
