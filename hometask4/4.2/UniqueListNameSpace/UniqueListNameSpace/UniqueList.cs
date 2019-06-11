@@ -31,6 +31,11 @@ namespace UniqueListNameSpace
             base.RemoveByData(data);
         }
 
+        /// <summary>
+        /// Method to set value of the element in unique list.
+        /// </summary>
+        /// <param name="index">Position of the element.</param>
+        /// <param name="data">Value of the element.</param>
         public override void SetValueByPosition(int index, string data)
         {
             if (DoesElementExist(data))

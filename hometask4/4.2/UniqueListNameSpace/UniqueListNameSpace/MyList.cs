@@ -62,9 +62,9 @@ namespace LinkedList
         {
             if (index < 0 || index > Size)
             {
-                Console.WriteLine("Index is negative or larger than the list size!");
-                return;
+                throw new ArgumentOutOfRangeException();
             }
+
             var thisElement = new ElementOfList(data);
             ElementOfList current = Head;
             int currentIndex = 0;
@@ -124,8 +124,7 @@ namespace LinkedList
         {
             if (index < 0 || index > Size)
             {
-                Console.WriteLine("Index is negative or larger than the list size!");
-                return;
+                throw new ArgumentOutOfRangeException();
             }
 
             ElementOfList current = Head;
