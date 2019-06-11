@@ -1,0 +1,10 @@
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\bin\Debug\CalculatorNameSpace.exe.config
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\bin\Debug\CalculatorNameSpace.exe
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\bin\Debug\CalculatorNameSpace.pdb
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.csprojAssemblyReference.cache
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.Properties.Resources.resources
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.csproj.GenerateResource.cache
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.csproj.CoreCompileInputs.cache
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.exe
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.pdb
+C:\Users\alnar\projects\hometask7\7.1\CalculatorNameSpace\CalculatorNameSpace\obj\Debug\CalculatorNameSpace.CalculatorForm.resources

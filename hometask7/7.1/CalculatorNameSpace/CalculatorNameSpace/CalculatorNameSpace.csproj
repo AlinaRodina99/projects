@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoxOfExpressing.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="CalculatorForm.cs">
       <SubType>Form</SubType>

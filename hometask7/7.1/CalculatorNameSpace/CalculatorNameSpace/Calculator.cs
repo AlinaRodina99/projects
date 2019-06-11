@@ -2,50 +2,45 @@
 
 namespace CalculatorNameSpace
 {
-    public class Calculator
+    public static class Calculator
     {
-        public double Calculate(string operation, double firstNumber, double secondNumber)
+        public static double Calculate(string operation, double firstNumber, double secondNumber)
         {
-            double result = 0;
             switch (operation)
             {
                 case "+":
-                    result = secondNumber + firstNumber;
-                    break;
+                    return secondNumber + firstNumber;
                 case "-":
-                    result = secondNumber - firstNumber;
-                    break;
+                    return secondNumber - firstNumber;
                 case "*":
-                    result = secondNumber * firstNumber;
-                    break;
+                    return secondNumber * firstNumber;
                 case "/":
                     if (firstNumber == 0)
                     {
                         throw new DivideByZeroException();
                     }
-                    result = secondNumber / firstNumber;
-                    break;
+                    return secondNumber / firstNumber;
+                default:
+                    throw new InvalidOperationException();
             }
-            return result;
         }
 
-        public double BinaryCalculation(string operation, double number)
+        public static double BinaryCalculation(string operation, double number)
         {
-            double result = 0;
             switch (operation)
             {
                 case "^2":
-                    result = number * number;
-                    break;
+                    return number * number;
                 case "√":
                     if (number < 0)
                     {
                         throw new ArgumentException();
                     }
-                    result = Math.Sqrt(number);
-                    break;
+                    return Math.Sqrt(number);
+                default:
+                    throw new InvalidOperationException();
             }
-            return result;
         }
+
     }
 }
