@@ -14,10 +14,10 @@ namespace Tests
         [Test]
         public void AddTest()
         {
-            Assert.AreEqual(true, set.Add(6));
-            Assert.AreEqual(true, set.Add(0));
-            Assert.AreEqual(false, set.Add(6));
-            Assert.AreEqual(false, set.Add(0));
+            Assert.IsTrue(set.Add(6));
+            Assert.IsTrue(set.Add(0));
+            Assert.IsFalse(set.Add(6));
+            Assert.IsFalse(set.Add(0));
         }
 
         [Test]
@@ -26,9 +26,9 @@ namespace Tests
             set.Add(1);
             set.Add(2);
             set.Add(3);
-            Assert.AreEqual(true, set.Remove(1));
-            Assert.AreEqual(false, set.Remove(4));
-            Assert.AreEqual(false, set.Remove(1));
+            Assert.IsTrue(set.Remove(1));
+            Assert.IsFalse(set.Remove(4));
+            Assert.IsFalse(set.Remove(1));
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Tests
             set.Add(2);
             set.Add(3);
             var anotherSet = new Set<int>() { 1, 2, 3, 4, 5, 6, 7 };
-            Assert.AreEqual(true, set.IsSubsetOf(anotherSet));
+            Assert.IsTrue(set.IsSubsetOf(anotherSet));
         }
 
         [Test]
@@ -118,7 +118,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 4 };
-            Assert.AreEqual(true, set.IsSupersetOf(anotherSet));
+            Assert.IsTrue(set.IsSupersetOf(anotherSet));
         }
 
         [Test]
@@ -130,7 +130,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3, 4, 5, 6 };
-            Assert.AreEqual(true, set.IsProperSubsetOf(anotherSet));
+            Assert.IsTrue(set.IsProperSubsetOf(anotherSet));
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3, 4 };
-            Assert.AreEqual(true, set.IsProperSupersetOf(anotherSet));
+            Assert.IsTrue(set.IsProperSupersetOf(anotherSet));
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3 };
-            Assert.AreEqual(true, set.Overlaps(anotherSet));
+            Assert.IsTrue(set.Overlaps(anotherSet));
         }
 
         [Test]
@@ -247,12 +247,12 @@ namespace Tests
             set.Add(3);
             set.Add(4);
             set.Add(5);
-            Assert.AreEqual(true, set.Contains(1));
-            Assert.AreEqual(true, set.Contains(2));
-            Assert.AreEqual(true, set.Contains(3));
-            Assert.AreEqual(true, set.Contains(4));
-            Assert.AreEqual(true, set.Contains(5));
-            Assert.AreEqual(false, set.Contains(-1));
+            Assert.IsTrue(set.Contains(1));
+            Assert.IsTrue(set.Contains(2));
+            Assert.IsTrue(set.Contains(3));
+            Assert.IsTrue(set.Contains(4));
+            Assert.IsTrue(set.Contains(5));
+            Assert.IsFalse(set.Contains(-1));
         }
 
         [Test]
@@ -267,7 +267,7 @@ namespace Tests
             set.IntersectWith(anotherSet);
             foreach (var item in set)
             {
-                Assert.AreEqual(null, item);
+                Assert.IsNull(item);
             }
         }
 
@@ -280,7 +280,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3 };
-            Assert.AreEqual(false, set.IsSubsetOf(anotherSet));
+            Assert.IsFalse(set.IsSubsetOf(anotherSet));
         }
 
         [Test]
@@ -292,7 +292,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3, 4, 5 };
-            Assert.AreEqual(false, set.IsProperSubsetOf(anotherSet));
+            Assert.IsFalse(set.IsProperSubsetOf(anotherSet));
         }
 
         [Test]
@@ -304,7 +304,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3, 4, 5, 6 };
-            Assert.AreEqual(false, set.IsSupersetOf(anotherSet));
+            Assert.IsFalse(set.IsSupersetOf(anotherSet));
         }
 
         [Test]
@@ -316,7 +316,7 @@ namespace Tests
             set.Add(4);
             set.Add(5);
             var anotherSet = new Set<int>() { 1, 2, 3, 4, 5 };
-            Assert.AreEqual(false, set.IsProperSupersetOf(anotherSet));
+            Assert.IsFalse(set.IsProperSupersetOf(anotherSet));
         }
 
         [Test]
@@ -329,7 +329,7 @@ namespace Tests
             set.ExceptWith(anotherSet);
             foreach (var item in set)
             {
-                Assert.AreEqual(null, item);
+                Assert.IsNull(item);
             }
         }
 
@@ -340,7 +340,7 @@ namespace Tests
             set.Add(2);
             set.Add(3);
             var anotherSet = new Set<int>() { 4, 5, 6 };
-            Assert.AreEqual(false, set.Overlaps(anotherSet));
+            Assert.IsFalse(set.Overlaps(anotherSet));
         }
 
         [Test]
@@ -362,7 +362,7 @@ namespace Tests
             set.Clear();
             foreach (var item in set)
             {
-                Assert.AreEqual(null, item);
+                Assert.IsNull(item);
             }
         }
 

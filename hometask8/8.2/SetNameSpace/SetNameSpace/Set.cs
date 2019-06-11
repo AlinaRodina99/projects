@@ -11,15 +11,15 @@ namespace SetNameSpace
     /// <typeparam name="T">Variavle for type.</typeparam>
     public class Set<T> : ISet<T> where T : IComparable<T>
     {
-        public class Node<W>
+        private class Node
         {
-            public W Data { get; set; }
+            public T Data { get; set; }
 
-            public Node<W> rightChild;
+            public Node RightChild { get; set; }
 
-            public Node<W> leftChild;
+            public Node LeftChild { get; set; }
 
-            public Node(W data)
+            public Node(T data)
             {
                 Data = data;
             }
@@ -28,7 +28,7 @@ namespace SetNameSpace
         /// <summary>
         /// Top of the binary tree.
         /// </summary>
-        private Node<T> head;
+        private Node head;
 
         /// <summary>
         /// Property for the count of elements in set.
@@ -138,6 +138,7 @@ namespace SetNameSpace
 
             return SetIsSubsetOfAnotherSet(this, other);
         }
+
         /// <summary>
         /// Method to know if current ser is superset of other set.
         /// </summary>
@@ -152,6 +153,7 @@ namespace SetNameSpace
 
             return SetIsSubsetOfAnotherSet(other, this);
         }
+
         /// <summary>
         /// Method to know if current set is proper superset of other set.
         /// </summary>
@@ -166,6 +168,7 @@ namespace SetNameSpace
 
             return SetIsProperSubsetOfAnotherSet(other, this);
         }
+
         /// <summary>
         /// Method to know if current set is proper subset of other set.
         /// </summary>
@@ -180,6 +183,7 @@ namespace SetNameSpace
 
             return SetIsProperSubsetOfAnotherSet(this, other);
         }
+
         /// <summary>
         /// Method to know if this set and other set have one common item at least. 
         /// </summary>
@@ -260,11 +264,7 @@ namespace SetNameSpace
                 return true;
             }
 
-            if (((Set<T>)set).IsSubsetOf(otherSet) && set.Count() < otherSet.Count())
-            {
-                return true;
-            }
-            return false;
+            return (((Set<T>)set).IsSubsetOf(otherSet) && set.Count() < otherSet.Count());
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace SetNameSpace
         /// <returns>Bool result.</returns>
         public bool Contains(T data)
         {
-            Node<T> parent;
+            Node parent;
             return FindCurrent(data, out parent) != null;
         }
 
@@ -322,64 +322,63 @@ namespace SetNameSpace
         /// <returns></returns>
         public bool Remove(T data)
         {
-            Node<T> current;
-            current = FindCurrent(data, out Node<T> parent);
+            Node current = FindCurrent(data, out Node parent);
             if (current == null)
             {
                 return false;
             }
 
-            if (current.rightChild == null)
+            if (current.RightChild == null)
             {
                 if (parent == null)
                 {
-                    head = current.leftChild;
+                    head = current.LeftChild;
                 }
                 else
                 {
                     int result = parent.Data.CompareTo(current.Data);
                     if (result > 0)
                     {
-                        parent.leftChild = current.leftChild;
+                        parent.LeftChild = current.LeftChild;
                     }
                     else if (result < 0)
                     {
-                        parent.rightChild = current.leftChild;
+                        parent.RightChild = current.LeftChild;
                     }
                 }
             }
-            else if (current.rightChild.leftChild == null)
+            else if (current.RightChild.LeftChild == null)
             {
-                current.rightChild.leftChild = current.leftChild;
+                current.RightChild.LeftChild = current.LeftChild;
                 if (parent == null)
                 {
-                    head = current.rightChild;
+                    head = current.RightChild;
                 }
                 else
                 {
                     int result = parent.Data.CompareTo(current.Data);
                     if (result > 0)
                     {
-                        parent.leftChild = current.rightChild;
+                        parent.LeftChild = current.RightChild;
                     }
                     else if (result < 0)
                     {
-                        parent.rightChild = current.rightChild;
+                        parent.RightChild = current.RightChild;
                     }
                 }
             }
             else
             {
-                var leftMost = current.rightChild.leftChild;
-                var leftMostParent = current.rightChild;
+                var leftMost = current.RightChild.LeftChild;
+                var leftMostParent = current.RightChild;
                 while (leftMost != null)
                 {
                     leftMostParent = leftMost;
-                    leftMost = leftMost.leftChild;
+                    leftMost = leftMost.LeftChild;
                 }
-                leftMost.leftChild = leftMost.rightChild;
-                leftMost.leftChild = current.leftChild;
-                leftMost.rightChild = current.rightChild;
+                leftMost.LeftChild = leftMost.RightChild;
+                leftMost.LeftChild = current.LeftChild;
+                leftMost.RightChild = current.RightChild;
                 if (parent == null)
                 {
                     head = leftMost;
@@ -389,11 +388,11 @@ namespace SetNameSpace
                     int result = parent.Data.CompareTo(current.Data);
                     if (result > 0)
                     {
-                        parent.leftChild = leftMost;
+                        parent.LeftChild = leftMost;
                     }
                     else if (result < 0)
                     {
-                        parent.rightChild = leftMost;
+                        parent.RightChild = leftMost;
                     }
                 }
             }
@@ -409,7 +408,7 @@ namespace SetNameSpace
         {
             if (head != null)
             {
-                var stack = new Stack<Node<T>>();
+                var stack = new Stack<Node>();
                 var current = head;
                 bool goLeftNext = true;
 
@@ -419,18 +418,18 @@ namespace SetNameSpace
                 {
                     if (goLeftNext)
                     {
-                        while (current.leftChild != null)
+                        while (current.LeftChild != null)
                         {
                             stack.Push(current);
-                            current = current.leftChild;
+                            current = current.LeftChild;
                         }
                     }
 
                     yield return current.Data;
 
-                    if (current.rightChild != null)
+                    if (current.RightChild != null)
                     {
-                        current = current.rightChild;
+                        current = current.RightChild;
                         goLeftNext = true;
                     }
                     else
@@ -446,19 +445,13 @@ namespace SetNameSpace
         /// Method to list elements in the set.
         /// </summary>
         /// <returns>Private method to list.</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return InOrder();
-        }
+        public IEnumerator<T> GetEnumerator() => InOrder();
 
         /// <summary>
         /// Method to get enumerator of the set.
         /// </summary>
         /// <returns>Enumerator.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Private method to add element to the set.
@@ -468,7 +461,7 @@ namespace SetNameSpace
         {
             if (head == null)
             {
-                head = new Node<T>(data);
+                head = new Node(data);
             }
             else
             {
@@ -482,39 +475,39 @@ namespace SetNameSpace
         /// <param name="node">the element that starts the traversal.</param>
         /// <param name="data">Value of the element.</param>
         /// <returns>Bool result.</returns>
-        private bool AddResult(Node<T> node, T data)
+        private bool AddResult(Node node, T data)
         {
             if (node == null)
             {
-                head = new Node<T>(data);
+                head = new Node(data);
                 ++Count;
                 return true;
             }
 
             if (data.CompareTo(node.Data) < 0)
             {
-                if (node.leftChild == null)
+                if (node.LeftChild == null)
                 {
-                    node.leftChild = new Node<T>(data);
+                    node.LeftChild = new Node(data);
                     ++Count;
                     return true;
                 }
                 else
                 {
-                    AddResult(node.leftChild, data);
+                    AddResult(node.LeftChild, data);
                 }
             }
             else if (data.CompareTo(node.Data) > 0)
             {
-                if (node.rightChild == null)
+                if (node.RightChild == null)
                 {
-                    node.rightChild = new Node<T>(data);
+                    node.RightChild = new Node(data);
                     ++Count;
                     return true;
                 }
                 else
                 {
-                    AddResult(node.rightChild, data);
+                    AddResult(node.RightChild, data);
                 }
             }
             return false;
@@ -526,7 +519,7 @@ namespace SetNameSpace
         /// <param name="data">Value of the element.</param>
         /// <param name="parent">Parent of the element.</param>
         /// <returns>Current element with its parent.</returns>
-        private Node<T> FindCurrent(T data, out Node<T> parent)
+        private Node FindCurrent(T data, out Node parent)
         {
             var current = head;
             parent = null;
@@ -536,12 +529,12 @@ namespace SetNameSpace
                 if (result > 0)
                 {
                     parent = current;
-                    current = current.leftChild;
+                    current = current.LeftChild;
                 }
                 else if (result < 0)
                 {
                     parent = current;
-                    current = current.rightChild;
+                    current = current.RightChild;
                 }
                 else
                 {
