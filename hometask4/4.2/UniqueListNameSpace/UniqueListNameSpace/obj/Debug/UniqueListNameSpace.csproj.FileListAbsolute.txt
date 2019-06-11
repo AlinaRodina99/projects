@@ -1,7 +1,0 @@
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\bin\Debug\UniqueListNameSpace.exe.config
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\bin\Debug\UniqueListNameSpace.exe
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\bin\Debug\UniqueListNameSpace.pdb
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\obj\Debug\UniqueListNameSpace.csprojAssemblyReference.cache
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\obj\Debug\UniqueListNameSpace.csproj.CoreCompileInputs.cache
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\obj\Debug\UniqueListNameSpace.exe
-C:\Users\alnar\projects\hometask4\4.2\UniqueListNameSpace\UniqueListNameSpace\obj\Debug\UniqueListNameSpace.pdb
