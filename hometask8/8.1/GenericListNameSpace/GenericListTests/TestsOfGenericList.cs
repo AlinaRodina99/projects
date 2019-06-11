@@ -29,7 +29,7 @@ namespace Tests
             myList.Add("John");
             myList.Add("Mary");
             myList.Add("Mark");
-            Assert.AreEqual(true, myList.Remove("Mary"));
+            Assert.IsTrue(myList.Remove("Mary"));
             Assert.AreEqual(2, myList.Count);
             Assert.AreEqual("John", myList[0]);
             Assert.AreEqual("Mark", myList[1]);

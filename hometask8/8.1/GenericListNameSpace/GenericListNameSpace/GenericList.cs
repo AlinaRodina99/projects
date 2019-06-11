@@ -41,7 +41,7 @@ namespace GenericListNameSpace
             {
                 if (GetElement(index) == null)
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentOutOfRangeException();
                 }
                 return GetElement(index).Data;
             }
@@ -49,7 +49,7 @@ namespace GenericListNameSpace
             {
                 if (GetElement(index) == null)
                 {
-                    throw new ArgumentNullException();
+                    throw new ArgumentOutOfRangeException();
                 }
                 GetElement(index).Data = value;
             }
@@ -64,7 +64,7 @@ namespace GenericListNameSpace
         {
             if (index < 0 || index > Count)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentOutOfRangeException();
             }
             ElementOfList current = head;
             for (int i = 0; i < index; ++i)
@@ -74,7 +74,7 @@ namespace GenericListNameSpace
             return current;
         }
 
-        private ElementOfList ByPass(ElementOfList currentElement)
+        private ElementOfList Tail(ElementOfList currentElement)
         {
             while (currentElement.Next != null)
             {
@@ -107,7 +107,7 @@ namespace GenericListNameSpace
             else
             {
                 var currentElement = head;
-                currentElement = ByPass(currentElement);
+                currentElement = Tail(currentElement);
                 currentElement.Next = new ElementOfList(item);
                 currentElement.Next.Previous = currentElement; 
                 ++Count;
@@ -190,7 +190,7 @@ namespace GenericListNameSpace
         {
             if (index < 0 || index > Count)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentOutOfRangeException();
             }
             var thisElement = new ElementOfList(item);
             ElementOfList current = head;
@@ -259,8 +259,9 @@ namespace GenericListNameSpace
         {
             if (index < 0 || index > Count)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentOutOfRangeException();
             }
+
             ElementOfList current = head;
             ElementOfList currentPrevious = null;
             int currentIndex = 0;
