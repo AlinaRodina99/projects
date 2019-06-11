@@ -127,6 +127,7 @@ namespace LinkedList
                 Console.WriteLine("Index is negative or larger than the list size!");
                 return;
             }
+
             ElementOfList current = Head;
             ElementOfList currentPrevious = null;
             int currentIndex = 0;
@@ -151,47 +152,50 @@ namespace LinkedList
         }
 
         /// <summary>
-        /// Indexor for getting element by its position and setting value of the element.
+        /// Method to set value of the element by its position.
         /// </summary>
-        /// <param name="index">Position of the element.</param>
-        /// <returns>String value of the element.</returns>
-        public virtual string this[int index]
-        {
-            get
-            {
-                if (GetElement(index) == null)
-                {
-                    return "Index is negative or larger than the list size!";
-                }
-                return GetElement(index).Data;
-            } 
-            set 
-            {
-                if (GetElement(index) == null)
-                {
-                    return;
-                }
-                GetElement(index).Data = value;
-            }
-        }
-
-        /// <summary>
-        /// Method which is used in indexor.
-        /// </summary>
-        /// <param name="index">Position of the element.</param>
-        /// <returns>Current element.</returns>
-        private ElementOfList GetElement(int index)
+        /// <param name="index">Position of the element in the list.</param>
+        /// <param name="data">Value of the element.</param>
+        public virtual void SetValueByPosition(int index, string data)
         {
             if (index < 0 || index > Size)
             {
-                return default;
+                throw new ArgumentOutOfRangeException();
             }
-            ElementOfList current = Head;
+
+            var currentElement = FindingElement(index);
+            currentElement.Data = data;
+        }
+
+        /// <summary>
+        /// Mathod to find element.
+        /// </summary>
+        /// <param name="index">Position of the element in the list.</param>
+        /// <returns>Elemenent to find.</returns>
+        private ElementOfList FindingElement(int index)
+        {
+            var currentElement = Head;
             for (int i = 0; i < index; ++i)
             {
-                current = current.Next;
+                currentElement = currentElement.Next;
             }
-            return current;
+            return currentElement;
+        }
+
+        /// <summary>
+        /// Method to get element by its position.
+        /// </summary>
+        /// <param name="index">Position of the element in the list.</param>
+        /// <returns>Value of the element.</returns>
+        public string GetElementByPosition(int index)
+        {
+            if (index < 0 || index > Size)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var currentElement = FindingElement(index);
+            return currentElement.Data;
         }
 
         /// <summary>

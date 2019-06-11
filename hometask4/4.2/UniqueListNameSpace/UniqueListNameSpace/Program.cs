@@ -12,8 +12,7 @@ namespace UniqueListNameSpace
                 var uniqueList = new UniqueList();
                 uniqueList.AddAt(0, "apple");
                 uniqueList.AddAt(1, "lemon");
-                uniqueList[0] = "apple";
-                uniqueList[1] = "apple";
+                uniqueList.SetValueByPosition(1, "apple");
             }
             catch (AddSameElementsException exception)
             {
