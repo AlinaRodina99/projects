@@ -1,4 +1,5 @@
 ﻿using System;
+using LinkedList;
 
 namespace UniqueListNameSpace
 {
@@ -9,15 +10,10 @@ namespace UniqueListNameSpace
             try
             {
                 var uniqueList = new UniqueList();
-                uniqueList.RemoveByData("apple");
-                uniqueList.AddAt(0, "apple");
                 uniqueList.AddAt(0, "apple");
                 uniqueList.AddAt(1, "lemon");
-                uniqueList.AddAt(2, "banana");
-                uniqueList.PrintList();
-                uniqueList.RemoveByData("lemon");
-                uniqueList.PrintList();
-                uniqueList.RemoveByData("melon");
+                uniqueList[0] = "apple";
+                uniqueList[1] = "apple";
             }
             catch (AddSameElementsException exception)
             {

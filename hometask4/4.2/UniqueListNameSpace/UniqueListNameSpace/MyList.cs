@@ -11,7 +11,7 @@ namespace LinkedList
         /// <summary>
         /// Private class for element of the list with all nesessary properties.
         /// </summary>
-        protected class ElementOfList
+        private class ElementOfList
         {
             /// <summary>
             /// Property for value of the element.
@@ -155,7 +155,7 @@ namespace LinkedList
         /// </summary>
         /// <param name="index">Position of the element.</param>
         /// <returns>String value of the element.</returns>
-        public string this[int index]
+        public virtual string this[int index]
         {
             get
             {
@@ -184,7 +184,7 @@ namespace LinkedList
         {
             if (index < 0 || index > Size)
             {
-                return default(ElementOfList);
+                return default;
             }
             ElementOfList current = Head;
             for (int i = 0; i < index; ++i)

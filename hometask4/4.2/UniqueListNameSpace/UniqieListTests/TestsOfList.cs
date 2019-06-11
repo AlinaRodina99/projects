@@ -83,6 +83,6 @@ namespace Tests
             Assert.IsTrue(uniqueList.DoesElementExist("apple"));
         }
 
-        UniqueList uniqueList;
+        private UniqueList uniqueList;
     }
 }
