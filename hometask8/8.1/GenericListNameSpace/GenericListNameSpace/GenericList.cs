@@ -14,21 +14,21 @@ namespace GenericListNameSpace
         /// Private class for the element of the list.
         /// </summary>
         /// <typeparam name="W">Generic parameter.</typeparam>
-        private class ElementOfList<W>
+        private class ElementOfList
         {
-            public ElementOfList(W data)
+            public ElementOfList(T data)
             {
                 Data = data;
             }
-            public W Data { get; set; }
-            public ElementOfList<W> Next { get; set; }
-            public ElementOfList<W> Previous { get; set; }
+            public T Data { get; set; }
+            public ElementOfList Next { get; set; }
+            public ElementOfList Previous { get; set; }
         }
 
         /// <summary>
         /// Private variable for the top of the list.
         /// </summary>
-        private ElementOfList<T> head = null;
+        private ElementOfList head = null;
 
         /// <summary>
         /// Indexer to get list item by index or set value by index.
@@ -41,7 +41,7 @@ namespace GenericListNameSpace
             {
                 if (GetElement(index) == null)
                 {
-                    return default;
+                    throw new ArgumentNullException();
                 }
                 return GetElement(index).Data;
             }
@@ -49,7 +49,7 @@ namespace GenericListNameSpace
             {
                 if (GetElement(index) == null)
                 {
-                    return;
+                    throw new ArgumentNullException();
                 }
                 GetElement(index).Data = value;
             }
@@ -60,18 +60,27 @@ namespace GenericListNameSpace
         /// </summary>
         /// <param name="index">Index of the element.</param>
         /// <returns>Element that user wants.</returns>
-        private ElementOfList<T> GetElement(int index)
+        private ElementOfList GetElement(int index)
         {
             if (index < 0 || index > Count)
             {
-                return default;
+                throw new ArgumentNullException();
             }
-            ElementOfList<T> current = head;
+            ElementOfList current = head;
             for (int i = 0; i < index; ++i)
             {
                 current = current.Next;
             }
             return current;
+        }
+
+        private ElementOfList ByPass(ElementOfList currentElement)
+        {
+            while (currentElement.Next != null)
+            {
+                currentElement = currentElement.Next;
+            }
+            return currentElement;
         }
         
         /// <summary>
@@ -92,17 +101,14 @@ namespace GenericListNameSpace
         {
             if (head == null)
             {
-                head = new ElementOfList<T>(item);
+                head = new ElementOfList(item);
                 ++Count;
             }
             else
             {
                 var currentElement = head;
-                while (currentElement.Next != null)
-                {
-                    currentElement = currentElement.Next;
-                }
-                currentElement.Next = new ElementOfList<T>(item);
+                currentElement = ByPass(currentElement);
+                currentElement.Next = new ElementOfList(item);
                 currentElement.Next.Previous = currentElement; 
                 ++Count;
             }
@@ -113,11 +119,8 @@ namespace GenericListNameSpace
         /// </summary>
         public void Clear()
         {
-            for (int i = Count - 1; i > 0; --i)
-            {
-                RemoveAt(i);
-                --Count;
-            }
+            head = null;
+            Count = 0;
         }
 
         /// <summary>
@@ -187,15 +190,14 @@ namespace GenericListNameSpace
         {
             if (index < 0 || index > Count)
             {
-                Console.WriteLine("Index is negative or larger than the list size!");
-                return;
+                throw new ArgumentNullException();
             }
-            var thisElement = new ElementOfList<T>(item);
-            ElementOfList<T> current = head;
+            var thisElement = new ElementOfList(item);
+            ElementOfList current = head;
             int currentIndex = 0;
             if (index == 0)
             {
-                ElementOfList<T> temp = head;
+                ElementOfList temp = head;
                 head = thisElement;
                 head.Next = temp;
                 ++Count;
@@ -257,11 +259,10 @@ namespace GenericListNameSpace
         {
             if (index < 0 || index > Count)
             {
-                Console.WriteLine("Index is negative or larger than the list size!");
-                return;
+                throw new ArgumentNullException();
             }
-            ElementOfList<T> current = head;
-            ElementOfList<T> currentPrevious = null;
+            ElementOfList current = head;
+            ElementOfList currentPrevious = null;
             int currentIndex = 0;
             while (current != null)
             {
@@ -301,9 +302,6 @@ namespace GenericListNameSpace
         /// Method which returns enumerator of the list.
         /// </summary>
         /// <returns>Method to list elements.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

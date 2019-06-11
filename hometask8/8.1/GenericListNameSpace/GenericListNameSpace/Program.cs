@@ -12,12 +12,7 @@ namespace GenericListNameSpace
             myList.Add(7);
             myList.Add(8);
             myList.Add(10);
-            myList.RemoveAt(0);
-            myList.RemoveAt(0);
-            myList.RemoveAt(0);
-            myList.RemoveAt(0);
-            myList.RemoveAt(0);
-            Console.WriteLine(myList.Count);
+            myList.Clear();
         }
     }
 }

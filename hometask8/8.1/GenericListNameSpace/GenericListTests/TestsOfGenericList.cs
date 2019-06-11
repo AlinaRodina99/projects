@@ -71,8 +71,8 @@ namespace Tests
             myList.Add("Mark");
             myList.Add("Liza");
             myList.Add("John");
-            Assert.AreEqual(false, myList.Contains("Michael"));
-            Assert.AreEqual(true, myList.Contains("Liza"));
+            Assert.IsFalse(myList.Contains("Michael"));
+            Assert.IsTrue(myList.Contains("Liza"));
         }
 
         [Test]
@@ -98,8 +98,8 @@ namespace Tests
             Assert.AreEqual("Mark", array[0]);
             Assert.AreEqual("Liza", array[1]);
             Assert.AreEqual("John", array[2]);
-            Assert.AreEqual(null, array[3]);
-            Assert.AreEqual(null, array[4]);
+            Assert.IsNull(array[3]);
+            Assert.IsNull(array[4]);
         }
 
         [Test]
@@ -110,11 +110,11 @@ namespace Tests
             myList.Add("John");
             myList.Add("Michael");
             myList.Add("Paul");
-            Assert.AreEqual(true, myList.Remove("Mark"));
-            Assert.AreEqual(true, myList.Remove("Liza"));
-            Assert.AreEqual(true, myList.Remove("John"));
-            Assert.AreEqual(true, myList.Remove("Michael"));
-            Assert.AreEqual(true, myList.Remove("Paul"));
+            Assert.IsTrue(myList.Remove("Mark"));
+            Assert.IsTrue(myList.Remove("Liza"));
+            Assert.IsTrue(myList.Remove("John"));
+            Assert.IsTrue(myList.Remove("Michael"));
+            Assert.IsTrue(myList.Remove("Paul"));
             Assert.AreEqual(0, myList.Count);
         }
 
@@ -153,7 +153,7 @@ namespace Tests
             myList.Add("John");
             myList.Add("Michael");
             myList.Add("Paul");
-            Assert.AreEqual(false, myList.Remove("Laura"));
+            Assert.IsFalse(myList.Remove("Laura"));
         }
 
         private GenericList<string> myList; 
