@@ -8,3 +8,4 @@ build:
 
 test_script:
   - dotnet test hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+
