@@ -1,6 +1,6 @@
 image: Visual Studio 2017
-
 before_build:
+
   - nuget restore hometask3/3.2/HashTable/HashTable.sln
 
 build:
