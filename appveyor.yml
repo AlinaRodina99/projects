@@ -1,3 +1,4 @@
+
 image: Visual Studio 2019 Preview
 
 before_build:
@@ -7,4 +8,5 @@ build:
    project: hometask6/6.2/ConsoleGame/ConsoleGame.sln
 
 test_script:
+
   - dotnet test hometask6/6.2/ConsoleGame/ConsoleGame.sln
