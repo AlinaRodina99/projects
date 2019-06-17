@@ -2,11 +2,8 @@
 image: Visual Studio 2019 Preview
 
 before_build:
-  - nuget restore hometask6/6.2/ConsoleGame/ConsoleGame.sln
+  - nuget restore hometask7/7.2/ClockApplication/ClockApplication.sln
 
 build:
-   project: hometask6/6.2/ConsoleGame/ConsoleGame.sln
+   project: hometask7/7.2/ClockApplication/ClockApplication.sln
 
-test_script:
-
-  - dotnet test hometask6/6.2/ConsoleGame/ConsoleGame.sln
