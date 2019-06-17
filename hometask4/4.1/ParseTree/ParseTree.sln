@@ -1,7 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
+
+
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseTree", "ParseTree\ParseTree.csproj", "{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}"
 EndProject

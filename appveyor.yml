@@ -1,6 +1,8 @@
-image: Visual Studio 2017
+
+image: Visual Studio 2019 Preview
 
 before_build:
+
   - nuget restore hometask8/8.2/SetNameSpace/SetNameSpace.sln
 
 build:
@@ -8,3 +10,4 @@ build:
 
 test_script:
   - dotnet test hometask8/8.2/SetNameSpace/SetNameSpace.sln
+
