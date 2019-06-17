@@ -1,12 +1,12 @@
-image: Visual Studio 2019
 
+image: Visual Studio 2019 Preview
 
 before_build:
-
-  - nuget restore hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
+  - nuget restore hometask6/6.2/ConsoleGame/ConsoleGame.sln
 
 build:
-   project: hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
-test_script:
-  - dotnet test hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
+   project: hometask6/6.2/ConsoleGame/ConsoleGame.sln
 
+test_script:
+
+  - dotnet test hometask6/6.2/ConsoleGame/ConsoleGame.sln
