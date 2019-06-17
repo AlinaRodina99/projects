@@ -1,8 +1,14 @@
 image: Visual Studio 2017
 before_build:
 
-  - nuget restore hometask2/2.3/StackCalculator/StackCalculator.sln 
+
+  - nuget restore hometask3/3.1/StackCalculatorNameSpace/StackCalculatorNameSpace.sln
 
 build:
-   project: hometask2/2.3/StackCalculator/StackCalculator.sln 
+   project: hometask3/3.1/StackCalculatorNameSpace/StackCalculatorNameSpace.sln
+
+
+test_script:
+  - dotnet test hometask3/3.1/StackCalculatorNameSpace/StackCalculatorNameSpace.sln
+
 
