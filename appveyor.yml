@@ -2,11 +2,12 @@
 image: Visual Studio 2019 Preview
 
 before_build:
-  - nuget restore hometask8/8.1/GenericListNameSpace/GenericListNameSpace.sln
+
+  - nuget restore hometask8/8.2/SetNameSpace/SetNameSpace.sln
 
 build:
-   project: hometask8/8.1/GenericListNameSpace/GenericListNameSpace.sln
+   project: hometask8/8.2/SetNameSpace/SetNameSpace.sln
 
 test_script:
-  - dotnet test hometask8/8.1/GenericListNameSpace/GenericListNameSpace.sln
+  - dotnet test hometask8/8.2/SetNameSpace/SetNameSpace.sln
 
