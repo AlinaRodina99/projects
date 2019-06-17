@@ -1,10 +1,12 @@
 image: Visual Studio 2017
-before_build:
 
-  - nuget restore hometask3/3.2/HashTable/HashTable.sln
+
+before_build:
+  - nuget restore hometask4/4.1/ParseTree/ParseTree.sln
 
 build:
-   project: hometask3/3.2/HashTable/HashTable.sln
+   project: hometask4/4.1/ParseTree/ParseTree.sln
 
 test_script:
-  - dotnet test hometask3/3.2/HashTable/HashTable.sln
+  - dotnet test hometask4/4.1/ParseTree/ParseTree.sln
+
