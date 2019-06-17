@@ -3,12 +3,10 @@ image: Visual Studio 2019
 
 before_build:
 
-  - nuget restore hometask4/4.2/UniqueListNameSpace/UniqueListNameSpace.sln
+  - nuget restore hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
 
 build:
-   project: hometask4/4.2/UniqueListNameSpace/UniqueListNameSpace.sln
-
+   project: hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
 test_script:
-  - dotnet test hometask4/4.2/UniqueListNameSpace/UniqueListNameSpace.sln
-
+  - dotnet test hometask6/6.1/FunctionsOfList/FunctionsOfList.sln
 
