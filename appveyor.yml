@@ -2,11 +2,7 @@
 image: Visual Studio 2019 Preview
 
 before_build:
-  - nuget restore FinalTest1.4/CompressArrayNameSpace/CompressArrayNameSpace.sln
-
+  - nuget restore Tests/RunningButton.sln
 build:
-   project: FinalTest1.4/CompressArrayNameSpace/CompressArrayNameSpace.sln
-
-test_script:
-  - dotnet test FinalTest1.4/CompressArrayNameSpace/CompressArrayNameSpace.sln
+   project: Tests/RunningButton.sln
 
