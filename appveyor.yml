@@ -1,6 +1,8 @@
+
 image: Visual Studio 2019 Preview
 
 before_build:
   - nuget restore Tests/RunningButton.sln
 build:
    project: Tests/RunningButton.sln
+

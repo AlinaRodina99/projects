@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+
+
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseTree", "ParseTree\ParseTree.csproj", "{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParseTree.Tests", "ParseTree.Tests\ParseTree.Tests.csproj", "{AA716333-F257-4C8F-B951-C86B80934C0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{13841E8B-DAC7-4AE0-B93C-4280278D8BD3}"
+	ProjectSection(SolutionItems) = preProject
+		ParseTree\AddTest.txt = ParseTree\AddTest.txt
+		ParseTree\AnotherLongExpressionTest.txt = ParseTree\AnotherLongExpressionTest.txt
+		ParseTree\BigNumbersTest.txt = ParseTree\BigNumbersTest.txt
+		ParseTree\BothNumbersAreZeroTest.txt = ParseTree\BothNumbersAreZeroTest.txt
+		ParseTree\DivideByZeroTest.txt = ParseTree\DivideByZeroTest.txt
+		ParseTree\DivisionTest.txt = ParseTree\DivisionTest.txt
+		ParseTree\LongExpressionTest.txt = ParseTree\LongExpressionTest.txt
+		ParseTree\MultiplicationTest.txt = ParseTree\MultiplicationTest.txt
+		ParseTree\NegativeNumbersTest.txt = ParseTree\NegativeNumbersTest.txt
+		ParseTree\NumberPlusZeroTest.txt = ParseTree\NumberPlusZeroTest.txt
+		ParseTree\SubtractionTest.txt = ParseTree\SubtractionTest.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1A85B0-E0A2-456D-99AA-DE72B1A4C1D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA716333-F257-4C8F-B951-C86B80934C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA716333-F257-4C8F-B951-C86B80934C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA716333-F257-4C8F-B951-C86B80934C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA716333-F257-4C8F-B951-C86B80934C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FACF631F-95B1-4A91-8C6B-43FE4E4C8B14}
+	EndGlobalSection
+EndGlobal
