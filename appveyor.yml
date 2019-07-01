@@ -1,11 +1,13 @@
+
 image: Visual Studio 2019 Preview
 
 before_build:
   - nuget restore hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
-
+  
 build:
    project: hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
 
 test_script:
   - dotnet test hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+
 

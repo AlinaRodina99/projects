@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompressArrayNameSpace", "CompressArrayNameSpace\CompressArrayNameSpace.csproj", "{78AF43A7-B85D-4D6F-B3AF-D5D86CAC915F}"
+EndProject
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F4150DA2-9785-41CD-A1CA-CED3D969A878}"
+
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78AF43A7-B85D-4D6F-B3AF-D5D86CAC915F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78AF43A7-B85D-4D6F-B3AF-D5D86CAC915F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78AF43A7-B85D-4D6F-B3AF-D5D86CAC915F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78AF43A7-B85D-4D6F-B3AF-D5D86CAC915F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4150DA2-9785-41CD-A1CA-CED3D969A878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4150DA2-9785-41CD-A1CA-CED3D969A878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4150DA2-9785-41CD-A1CA-CED3D969A878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4150DA2-9785-41CD-A1CA-CED3D969A878}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC5666D8-DD60-4174-BBBB-C11C1ABC5EF5}
+	EndGlobalSection
+EndGlobal
