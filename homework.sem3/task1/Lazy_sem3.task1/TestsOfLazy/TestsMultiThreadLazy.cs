@@ -22,32 +22,6 @@ namespace TestsOfLazy
         }
 
         [Test]
-        public void OneThreadThrowsNullExceptionTest()
-        {
-            var lazy = LazyFactory<int>.CreateMultiThreadLazy(null);
-            for (var i = 0; i < 3; ++i)
-            {
-                var currentThread = new Thread(delegate () { lazy.Get(); });
-                currentThread.Start();
-                currentThread.Join();
-            }
-            Assert.Throws<NullReferenceException>(() => lazy.Get());
-        }
-
-        [Test]
-        public void OneThreadThrowsArgumentExceptionTest()
-        {
-            var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => throw new ArgumentException());
-            for (var i = 0; i < 3; ++i)
-            {
-                var currentThread = new Thread(delegate () { lazy.Get(); });
-                currentThread.Start();
-                currentThread.Join();
-            }
-            Assert.Throws<ArgumentException>(() => lazy.Get());
-        }
-
-        [Test]
         public void FuncReturnsNullTest()
         {
             var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => null);
