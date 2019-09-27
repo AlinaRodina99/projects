@@ -12,9 +12,12 @@ namespace TestsOfLazy
         {
             var current = 6;
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => ++current);
-            var firstThread = new Thread(delegate() { lazy.Get(); });
-            var secondThread = new Thread(delegate() { lazy.Get(); });
-            var thirdThread = new Thread(delegate () { lazy.Get(); });
+            for (var i = 0; i < 3; ++i)
+            {
+                var currentThread = new Thread(delegate () { lazy.Get(); });
+                currentThread.Start();
+                currentThread.Join();
+            }
             Assert.AreEqual(lazy.Get(), 7);
         }
 
@@ -22,9 +25,12 @@ namespace TestsOfLazy
         public void OneThreadThrowsNullExceptionTest()
         {
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(null);
-            var firstThread = new Thread(delegate () { lazy.Get(); });
-            var secondThread = new Thread(delegate () { lazy.Get(); });
-            var thirdThread = new Thread(delegate () { lazy.Get(); });
+            for (var i = 0; i < 3; ++i)
+            {
+                var currentThread = new Thread(delegate () { lazy.Get(); });
+                currentThread.Start();
+                currentThread.Join();
+            }
             Assert.Throws<NullReferenceException>(() => lazy.Get());
         }
 
@@ -32,9 +38,12 @@ namespace TestsOfLazy
         public void OneThreadThrowsArgumentExceptionTest()
         {
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => throw new ArgumentException());
-            var firstThread = new Thread(delegate () { lazy.Get(); });
-            var secondThread = new Thread(delegate () { lazy.Get(); });
-            var thirdThread = new Thread(delegate () { lazy.Get(); });
+            for (var i = 0; i < 3; ++i)
+            {
+                var currentThread = new Thread(delegate () { lazy.Get(); });
+                currentThread.Start();
+                currentThread.Join();
+            }
             Assert.Throws<ArgumentException>(() => lazy.Get());
         }
 
@@ -42,9 +51,12 @@ namespace TestsOfLazy
         public void FuncReturnsNullTest()
         {
             var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => null);
-            var firstThread = new Thread(delegate () { lazy.Get(); });
-            var secondThread = new Thread(delegate () { lazy.Get(); });
-            var thirdThread = new Thread(delegate () { lazy.Get(); });
+            for (var i = 0; i < 3; ++i)
+            {
+                var currentThread = new Thread(delegate () { lazy.Get(); });
+                currentThread.Start();
+                currentThread.Join();
+            }
             Assert.AreEqual(lazy.Get(), null);
         }
 
@@ -53,9 +65,12 @@ namespace TestsOfLazy
         {
             var current = 7;
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => --current);
-            var firstThread = new Thread(delegate () { lazy.Get(); });
-            var secondThread = new Thread(delegate () { lazy.Get(); });
-            var thirdThread = new Thread(delegate () { lazy.Get(); });
+            for (var i = 0; i < 3; ++i)
+            {
+                var currentThread = new Thread(delegate () { lazy.Get(); });
+                currentThread.Start();
+                currentThread.Join();
+            }
             Assert.AreEqual(lazy.Get(), 6);
         }
     }
