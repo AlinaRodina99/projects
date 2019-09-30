@@ -8,10 +8,18 @@ namespace Lazy_sem3.task1
     public class OneThreadLazy<T> : ILazy<T>
     {
         /// <summary>
-        /// Variables for lazy computation, result of computation and check box to know if the value has already been calculated.
+        /// Variable for lazy computation.
         /// </summary>
         private Func<T> func;
+
+        /// <summary>
+        /// Variable for result of computation.
+        /// </summary>
         private T result;
+
+        /// <summary>
+        /// Variable check box to know if the value has already been calculated.
+        /// </summary>
         private bool hasValue;
 
         /// <summary>
@@ -19,7 +27,10 @@ namespace Lazy_sem3.task1
         /// </summary>
         public OneThreadLazy(Func<T> func)
         {
-            this.func = func;
+            if (func != null)
+            {
+                this.func = func;
+            }
             hasValue = false;
         }
 
@@ -28,15 +39,11 @@ namespace Lazy_sem3.task1
         /// </summary>
         public T Get()
         {
-            if (func == null)
-            {
-                throw new NullReferenceException();
-            }
-
             if (!hasValue)
             {
                 result = func();
                 hasValue = true;
+                func = null;
                 return result;
             }
 

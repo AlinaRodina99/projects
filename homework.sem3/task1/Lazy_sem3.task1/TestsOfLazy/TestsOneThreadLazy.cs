@@ -10,7 +10,7 @@ namespace Tests
         public void WhenItAllWorksTest()
         {
             var lazy = LazyFactory<int>.CreateOneThreadLazy(() => 34);
-            Assert.AreEqual(lazy.Get(), 34);
+            Assert.AreEqual(34, lazy.Get());
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Tests
         public void FuncReturnsNullTest()
         {
             var lazy = LazyFactory<object>.CreateOneThreadLazy(() => null);
-            Assert.AreEqual(lazy.Get(), null);
+            Assert.AreSame(null, lazy.Get());
         }
     }
 }

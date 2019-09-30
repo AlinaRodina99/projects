@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
 using Lazy_sem3.task1;
-using System;
 
 namespace TestsOfLazy
 {
@@ -12,26 +11,44 @@ namespace TestsOfLazy
         {
             var current = 6;
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => ++current);
+            var threads = new Thread[3];
             for (var i = 0; i < 3; ++i)
             {
-                var currentThread = new Thread(delegate () { lazy.Get(); });
-                currentThread.Start();
-                currentThread.Join();
+                threads[i] = new Thread(() => lazy.Get());
             }
-            Assert.AreEqual(lazy.Get(), 7);
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Start();
+            }
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Join();
+            }
+            Assert.AreEqual(7, lazy.Get());
         }
 
         [Test]
         public void FuncReturnsNullTest()
         {
             var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => null);
+            var threads = new Thread[3];
             for (var i = 0; i < 3; ++i)
             {
-                var currentThread = new Thread(delegate () { lazy.Get(); });
-                currentThread.Start();
-                currentThread.Join();
+                threads[i] = new Thread(() => lazy.Get());
             }
-            Assert.AreEqual(lazy.Get(), null);
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Start();
+            }
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Join();
+            }
+            Assert.AreEqual(null, lazy.Get());
         }
 
         [Test]
@@ -39,13 +56,22 @@ namespace TestsOfLazy
         {
             var current = 7;
             var lazy = LazyFactory<int>.CreateMultiThreadLazy(() => --current);
+            var threads = new Thread[3];
             for (var i = 0; i < 3; ++i)
             {
-                var currentThread = new Thread(delegate () { lazy.Get(); });
-                currentThread.Start();
-                currentThread.Join();
+                threads[i] = new Thread(() => lazy.Get());
             }
-            Assert.AreEqual(lazy.Get(), 6);
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Start();
+            }
+
+            for (var i = 0; i < 3; ++i)
+            {
+                threads[i].Join();
+            }
+            Assert.AreEqual(6, lazy.Get());
         }
     }
 }

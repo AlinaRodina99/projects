@@ -8,19 +8,34 @@ namespace Lazy_sem3.task1
     public class MultiThreadLazy<T> : ILazy<T>
     {
         /// <summary>
-        /// Variables for stab object, lazy computation, result of computation and check box to know if the value has already been calculated.
+        /// Variable for stab object.
         /// </summary>
         private object locker = new object();
+
+        /// <summary>
+        /// Variable for lazy computation.
+        /// </summary>
         private Func<T> func;
+
+        /// <summary>
+        /// Variavle for result of computation.
+        /// </summary>
         private T result;
-        private bool hasValue;
+
+        /// <summary>
+        /// Variable for check box to know if the value has already been calculated.
+        /// </summary>
+        private volatile bool hasValue;
 
         /// <summary>
         /// Constructor of the class that initializes function and makes check box value false.
         /// </summary>
         public MultiThreadLazy(Func<T> func)
         {
-            this.func = func;
+            if (func != null)
+            {
+                this.func = func;
+            }
             hasValue = false;
         }
 
@@ -40,6 +55,7 @@ namespace Lazy_sem3.task1
                 {
                     result = func();
                     hasValue = true;
+                    func = null;
                     return result;
                 }
 
