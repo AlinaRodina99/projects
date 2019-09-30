@@ -48,7 +48,7 @@ namespace TestsOfLazy
             {
                 threads[i].Join();
             }
-            Assert.AreEqual(null, lazy.Get());
+            Assert.IsNull(lazy.Get());
         }
 
         [Test]

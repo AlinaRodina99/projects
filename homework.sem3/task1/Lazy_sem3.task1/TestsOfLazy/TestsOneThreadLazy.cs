@@ -16,8 +16,8 @@ namespace Tests
         [Test]
         public void SupplierIsNullTest()
         {
-            var lazy = LazyFactory<int>.CreateOneThreadLazy(null);
-            Assert.Throws<NullReferenceException>(() => lazy.Get());
+            OneThreadLazy<int> lazy;
+            Assert.Throws<ArgumentNullException>(() => lazy = LazyFactory<int>.CreateOneThreadLazy(null));
         }
 
         [Test]

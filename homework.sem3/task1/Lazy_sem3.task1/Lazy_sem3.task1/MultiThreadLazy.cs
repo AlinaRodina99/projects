@@ -32,10 +32,11 @@ namespace Lazy_sem3.task1
         /// </summary>
         public MultiThreadLazy(Func<T> func)
         {
-            if (func != null)
+            if (func == null)
             {
-                this.func = func;
+                throw new ArgumentNullException();
             }
+            this.func = func;
             hasValue = false;
         }
 
