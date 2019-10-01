@@ -28,10 +28,26 @@ namespace Tests
         }
 
         [Test]
-        public void FuncReturnsNullTest()
+        public void FuncReturnsNullTests()
         {
             var lazy = LazyFactory<object>.CreateOneThreadLazy(() => null);
-            Assert.AreSame(null, lazy.Get());
+            Assert.AreEqual(null, lazy.Get());
+        }
+
+        [Test]
+        public void AreObjectsSameWithOneThreadLazyTest()
+        {
+            var lazy = LazyFactory<object>.CreateOneThreadLazy(() => 35);
+            Assert.AreEqual(35, lazy.Get());
+            Assert.AreEqual(35, lazy.Get());
+        }
+
+        [Test]
+        public void AreObjectsSameWithMultiThreadLazy()
+        {
+            var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => 35);
+            Assert.AreEqual(35, lazy.Get());
+            Assert.AreEqual(35, lazy.Get());
         }
     }
 }
