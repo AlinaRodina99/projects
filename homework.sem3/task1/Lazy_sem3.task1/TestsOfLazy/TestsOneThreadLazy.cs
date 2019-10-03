@@ -37,17 +37,19 @@ namespace Tests
         [Test]
         public void AreObjectsSameWithOneThreadLazyTest()
         {
-            var lazy = LazyFactory<object>.CreateOneThreadLazy(() => 35);
-            Assert.AreEqual(35, lazy.Get());
-            Assert.AreEqual(35, lazy.Get());
+            var lazy = LazyFactory<object>.CreateOneThreadLazy(() => DateTime.Now);
+            var time = lazy.Get();
+            Assert.AreEqual(time, lazy.Get());
+            Assert.AreEqual(time, lazy.Get());
         }
 
         [Test]
         public void AreObjectsSameWithMultiThreadLazy()
         {
-            var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => 35);
-            Assert.AreEqual(35, lazy.Get());
-            Assert.AreEqual(35, lazy.Get());
+            var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => DateTime.Now);
+            var time = lazy.Get();
+            Assert.AreEqual(time, lazy.Get());
+            Assert.AreEqual(time, lazy.Get());
         }
     }
 }
