@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Lazy_sem3.task1;
+using System.Threading;
 using System;
 
 namespace Tests
@@ -35,21 +36,18 @@ namespace Tests
         }
 
         [Test]
-        public void AreObjectsSameWithOneThreadLazyTest()
+        public void GetCalculatedOnceTest()
         {
-            var lazy = LazyFactory<object>.CreateOneThreadLazy(() => DateTime.Now);
-            var time = lazy.Get();
-            Assert.AreEqual(time, lazy.Get());
-            Assert.AreEqual(time, lazy.Get());
+            var current = 6;
+            var lazy = LazyFactory<int>.CreateOneThreadLazy(() => ++current);
+            Assert.AreEqual(7, lazy.Get());
+            Assert.AreEqual(7, lazy.Get());
         }
 
         [Test]
-        public void AreObjectsSameWithMultiThreadLazy()
+        public void AreObjectsSameTest()
         {
-            var lazy = LazyFactory<object>.CreateMultiThreadLazy(() => DateTime.Now);
-            var time = lazy.Get();
-            Assert.AreEqual(time, lazy.Get());
-            Assert.AreEqual(time, lazy.Get());
+
         }
     }
 }

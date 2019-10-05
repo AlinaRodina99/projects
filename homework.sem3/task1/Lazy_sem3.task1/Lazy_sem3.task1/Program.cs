@@ -7,7 +7,9 @@ namespace Lazy_sem3.task1
     {
         static void Main(string[] args)
         {
-
+            var lazy = LazyFactory<int>.CreateOneThreadLazy(() => 4 * 2);
+            lazy.Get();
+            var result = lazy.Get();
         }
     }
 }
