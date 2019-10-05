@@ -45,23 +45,20 @@ namespace Lazy_sem3.task1
         /// </summary>
         public T Get()
         {
-            if (hasValue)
+            if (!hasValue)
             {
-                return result;
-            }
-
-            lock(locker)
-            {
-                if (!hasValue)
+                lock(locker)
                 {
-                    result = func();
-                    hasValue = true;
-                    func = null;
-                    return result;
+                    if (!hasValue)
+                    {
+                        result = func();
+                        hasValue = true;
+                        func = null;
+                    }
                 }
-
-                return result;
             }
+
+            return result;
         }
     }
 }

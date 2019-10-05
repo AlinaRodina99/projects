@@ -45,7 +45,6 @@ namespace Lazy_sem3.task1
                 result = func();
                 hasValue = true;
                 func = null;
-                return result;
             }
 
             return result;
