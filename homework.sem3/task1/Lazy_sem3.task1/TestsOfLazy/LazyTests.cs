@@ -5,7 +5,7 @@ using System;
 
 namespace Tests
 {
-    public class TestsOneThreadLazy
+    public class LazyTests
     {
         [Test]
         public void WhenItAllWorksTest()
@@ -47,8 +47,8 @@ namespace Tests
         [Test]
         public void AreObjectsSameWithOneThreadLazyTest()
         {
-            var func = new Func<string>(() => "Test");
-            var lazy = LazyFactory<string>.CreateOneThreadLazy(func);
+            var func = new Func<object>(() => new Test());
+            var lazy = LazyFactory<object>.CreateOneThreadLazy(func);
             var result = lazy.Get();
             Assert.IsTrue(result.Equals(lazy.Get()));
             Assert.IsTrue(result.Equals(lazy.Get()));
@@ -58,10 +58,10 @@ namespace Tests
         public void AreObjectsSameWithMultiThreadedLazyTest()
         {
             const int n = 5;
-            var func = new Func<int>(() => 5 * 2);
-            var lazy = LazyFactory<int>.CreateMultiThreadLazy(func);
+            var func = new Func<object>(() => new Test());
+            var lazy = LazyFactory<object>.CreateMultiThreadLazy(func);
             var threads = new Thread[n];
-            var results = new int[n];
+            var results = new object[n];
             for (var i = 0; i < n; ++i)
             {
                 var current = i;
@@ -83,5 +83,7 @@ namespace Tests
                 Assert.IsTrue(results[i].Equals(results[i + 1]));
             }
         }
+
+        private class Test { }
     }
 }
