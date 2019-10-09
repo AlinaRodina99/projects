@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListMethodsNameSpace", "ListMethodsNameSpace\ListMethodsNameSpace.csproj", "{1AEDB1B9-BC67-44BF-9149-490B7BE35E03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListMethodsTest", "ListMethodsTest\ListMethodsTest.csproj", "{843D560C-CA51-44F6-9161-60D8DF617531}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AEDB1B9-BC67-44BF-9149-490B7BE35E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEDB1B9-BC67-44BF-9149-490B7BE35E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEDB1B9-BC67-44BF-9149-490B7BE35E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEDB1B9-BC67-44BF-9149-490B7BE35E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843D560C-CA51-44F6-9161-60D8DF617531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843D560C-CA51-44F6-9161-60D8DF617531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843D560C-CA51-44F6-9161-60D8DF617531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843D560C-CA51-44F6-9161-60D8DF617531}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20EBF144-5F7B-4939-A1FC-D849F1974C39}
+	EndGlobalSection
+EndGlobal
