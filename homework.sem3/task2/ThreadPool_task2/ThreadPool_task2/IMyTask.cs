@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ThreadPool_task2
 {
-    interface IMyTask
+    public interface IMyTask<TResult>
     {
+        bool IsCompletedTask { get; }
+
+        TResult Result { get; }
+
+        IMyTask<TNewResult> ContinueWith<TNewResult>(Func<TResult, TNewResult> func);
     }
 }
