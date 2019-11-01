@@ -10,24 +10,20 @@ namespace ThreadPool_task2
            public MyTask(Func<TResult> func)
            {
                this.func = func;
-               taskStatus = TaskStatus.WaitingForActivation;
            }
 
-            private enum TaskStatus
-            { 
+           private enum TaskStatus
+           { 
                 Created,
                 WaitingForActivation,
-                WaitingToRun,
-                Running,
-                WaitingForChildrenToComplete,
                 RanToCompletion,
                 Canceled,
                 Faulted
-            }
+           }
 
             private Func<TResult> func;
-            private bool IsRunned;
-            private TaskStatus taskStatus;
+            private bool IsRunned = false;
+            private TaskStatus taskStatus = TaskStatus.WaitingForActivation;
 
             public bool IsCompletedTask
             {
@@ -47,12 +43,21 @@ namespace ThreadPool_task2
                 }
             }
 
-            public TResult Result => func.Invoke();
+            public TResult Result => func();
 
             public IMyTask<TNewResult> ContinueWith<TNewResult>(Func<TResult, TNewResult> func)
             {
                 var newFunc = new Func<TResult>(); 
                 return new MyTask(newFunc);
+            }
+
+            public void Execute()
+            {
+                lock (this)
+                {
+                    IsRunned = true;
+                    func();
+                }
             }
        }
 
