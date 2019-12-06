@@ -4,19 +4,42 @@ using System.Collections.Generic;
 
 namespace ThreadPool_task2
 {
-    public class MyThreadPool
+    public class MyThreadPool<TResult>
     {
         private readonly LinkedList<Thread> threads;
-        private readonly Queue<MyTask<TResult>> tasks;  
+        private readonly Queue<MyTask<TResult>> tasks = new Queue<MyTask<TResult>>();
+        private object locker = new object();
 
-        private 
-       public MyThreadPool(int count)
-       {
+        public void Enqueue(MyTask<TResult> myTask)
+        {
+            lock (locker)
+            {
+                tasks.Enqueue(myTask);
+            }
+        }
+
+        public MyThreadPool(int count)
+        {
             threads = new LinkedList<Thread>();
             for (var i = 0; i < count; ++i)
             {
-                var thread = new Thread(this.MemberwiseClone)
+                var thread = new Thread(Work);
+                thread.Start();
             }
-       }
+        }
+
+        public void Work()
+        {
+            try
+            {
+                lock (locker)
+                {
+                    if (tasks.Count > 0)
+                    {
+
+                    }
+                }
+            }
+        }
     }
 }

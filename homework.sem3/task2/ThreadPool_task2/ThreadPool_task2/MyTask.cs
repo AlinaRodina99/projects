@@ -9,15 +9,23 @@ namespace ThreadPool_task2
     public class MyTask<TResult> : IMyTask<TResult>
     {
         private Func<TResult> function;
-        private AutoResetEvent resetEvent = new AutoResetEvent(true);
-        private bool IsCompleted;
+        private AutoResetEvent readyResult = new AutoResetEvent(false);
         private MyThreadPool threadPool;
         private TResult result;
         private AggregateException aggregateException;
 
         public TResult Result
         {
-            get => result;
+            get
+            {
+                readyResult.WaitOne();
+                if (aggregateException != null)
+                {
+                    throw aggregateException;
+                }
+
+                return result;
+            }
             private set => result = value;
         }
 
@@ -27,19 +35,7 @@ namespace ThreadPool_task2
             this.threadPool = threadPool; 
         }
 
-        public bool IsCompletedTask
-        {
-            get
-            {
-                
-
-                return false;
-            }
-            set
-            {
-
-            }
-        }
+        public bool IsCompletedTask { get; private set; } = false;
 
         public void Execute()
         {
@@ -52,67 +48,11 @@ namespace ThreadPool_task2
                 aggregateException = new AggregateException(exception);
             }
 
-            IsCompleted = true;
+            IsCompletedTask = true;
             function = null;
-            resetEvent.Set();
+            readyResult.Set();
         }
 
-        #region
-        //private class MyTask : IMyTask<TResult>
-        //{
-        //    public MyTask(Func<TResult> func)
-        //    {
-        //        this.func = func;
-        //    }
-
-        //    private enum TaskStatus
-        //    {
-        //        Created,
-        //        WaitingForActivation,
-        //        RanToCompletion,
-        //        Canceled,
-        //        Faulted
-        //    }
-
-        //    private Func<TResult> func;
-        //    private bool IsRunned = false;
-        //    private TaskStatus taskStatus = TaskStatus.WaitingForActivation;
-
-        //    public bool IsCompletedTask
-        //    {
-        //        get
-        //        {
-        //            switch (taskStatus)
-        //            {
-        //                case TaskStatus.RanToCompletion:
-        //                    return true;
-        //                case TaskStatus.Faulted:
-        //                    return true;
-        //                case TaskStatus.Canceled:
-        //                    return true;
-        //                default:
-        //                    return false;
-        //            }
-        //        }
-        //    }
-
-        //    public TResult Result => func();
-
-        //    public IMyTask<TNewResult> ContinueWith<TNewResult>(Func<TResult, TNewResult> func)
-        //    {
-        //        var newFunc = new Func<TResult>();
-        //        return new MyTask(newFunc);
-        //    }
-
-        //    public void Execute()
-        //    {
-        //        lock (this)
-        //        {
-        //            IsRunned = true;
-        //            func();
-        //        }
-        //    }
-        //}
-        #endregion
+        public MyTask ContinueWith(Func<>)
     }
 }

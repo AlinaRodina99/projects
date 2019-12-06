@@ -4,7 +4,7 @@ namespace ThreadPool_task2
 {
     public interface IMyTask<TResult>
     {
-        bool IsCompletedTask { get; set; }
+        bool IsCompletedTask { get; }
 
         TResult Result { get; set; }
 
