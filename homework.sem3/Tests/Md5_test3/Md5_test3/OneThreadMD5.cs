@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Md5_test3
 {
+    /// <summary>
+    /// Class for implementing one thread MD5
+    /// </summary>
     public class OneThreadMD5
     {
         private MD5 hash;

@@ -31,6 +31,10 @@ namespace Md5_test3
             setResult.WaitOne();
             Thread.Sleep(10);
             stopWatch.Stop();
+            TimeSpan newTimeSpan = stopWatch.Elapsed;
+            string newElapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                timeSpan.Hours, timeSpan.Minutes, newTimeSpan.Seconds, newTimeSpan.Milliseconds / 10);
+            Console.WriteLine("RunTime " + newElapsedTime);
         }
     }
 }
