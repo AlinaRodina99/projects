@@ -55,7 +55,6 @@ namespace MyThreadPool
                         }
                     }
                 });
-                threads[i].IsBackground = true;
                 threads[i].Start();
             }
         }
