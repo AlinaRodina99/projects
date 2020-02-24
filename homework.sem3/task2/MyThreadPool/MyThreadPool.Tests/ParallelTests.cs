@@ -26,51 +26,29 @@ namespace MyThreadPool.Tests
         }
 
         [Test]
-        public void AmountOfThreadsTest()
+        public void AmountOfThreads()
         {
-            var count = 10;
-            threadPool = new MyThreadPool(count);
-            var bag = new ConcurrentBag<int>();
-
-            for (var i = 0; i < count; ++i)
-            {
-                threadPool.AddNewTask(() =>
-                {
-                    bag.Add(Thread.CurrentThread.ManagedThreadId);
-                    return i;
-                });
-            }
-
-            threadPool.Shutdown();
-            Assert.AreEqual(bag.Count(), bag.Distinct().Count());
+            Assert.IsTrue(new MyThreadPool(7).NumberOfThreads >= 7);
+            Assert.IsTrue(new MyThreadPool(10).NumberOfThreads >= 10);
         }
 
-
         [Test]
-        public void ThreadPoolTest()
+        public void ContinueWithTest()
         {
-            var threadPoolAmount = 3;
-            var threadPool = new MyThreadPool(threadPoolAmount);
-            var tasksAmount = 10;
-            var tasks = new ITask<int>[tasksAmount];
-            var taskExecute = new ManualResetEvent(false);
+            var pool = new MyThreadPool(5);
+            var task = pool.AddNewTask(() => 1000 + 1000);
 
-            for (var i = 0; i < tasksAmount; ++i)
-            {
-                var localI = i;
-                tasks[localI] = threadPool.AddNewTask(() =>
-                {
-                    taskExecute.WaitOne();
-                    Thread.Sleep(1000);
-                    return localI;
-                });
-            }
-            taskExecute.Set();
-            for (var i = 0; i < tasksAmount; ++i)
-            {
-                Assert.AreEqual(i, tasks[i].Result);
-            }
-            threadPool.Shutdown();
+            var newTask1 = task.ContinueWith((result) => result * 5);
+            var newTask2 = newTask1.ContinueWith((result) => result / 10000);
+
+            Assert.AreEqual(2000, task.Result);
+            Assert.IsTrue(task.IsCompleted);
+
+            Assert.AreEqual(10000, newTask1.Result);
+            Assert.IsTrue(newTask1.IsCompleted);
+
+            Assert.AreEqual(1, newTask2.Result);
+            Assert.IsTrue(newTask2.IsCompleted);
         }
 
         private MyThreadPool threadPool;

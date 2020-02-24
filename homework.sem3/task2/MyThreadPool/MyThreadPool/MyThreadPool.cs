@@ -11,6 +11,7 @@ namespace MyThreadPool
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
         private ConcurrentQueue<Action> tasksQueue = new ConcurrentQueue<Action>();
         private ManualResetEvent taskSignal = new ManualResetEvent(false);
+        private object locker = new object();
 
         public MyThreadPool(int count)
         {
@@ -23,7 +24,7 @@ namespace MyThreadPool
             CreateThreads(count);
         }
 
-        public int NumberOfThreads { get; }
+        public int NumberOfThreads { get; private set; }
 
         /// <summary>
         /// Property to know if thread pool is working.
@@ -72,7 +73,7 @@ namespace MyThreadPool
             {
                 throw new ThreadPoolException();
             }
-            
+
             tasksQueue.Enqueue(task.Calculations);
             taskSignal.Set();
         }

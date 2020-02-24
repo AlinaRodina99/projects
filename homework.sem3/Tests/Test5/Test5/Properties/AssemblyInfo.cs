@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные с этой сборкой.
-[assembly: AssemblyTitle("ThreadPool_task2")]
+[assembly: AssemblyTitle("Test5")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("ThreadPool_task2")]
+[assembly: AssemblyProduct("Test5")]
 [assembly: AssemblyCopyright("Copyright © HP Inc. 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID представляет идентификатор typelib, если этот проект доступен из модели COM
-[assembly: Guid("4d77c46b-ba4a-47cd-9a3d-4c885bc9e7e3")]
+[assembly: Guid("e6dff8f8-b02b-44cc-a158-e5adb15ab8a6")]
 
 // Сведения о версии сборки состоят из указанных ниже четырех значений:
 //

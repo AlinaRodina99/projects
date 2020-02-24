@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ThreadPool_task2
+namespace Test5
 {
     class Program
     {
