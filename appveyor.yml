@@ -1,13 +1,12 @@
-
-image: Visual Studio 2019 Preview
+image: Visual Studio 2019 
 
 before_build:
-  - nuget restore hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+  - nuget restore homework.sem3/task2/MyThreadPool/MyThreadPool.sln
   
 build:
-   project: hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+   project: homework.sem3/task2/MyThreadPool/MyThreadPool.sln
 
 test_script:
-  - dotnet test hometask7/7.1/CalculatorNameSpace/CalculatorNameSpace.sln
+  - dotnet test homework.sem3/task2/MyThreadPool/MyThreadPool.sln
 
 
