@@ -1,9 +1,9 @@
 language: csharp 
 
 install:
- - nuget restore howework.sem3/task2/MyThreadPool/MyThreadPool.sln
+ - nuget restore homework.sem3/task2/MyThreadPool/MyThreadPool.sln
  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
 script:
- - msbuild /p:Configuration=Release howework.sem3/task2/MyThreadPool/MyThreadPool.sln
+ - msbuild /p:Configuration=Release homework.sem3/task2/MyThreadPool/MyThreadPool.sln
  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe \
-    .howework.sem3/task2/MyThreadPool/MyThreadPool.sln
+    .homework.sem3/task2/MyThreadPool/MyThreadPool.sln
