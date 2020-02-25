@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace MyThreadPool
 {
+    /// <summary>
+    /// Class that implements thread pool.
+    /// </summary>
     public class MyThreadPool
     {
         private Thread[] threads;
@@ -23,7 +26,10 @@ namespace MyThreadPool
             NumberOfThreads = count;
             CreateThreads(count);
         }
-
+        
+        /// <summary>
+        /// Property to know amount of threads.
+        /// </summary>
         public int NumberOfThreads { get; private set; }
 
         /// <summary>
@@ -31,6 +37,10 @@ namespace MyThreadPool
         /// </summary>
         public bool IsWorking { get => tokenSource.IsCancellationRequested; }
 
+        /// <summary>
+        /// Method to start pool.
+        /// </summary>
+        /// <param name="count"></param>
         private void CreateThreads(int count)
         {
             threads = new Thread[count];
@@ -60,6 +70,12 @@ namespace MyThreadPool
             }
         }
 
+        /// <summary>
+        /// Method to add new task to the queue of the tasks.
+        /// </summary>
+        /// <typeparam name="TResult">Result of the function.</typeparam>
+        /// <param name="function">Input function.</param>
+        /// <returns>New task.</returns>
         public ITask<TResult> AddNewTask<TResult>(Func<TResult> function)
         {
             var newTask = new Task<TResult>(this, function);
@@ -78,10 +94,7 @@ namespace MyThreadPool
             taskSignal.Set();
         }
 
-        public void Shutdown()
-        {
-            tokenSource.Cancel();
-        }
+        public void Shutdown() => tokenSource.Cancel();
 
         public class Task<TResult> : ITask<TResult>
         {

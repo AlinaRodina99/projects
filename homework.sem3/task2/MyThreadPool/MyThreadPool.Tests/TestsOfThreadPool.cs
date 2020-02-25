@@ -5,24 +5,34 @@ using System.Linq;
 
 namespace MyThreadPool.Tests
 {
-    public class Tests
+    public class TestsOfThreadPool
     {
 
         [Test]
-        public void Test()
+        public void ManyTasksTest()
         {
             threadPool = new MyThreadPool(2);
-            var task1 = threadPool.AddNewTask(() => 3 + 10);
-            var task2 = threadPool.AddNewTask(() => 15 + 3);
+            var task1 = threadPool.AddNewTask(() => 20 + 10);
+            var task2 = threadPool.AddNewTask(() => 15 * 3);
             var task3 = threadPool.AddNewTask(() => 2 * 2);
 
-            Assert.AreEqual(13, task1.Result);
-            Assert.AreEqual(18, task2.Result);
+            Assert.AreEqual(30, task1.Result);
+            Assert.AreEqual(45, task2.Result);
             Assert.AreEqual(4, task3.Result);
 
             Assert.IsTrue(task1.IsCompleted);
             Assert.IsTrue(task2.IsCompleted);
             Assert.IsTrue(task3.IsCompleted);
+        }
+
+        [Test]
+        public void OneTaskManyThreadsTest()
+        {
+            threadPool = new MyThreadPool(10);
+            var task = threadPool.AddNewTask(() => 3 * 3 * 3);
+
+            Assert.AreEqual(27, task.Result);
+            Assert.IsTrue(task.IsCompleted);
         }
 
         [Test]
