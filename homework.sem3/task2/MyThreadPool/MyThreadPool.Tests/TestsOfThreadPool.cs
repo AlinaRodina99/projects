@@ -66,7 +66,6 @@ namespace MyThreadPool.Tests
         public void WhenNoTasksInThreadPoolTest()
         {
             threadPool = new MyThreadPool(10);
-
             threadPool.Shutdown();
             Assert.AreEqual(0, threadPool.NumberOfThreads);
         }
@@ -88,9 +87,26 @@ namespace MyThreadPool.Tests
 
             Assert.AreEqual(1, newTask2.Result);
             Assert.IsTrue(newTask2.IsCompleted);
-        }
+        } 
 
-        
+        [Test]
+        public void TryToAddNewTaskWhenThreadPoolWasShutdownTest()
+        {
+            var rnd = new Random();
+            var count = rnd.Next(5, 30);
+            threadPool = new MyThreadPool(count);
+
+            var task1 = threadPool.AddNewTask(() => Math.Min(100, 345));
+            var task2 = threadPool.AddNewTask(() => Math.Max(80, 100000));
+
+            threadPool.Shutdown();
+
+            Assert.Throws<ThreadPoolException>(() => threadPool.AddNewTask(() => 5 * 5));
+            Assert.AreEqual(100, task1.Result);
+            Assert.AreEqual(100000, task2.Result);
+            Assert.IsTrue(task1.IsCompleted);
+            Assert.IsTrue(task2.IsCompleted);
+        }
 
         [Test]
         public void TryContinueWithWhenThreadPoolWasShutdownTest()
@@ -100,6 +116,7 @@ namespace MyThreadPool.Tests
             var task1 = threadPool.AddNewTask(() => Math.Log2(8));
             var task2 = threadPool.AddNewTask(() => 1000 * 1000);
             var newTask1 = task2.ContinueWith((result) => Math.Sqrt(result));
+            
             threadPool.Shutdown();
 
             Assert.Throws<ThreadPoolException>(() => task2.ContinueWith((result) => result / 10));

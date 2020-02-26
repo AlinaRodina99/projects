@@ -92,6 +92,10 @@ namespace MyThreadPool
             return newTask;
         }
 
+        /// <summary>
+        /// Method to add new task to the queue of the tasks.
+        /// </summary>
+        /// <typeparam name="TResult">Outcoming result.</typeparam>
         private void AddTaskToQueue<TResult>(Task<TResult> task)
         {
             if (tokenSource.IsCancellationRequested)
@@ -103,6 +107,9 @@ namespace MyThreadPool
             taskSignal.Set();
         }
 
+        /// <summary>
+        /// Method to stop work of thread pool.
+        /// </summary>
         public void Shutdown()
         {
             lock (locker)
@@ -133,8 +140,14 @@ namespace MyThreadPool
                 this.function = function;
             }
 
+            /// <summary>
+            /// Property to know if task was calculated.
+            /// </summary>
             public bool IsCompleted { get; private set; }
 
+            /// <summary>
+            /// Property to know the result of the task.
+            /// </summary>
             public TResult Result
             {
                 get
@@ -153,6 +166,9 @@ namespace MyThreadPool
                 }
             }
 
+            /// <summary>
+            /// Method to calculate function of current task.
+            /// </summary>
             public void Calculations()
             {
                 try
@@ -179,6 +195,12 @@ namespace MyThreadPool
                 }
             }
 
+            /// <summary>
+            /// Method to add continuation task using result of previous task.
+            /// </summary>
+            /// <typeparam name="TNewResult">Result of the continuation task.</typeparam>
+            /// <param name="function">Function of continuation task.</param>
+            /// <returns>New task.</returns>
             public ITask<TNewResult> ContinueWith<TNewResult>(Func<TResult, TNewResult> function)
             {
                 var newTask = new Task<TNewResult>(myThreadPool, () => function(result));

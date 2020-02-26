@@ -3,7 +3,7 @@
 namespace MyThreadPool
 {
     /// <summary>
-    /// Class for exception when task is being tried to add to the queue of tasks.
+    /// Class for exception when task is being tried to add to disabled thread pool.
     /// </summary>
     [Serializable]
     public class ThreadPoolException : Exception
