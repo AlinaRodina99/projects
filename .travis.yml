@@ -1,0 +1,9 @@
+language: csharp 
+
+install:
+ - nuget restore howework.sem2/hometask4/4.1/ParseTree/ParseTree.sln
+ - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+script:
+ - msbuild /p:Configuration=Release howework.sem2/hometask4/4.1/ParseTree/ParseTree.sln
+ - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe \
+    .howework.sem2/hometask4/4.1/ParseTree/ParseTree.sln

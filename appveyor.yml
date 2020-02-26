@@ -8,3 +8,4 @@ build:
 
 test_script:
   - dotnet test homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
+
