@@ -3,10 +3,16 @@ using System;
 
 namespace MyThreadPool.Tests
 {
+    [TestFixture]
     public class TestsOfThreadPool
     {
+        [TearDown]
+        public void TearDown()
+        {
+            threadPool = null;
+        }
 
-        [Test]
+        [Test]  
         public void ManyTasksTest()
         {
             threadPool = new MyThreadPool(2);
@@ -36,6 +42,7 @@ namespace MyThreadPool.Tests
             Assert.AreEqual(10000, task2.Result);
             Assert.IsTrue(task1.IsCompleted);
             Assert.IsTrue(task2.IsCompleted);
+            Assert.AreEqual(0, threadPool.NumberOfThreads);
         }
 
         [Test]
@@ -53,6 +60,15 @@ namespace MyThreadPool.Tests
         {
             Assert.IsTrue(new MyThreadPool(7).NumberOfThreads >= 7);
             Assert.IsTrue(new MyThreadPool(10).NumberOfThreads >= 10);
+        }
+
+        [Test]
+        public void WhenNoTasksInThreadPoolTest()
+        {
+            threadPool = new MyThreadPool(10);
+
+            threadPool.Shutdown();
+            Assert.AreEqual(0, threadPool.NumberOfThreads);
         }
 
         [Test]
@@ -74,14 +90,7 @@ namespace MyThreadPool.Tests
             Assert.IsTrue(newTask2.IsCompleted);
         }
 
-        [Test]
-        public void ShutdownWhenNoTasksInThreadPoolTest()
-        {
-            threadPool = new MyThreadPool(20);
-
-            threadPool.Shutdown();
-            Assert.AreEqual(0, threadPool.NumberOfThreads);
-        }
+        
 
         [Test]
         public void TryContinueWithWhenThreadPoolWasShutdownTest()
@@ -101,9 +110,6 @@ namespace MyThreadPool.Tests
             Assert.AreEqual(1000, newTask1.Result);
             Assert.IsTrue(newTask1.IsCompleted);
         }
-
-        [Test]
-        public void 
 
         private MyThreadPool threadPool;
     }

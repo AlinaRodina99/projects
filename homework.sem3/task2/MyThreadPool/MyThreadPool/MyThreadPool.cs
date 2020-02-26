@@ -54,7 +54,8 @@ namespace MyThreadPool
                     { 
                         if (tokenSource.IsCancellationRequested && tasksQueue.IsEmpty)
                         {
-                            countOfThreads = 0;
+                            Interlocked.Decrement(ref countOfThreads);
+                            shutDownSignal.Set();
                             break;
                         }
 
@@ -65,6 +66,7 @@ namespace MyThreadPool
                             if (tokenSource.IsCancellationRequested)
                             {
                                 Interlocked.Decrement(ref countOfThreads);
+                                shutDownSignal.Set();
                             }
                         }
                         else
@@ -103,19 +105,26 @@ namespace MyThreadPool
 
         public void Shutdown()
         {
-            tokenSource.Cancel();
-            taskSignal.Set();
+            lock (locker)
+            {
+                tokenSource.Cancel();
+                while (countOfThreads != 0)
+                {
+                    taskSignal.Set();
+                    shutDownSignal.WaitOne();
+                }
+            }
         }
 
         public class Task<TResult> : ITask<TResult>
         {
             private Func<TResult> function;
-            private MyThreadPool myThreadPool;
-            private ManualResetEvent readyResult = new ManualResetEvent(false);
+            private readonly MyThreadPool myThreadPool;
+            private readonly ManualResetEvent readyResult = new ManualResetEvent(false);
             private AggregateException exception;
-            private Queue<Action> continuationQueue = new Queue<Action>();
+            private readonly Queue<Action> continuationQueue = new Queue<Action>();
             private TResult result;
-            private object locker = new object();
+            private readonly object locker = new object();
 
 
             public Task(MyThreadPool myThreadPool, Func<TResult> function)
