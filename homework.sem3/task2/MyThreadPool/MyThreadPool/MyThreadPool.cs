@@ -11,10 +11,12 @@ namespace MyThreadPool
     public class MyThreadPool
     {
         private Thread[] threads;
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        private ConcurrentQueue<Action> tasksQueue = new ConcurrentQueue<Action>();
-        private ManualResetEvent taskSignal = new ManualResetEvent(false);
-        private object locker = new object();
+        private readonly CancellationTokenSource tokenSource = new CancellationTokenSource();
+        private readonly ConcurrentQueue<Action> tasksQueue = new ConcurrentQueue<Action>();
+        private readonly AutoResetEvent taskSignal = new AutoResetEvent(false);
+        private readonly AutoResetEvent shutDownSignal = new AutoResetEvent(false);
+        private readonly object locker = new object();
+        private int countOfThreads;
 
         public MyThreadPool(int count)
         {
@@ -30,12 +32,12 @@ namespace MyThreadPool
         /// <summary>
         /// Property to know amount of threads.
         /// </summary>
-        public int NumberOfThreads { get; private set; }
+        public int NumberOfThreads { get => countOfThreads; private set { countOfThreads = value; } }
 
         /// <summary>
         /// Property to know if thread pool is working.
         /// </summary>
-        public bool IsWorking { get => tokenSource.IsCancellationRequested; }
+        public bool IsWorking { get => !tokenSource.IsCancellationRequested; }
 
         /// <summary>
         /// Method to start pool.
@@ -49,19 +51,24 @@ namespace MyThreadPool
                 threads[i] = new Thread(() =>
                 {
                     while (true)
-                    {
+                    { 
                         if (tokenSource.IsCancellationRequested && tasksQueue.IsEmpty)
                         {
+                            countOfThreads = 0;
                             break;
                         }
 
                         if (tasksQueue.TryDequeue(out Action task))
                         {
                             task();
+                            taskSignal.Set();
+                            if (tokenSource.IsCancellationRequested)
+                            {
+                                Interlocked.Decrement(ref countOfThreads);
+                            }
                         }
                         else
                         {
-                            taskSignal.Reset();
                             taskSignal.WaitOne();
                         }
                     }
@@ -83,7 +90,7 @@ namespace MyThreadPool
             return newTask;
         }
 
-        protected internal void AddTaskToQueue<TResult>(Task<TResult> task)
+        private void AddTaskToQueue<TResult>(Task<TResult> task)
         {
             if (tokenSource.IsCancellationRequested)
             {
@@ -94,7 +101,11 @@ namespace MyThreadPool
             taskSignal.Set();
         }
 
-        public void Shutdown() => tokenSource.Cancel();
+        public void Shutdown()
+        {
+            tokenSource.Cancel();
+            taskSignal.Set();
+        }
 
         public class Task<TResult> : ITask<TResult>
         {
@@ -169,6 +180,11 @@ namespace MyThreadPool
                         continuationQueue.Enqueue(() => myThreadPool.AddTaskToQueue(newTask));
                         return newTask;
                     }
+                }
+
+                if (!myThreadPool.IsWorking)
+                {
+                    throw new ThreadPoolException();
                 }
 
                 myThreadPool.AddTaskToQueue(newTask);

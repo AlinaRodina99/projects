@@ -1,7 +1,5 @@
 using NUnit.Framework;
-using System.Threading;
-using System.Collections.Concurrent;
-using System.Linq;
+using System;
 
 namespace MyThreadPool.Tests
 {
@@ -26,6 +24,21 @@ namespace MyThreadPool.Tests
         }
 
         [Test]
+        public void ShutdownTest()
+        {
+            threadPool = new MyThreadPool(10);
+            var task1 = threadPool.AddNewTask(() => Math.Max(30, 50));
+            var task2 = threadPool.AddNewTask(() => Math.Abs(-10000));
+
+            threadPool.Shutdown();
+
+            Assert.AreEqual(50, task1.Result);
+            Assert.AreEqual(10000, task2.Result);
+            Assert.IsTrue(task1.IsCompleted);
+            Assert.IsTrue(task2.IsCompleted);
+        }
+
+        [Test]
         public void OneTaskManyThreadsTest()
         {
             threadPool = new MyThreadPool(10);
@@ -46,20 +59,51 @@ namespace MyThreadPool.Tests
         public void ContinueWithTest()
         {
             var pool = new MyThreadPool(5);
-            var task = pool.AddNewTask(() => 1000 + 1000);
+            var task = pool.AddNewTask(() => 5 * 2);
 
             var newTask1 = task.ContinueWith((result) => result * 5);
-            var newTask2 = newTask1.ContinueWith((result) => result / 10000);
+            var newTask2 = newTask1.ContinueWith((result) => result / 50);
 
-            Assert.AreEqual(2000, task.Result);
+            Assert.AreEqual(10, task.Result);
             Assert.IsTrue(task.IsCompleted);
 
-            Assert.AreEqual(10000, newTask1.Result);
+            Assert.AreEqual(50, newTask1.Result);
             Assert.IsTrue(newTask1.IsCompleted);
 
             Assert.AreEqual(1, newTask2.Result);
             Assert.IsTrue(newTask2.IsCompleted);
         }
+
+        [Test]
+        public void ShutdownWhenNoTasksInThreadPoolTest()
+        {
+            threadPool = new MyThreadPool(20);
+
+            threadPool.Shutdown();
+            Assert.AreEqual(0, threadPool.NumberOfThreads);
+        }
+
+        [Test]
+        public void TryContinueWithWhenThreadPoolWasShutdownTest()
+        {
+            threadPool = new MyThreadPool(10);
+
+            var task1 = threadPool.AddNewTask(() => Math.Log2(8));
+            var task2 = threadPool.AddNewTask(() => 1000 * 1000);
+            var newTask1 = task2.ContinueWith((result) => Math.Sqrt(result));
+            threadPool.Shutdown();
+
+            Assert.Throws<ThreadPoolException>(() => task2.ContinueWith((result) => result / 10));
+            Assert.AreEqual(task1.Result, 3);
+            Assert.IsTrue(task1.IsCompleted);
+            Assert.AreEqual(1000000, task2.Result);
+            Assert.IsTrue(task2.IsCompleted);
+            Assert.AreEqual(1000, newTask1.Result);
+            Assert.IsTrue(newTask1.IsCompleted);
+        }
+
+        [Test]
+        public void 
 
         private MyThreadPool threadPool;
     }
