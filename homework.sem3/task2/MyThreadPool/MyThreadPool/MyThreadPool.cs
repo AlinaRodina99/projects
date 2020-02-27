@@ -61,13 +61,8 @@ namespace MyThreadPool
 
                         if (tasksQueue.TryDequeue(out Action task))
                         {
-                            task();
                             taskSignal.Set();
-                            if (tokenSource.IsCancellationRequested)
-                            {
-                                Interlocked.Decrement(ref countOfThreads);
-                                shutDownSignal.Set();
-                            }
+                            task();
                         }
                         else
                         {
@@ -198,11 +193,16 @@ namespace MyThreadPool
             /// <summary>
             /// Method to add continuation task using result of previous task.
             /// </summary>
-            /// <typeparam name="TNewResult">Result of the continuation task.</typeparam>
+            /// <typeparam name="TNewResult">Result of continuation task.</typeparam>
             /// <param name="function">Function of continuation task.</param>
             /// <returns>New task.</returns>
             public ITask<TNewResult> ContinueWith<TNewResult>(Func<TResult, TNewResult> function)
             {
+                if (!myThreadPool.IsWorking)
+                {
+                    throw new ThreadPoolException();
+                }
+
                 var newTask = new Task<TNewResult>(myThreadPool, () => function(result));
                 lock (locker)
                 {
@@ -211,15 +211,17 @@ namespace MyThreadPool
                         continuationQueue.Enqueue(() => myThreadPool.AddTaskToQueue(newTask));
                         return newTask;
                     }
-                }
+                    else
+                    {
+                        if (!myThreadPool.IsWorking)
+                        {
+                            newTask.exception = new AggregateException("Thread pool was shutdown!");
+                        }
 
-                if (!myThreadPool.IsWorking)
-                {
-                    throw new ThreadPoolException();
+                        myThreadPool.AddTaskToQueue(newTask);
+                        return newTask;
+                    }
                 }
-
-                myThreadPool.AddTaskToQueue(newTask);
-                return newTask;
             }
         }
     }

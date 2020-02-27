@@ -12,6 +12,16 @@ namespace MyThreadPool.Tests
             threadPool = null;
         }
 
+        [Test]
+        public void TaskWithExceptionTest()
+        {
+            threadPool = new MyThreadPool(5);
+            var task1 = threadPool.AddNewTask(() => 6 / 6);
+            var newTask1 = task1.ContinueWith((result) => result / 0);
+            Func<int> action = () => newTask1.Result;
+            Assert.Throws<AggregateException>(() => action.Invoke());
+        }
+
         [Test]  
         public void ManyTasksTest()
         {
@@ -126,6 +136,24 @@ namespace MyThreadPool.Tests
             Assert.IsTrue(task2.IsCompleted);
             Assert.AreEqual(1000, newTask1.Result);
             Assert.IsTrue(newTask1.IsCompleted);
+        }
+
+        [Test]
+        public void ParallelTest()
+        {
+            threadPool = new MyThreadPool(15);
+            var result = 0;
+            for (var i = 0; i < 15; ++i)
+            {
+                threadPool.AddNewTask(() =>
+                {
+                    ++result;
+                    return 0;
+                });
+            }
+
+            threadPool.Shutdown();
+            Assert.AreEqual(15, result);
         }
 
         private MyThreadPool threadPool;
