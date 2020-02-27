@@ -11,7 +11,7 @@ namespace ServerNameSpace
     {
         private readonly TcpListener tcpListener;
         private ClientObject clientObject = new ClientObject();
-        private readonly CancellationTokenSource cancellationTokenSource;
+        private readonly CancellationTokenSource tokenSource;
 
         public Server(int port)
         {
@@ -21,56 +21,45 @@ namespace ServerNameSpace
 
         public async Task ServerWork()
         {
-            while (!cancellationTokenSource.IsCancellationRequested)
+            while (!tokenSource.IsCancellationRequested)
             {
-                ThreadPool.QueueUserWorkItem(ClientThread);
+                var client = await tcpListener.AcceptTcpClientAsync();
+
+                await Task.Run(() => ClientThread());
             }
         }
 
         private async Task ClientThread()
         {
             var tcpClient = await tcpListener.AcceptTcpClientAsync();
+            clientObject = new ClientObject();
             var stream = tcpClient.GetStream();
             var reader = new StreamReader(stream);
+            var writer = new StreamWriter(stream);
 
             var request = await reader.ReadLineAsync();
-            var chars = request.ToCharArray();
+            var requestArgs = ParseRequest(request);
 
-            while ()
+            switch(requestArgs[0])
+            {
+                case "1" :
+                    await clientObject.List(requestArgs[1], writer);
+                    break;
+                case "2" :
+                    await clientObject.Get(requestArgs[1], writer);
+                    break;
+                default :
+                    Console.WriteLine("Wrong command!");
+                    break;
+            }
         }
 
-        public async Task Start()
+        private string[] ParseRequest(string request)
         {
-            var tcpClient = new TcpClient();
-            clientObject = new ClientObject(tcpClient);
-            if (!cancellationTokenSource.IsCancellationRequested)
-            {
-                ThreadPool.QueueUserWorkItem(GetRequestFromClient(), await tcpListener.AcceptTcpClientAsync());
-
-            }
+            var requestArgs = request.Split(' ');
+            return requestArgs;
         }
 
-        private async void GetRequestFromClient()
-        {
-            try
-            {
-                var tcpClient = 
-            }
-            catch(IOException exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
-        }
-
-        private (string, string) ParseRequest(string request)
-        {
-            var charRequest = request.Split(' ');
-            if (charRequest[0] == "1")
-            {
-                return 
-            }
-        }
-
-        public void Stop() => tcpListener?.Stop();
+        public void Stop() => tokenSource.Cancel();
     }
 }
