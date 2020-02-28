@@ -168,6 +168,11 @@ namespace MyThreadPool
             {
                 try
                 {
+                    if (!myThreadPool.IsWorking)
+                    {
+                        throw new ThreadPoolException();
+                    }
+
                     result = function();
                 }
                 catch (Exception exception)
@@ -208,16 +213,11 @@ namespace MyThreadPool
                 {
                     if (!IsCompleted)
                     {
-                        continuationQueue.Enqueue(() => myThreadPool.AddTaskToQueue(newTask));
+                        continuationQueue.Enqueue(newTask.Calculations);
                         return newTask;
                     }
                     else
                     {
-                        if (!myThreadPool.IsWorking)
-                        {
-                            newTask.exception = new AggregateException("Thread pool was shutdown!");
-                        }
-
                         myThreadPool.AddTaskToQueue(newTask);
                         return newTask;
                     }

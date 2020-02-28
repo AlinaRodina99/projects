@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Threading;
 
 namespace MyThreadPool.Tests
 {
@@ -154,6 +155,19 @@ namespace MyThreadPool.Tests
 
             threadPool.Shutdown();
             Assert.AreEqual(15, result);
+        }
+
+        [Test]
+        public void ResultOfContinuationTaskAfterShutdownTest()
+        {
+            threadPool = new MyThreadPool(10);
+            var task1 = threadPool.AddNewTask(() => 3 * 2);
+            var newTask1 = task1.ContinueWith((result) => result * 45);
+           
+            threadPool.Shutdown();
+            Func<int> action = () => newTask1.Result;
+            Assert.AreEqual(270, newTask1.Result);
+            Assert.IsTrue(newTask1.IsCompleted);
         }
 
         private MyThreadPool threadPool;
