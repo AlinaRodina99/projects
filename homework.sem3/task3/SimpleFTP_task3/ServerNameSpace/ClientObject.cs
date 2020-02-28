@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace ServerNameSpace
@@ -33,13 +32,15 @@ namespace ServerNameSpace
 
         public async Task Get(string path, StreamWriter writer)
         {
-            if (!File.Exists(path))
+            if (!Directory.Exists(path))
             {
                 await writer.WriteLineAsync("-1");
             }
 
-            await writer.WriteLineAsync($"{new FileInfo(path).Length}");
-
+            using (FileStream stream = File.Open(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(writer.BaseStream);
+            }
         }
     }
 }

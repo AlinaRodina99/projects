@@ -21,11 +21,21 @@ namespace ServerNameSpace
 
         public async Task ServerWork()
         {
-            while (!tokenSource.IsCancellationRequested)
+            try
             {
-                var client = await tcpListener.AcceptTcpClientAsync();
-
-                await Task.Run(() => ClientThread());
+                while (!tokenSource.IsCancellationRequested)
+                {
+                    var client = await tcpListener.AcceptTcpClientAsync();
+                    await ClientThread();
+                }
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                tcpListener.Stop();
             }
         }
 
@@ -36,7 +46,7 @@ namespace ServerNameSpace
             var stream = tcpClient.GetStream();
             var reader = new StreamReader(stream);
             var writer = new StreamWriter(stream);
-
+            
             var request = await reader.ReadLineAsync();
             var requestArgs = ParseRequest(request);
 

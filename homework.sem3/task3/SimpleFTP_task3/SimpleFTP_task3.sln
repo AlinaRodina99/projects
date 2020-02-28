@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerNameSpace", "ServerNa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientNameSpace", "ClientNameSpace\ClientNameSpace.csproj", "{AA67E849-9F15-4348-9145-88C50A69B697}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleFtpTests", "SimpleFtpTests\SimpleFtpTests.csproj", "{1988C45C-34EA-4F5C-8643-37FE0FAE5D58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AA67E849-9F15-4348-9145-88C50A69B697}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA67E849-9F15-4348-9145-88C50A69B697}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA67E849-9F15-4348-9145-88C50A69B697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1988C45C-34EA-4F5C-8643-37FE0FAE5D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1988C45C-34EA-4F5C-8643-37FE0FAE5D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1988C45C-34EA-4F5C-8643-37FE0FAE5D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1988C45C-34EA-4F5C-8643-37FE0FAE5D58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
