@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -15,6 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ClientNameSpace\ClientNameSpace.csproj" />
     <ProjectReference Include="..\ServerNameSpace\ServerNameSpace.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestFiles\" />
   </ItemGroup>
 
 </Project>

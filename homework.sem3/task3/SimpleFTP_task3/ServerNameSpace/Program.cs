@@ -8,10 +8,12 @@ namespace ServerNameSpace
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var server = new Server(49664);
-            server.Listen();
+            var server = new Server(8888);
+            await server.ServerWork();
+            Console.ReadKey();
+            server.Stop();
         }
     }
 }

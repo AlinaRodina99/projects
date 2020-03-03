@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using System.Net;
 using System.IO;
 using System.Text;
 
@@ -15,27 +14,30 @@ namespace ClientNameSpace
         private readonly TcpClient tcpClient;
         private readonly StreamWriter writer;
         private readonly StreamReader reader;
-        
-        public Client(string host, int port)
-        {
-            if (port < IPEndPoint.MinPort || port > IPEndPoint.MaxPort)
-            {
-                throw new ArgumentOutOfRangeException("The number of port should be between 0 and 65535!");
-            }
 
+        /// <summary>
+        /// Constructor to create client.
+        /// </summary>
+        /// <param name="port">Port of the server.</param>
+        /// <param name="host">Localhost.</param>
+        public Client(int port, string host = "localhost")
+        {
             tcpClient = new TcpClient(host, port);
-            writer = new StreamWriter(tcpClient.GetStream());
+            writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
             reader = new StreamReader(tcpClient.GetStream());
         }
 
+        /// <summary>
+        /// Method that makes request for list function.
+        /// </summary>
+        /// <param name="path">Specified path.</param>
         public async Task<string> List(string path)
         {
             try
             {
                 using (writer)
                 {
-
-                    await writer.WriteLineAsync("1 " + path);
+                    await writer.WriteLineAsync($"1 {path}");
                     var responce = new StringBuilder();
                     using (reader)
                     {
@@ -50,55 +52,62 @@ namespace ClientNameSpace
                         
                         for (var i = 0; i < Convert.ToInt32(size); ++i)
                         {
-                            responce.AppendLine(await reader.ReadLineAsync() + " " + Convert.ToBoolean(await reader.ReadLineAsync()));
+                            var file = await reader.ReadLineAsync();
+                            var isDir = await reader.ReadLineAsync();
+                            responce.Append($" {file} {isDir}");
                         }
                     }
 
                     return responce.ToString();
                 }
             }
-            catch(Exception exception)
+            catch(SocketException exception)
             {
                 Console.WriteLine(exception.Message);
                 return null;
             }
             finally
             {
-                tcpClient?.Close();
+                tcpClient.Close();
             }
         }
 
-        public async Task<string> Get(string path)
+        public void Close() => tcpClient.Close();
+
+        /// <summary>
+        /// Method that makes request for get function.
+        /// </summary>
+        /// <param name="path">Specified path.</param>
+        public async Task<(long, byte[])> Get(string path)
         {
             try
             {
                 using (writer)
                 {
                     await writer.WriteLineAsync("2 " + path);
-                    var responce = new StringBuilder();
                     using (reader)
                     {
-                        var size = await reader.ReadLineAsync();
-                        if (size == "-1")
+                        var size = Convert.ToInt32(await reader.ReadLineAsync());
+                        if (size == -1)
                         {
                             Console.WriteLine("This path does not exist!");
-                            return "-1";
+                            return (-1, null);
                         }
 
-                        responce.Append(size);
-                        responce.Append(await reader.ReadToEndAsync());
+                        var content = new byte[size];
+                        await reader.BaseStream.ReadAsync(content, 0, size);
+                        return (size, content);
                     }
-                    return responce.ToString();
                 }
             }
-            catch (Exception exception)
+            catch (SocketException exception)
             {
                 Console.WriteLine(exception.Message);
-                return null;
+                return (-1, null);
             }
             finally
             {
-                tcpClient?.Close();
+                tcpClient.Close();
             }
         }
     }
