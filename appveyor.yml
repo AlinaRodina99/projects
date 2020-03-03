@@ -11,3 +11,4 @@ test_script:
   - dotnet test homework.sem3/task3/SimpleFTP_task3/SimpleFTP_task3.sln
 
 
+
