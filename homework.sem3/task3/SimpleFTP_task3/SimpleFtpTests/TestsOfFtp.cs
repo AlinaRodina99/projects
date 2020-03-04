@@ -4,6 +4,7 @@ using ServerNameSpace;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace SimpleFtpTests
 {
@@ -13,8 +14,10 @@ namespace SimpleFtpTests
         [SetUp]
         public void Setup()
         {
+            Thread.Sleep(1000);
             server = new Server(8888);
             server.ServerWork();
+            Thread.Sleep(1000);
             client = new Client(8888);
         }
 
@@ -22,7 +25,6 @@ namespace SimpleFtpTests
         [Test]
         public void GetContentTest()
         {
-            Task.Run(async () => await server.ServerWork());
             var responce = client.Get($"{path}/test.txt").Result;
             var text = File.ReadAllText($"{path}/test.txt");
             Assert.AreEqual(text, Encoding.Default.GetString(responce.Item2));
@@ -33,7 +35,6 @@ namespace SimpleFtpTests
         [Test]
         public void GetSizeTest()
         {
-            Task.Run(async () => await server.ServerWork());
             var content = client.Get($"{path}/test.txt").Result;
             Assert.AreEqual(1357, content.Item1);
             server.Stop();
@@ -42,7 +43,6 @@ namespace SimpleFtpTests
         [Test]
         public void ListFromWrongPath()
         {
-            Task.Run(async () => await server.ServerWork());
             var responce = client.List("path").Result;
             Assert.AreEqual("-1", responce);
             server.Stop();
@@ -51,7 +51,6 @@ namespace SimpleFtpTests
         [Test]
         public void TaskGetFromWrongPath()
         {
-            Task.Run(async () => await server.ServerWork());
             var responce = client.Get("path").Result;
             Assert.AreEqual(-1, responce.Item1);
             Assert.IsNull(responce.Item2);
@@ -61,7 +60,6 @@ namespace SimpleFtpTests
         [Test]
         public void ListTest()
         {
-            Task.Run(async () => await server.ServerWork());
             var list = client.List(path).Result;
             var splittedResponce = list.Split();
             Assert.AreEqual(11, splittedResponce.Length);

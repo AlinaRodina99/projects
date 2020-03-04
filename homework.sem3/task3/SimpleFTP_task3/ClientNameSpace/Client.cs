@@ -61,7 +61,7 @@ namespace ClientNameSpace
                     return responce.ToString();
                 }
             }
-            catch(SocketException exception)
+            catch (SocketException exception)
             {
                 Console.WriteLine(exception.Message);
                 return null;
