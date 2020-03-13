@@ -11,3 +11,4 @@ test_script:
   - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
 
 
+

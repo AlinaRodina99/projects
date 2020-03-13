@@ -12,3 +12,4 @@ install:
 script:
     - dotnet build homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
     - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+
