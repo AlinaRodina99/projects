@@ -4,7 +4,7 @@ using Attributes;
 
 namespace AfterClassTesting
 {
-    public class TestClass9
+    public class TestClass8
     {
         private static volatile int counter = 1;
 

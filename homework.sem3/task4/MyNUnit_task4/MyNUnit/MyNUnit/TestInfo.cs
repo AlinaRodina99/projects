@@ -105,13 +105,12 @@ namespace MyNUnit
                 timer.Stop();
                 RunningTime = timer.Elapsed;
                 var exception = e.InnerException.GetType();
+                IsPassed = false;
 
                 if (testAttribute.ExpectedException == exception)
                 {
                     IsPassed = true;
                 }
-
-                IsPassed = false;
             }
 
             Parallel.ForEach(afterMethods, m => m?.Invoke(instance, null));

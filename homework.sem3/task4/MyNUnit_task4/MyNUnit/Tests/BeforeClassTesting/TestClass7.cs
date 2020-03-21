@@ -4,7 +4,7 @@ using Attributes;
 
 namespace BeforeClassTesting
 {
-    public class TestClass8
+    public class TestClass7
     {
         private static volatile List<int> integerList;
 

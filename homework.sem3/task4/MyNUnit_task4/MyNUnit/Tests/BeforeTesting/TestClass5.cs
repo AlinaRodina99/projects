@@ -3,7 +3,7 @@ using Attributes;
 
 namespace BeforeTesting
 {
-    public class TestClass6
+    public class TestClass5
     {
         private volatile int number = 5;
 

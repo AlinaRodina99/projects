@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace AfterTesting
 {
-    public class TestClass7
+    public class TestClass6
     {
         private volatile string testString = "Test";
 
