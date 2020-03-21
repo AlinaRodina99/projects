@@ -2,6 +2,9 @@
 
 namespace MyNUnit
 {
+    /// <summary>
+    /// C;ass for exception of test running.
+    /// </summary>
     [Serializable]
     public class TestRunException : Exception
     {

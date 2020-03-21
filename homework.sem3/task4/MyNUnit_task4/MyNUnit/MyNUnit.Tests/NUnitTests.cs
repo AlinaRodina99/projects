@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using System;
-using SuccesfulTests;
+using System.Linq;
 
 namespace MyNUnit.Tests
 {
@@ -17,7 +17,7 @@ namespace MyNUnit.Tests
         public void SuccesfulTestingTest()
         {
             path += "\\SuccesfulTests\\bin";
-            runner.Run(path);
+            runner.Execute(path);
 
             foreach (var test in runner.TestInformation)
             {
@@ -25,15 +25,14 @@ namespace MyNUnit.Tests
                 Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
             }
 
-            Assert.AreEqual(3, runner.TestInformation.Count);
-            Assert.AreEqual("Testing finished", TestClass.TestString);
+            Assert.AreEqual(4, runner.TestInformation.Count);
         }
 
         [Test]
         public void FailedTestingTest()
         {
             path += "\\FailedTesting\\bin";
-            runner.Run(path);
+            runner.Execute(path);
 
             foreach (var test in runner.TestInformation)
             {
@@ -48,7 +47,7 @@ namespace MyNUnit.Tests
         public void IgnoreTestingTest()
         {
             path += "\\IgnoredTesting\\bin";
-            runner.Run(path);
+            runner.Execute(path);
 
             foreach (var test in runner.TestInformation)
             {
@@ -61,13 +60,73 @@ namespace MyNUnit.Tests
         public void ExpectedExceptionTestingTest()
         {
             path += "\\ExpectedExceptionTesting\\bin";
-            runner.Run(path);
+            runner.Execute(path);
 
             foreach (var test in runner.TestInformation)
             {
-                Assert.IsFalse(test.IsPassed);
+                Assert.IsTrue(test.IsPassed);
                 Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
             }
+        }
+
+        [Test]
+        public void BeforeTestingTest()
+        {
+            path += "\\BeforeTesting\\bin";
+            runner.Execute(path);
+
+            foreach (var test in runner.TestInformation)
+            {
+                Assert.IsTrue(test.IsPassed);
+                Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
+            }
+
+            Assert.AreEqual(1, runner.TestInformation.Count());
+        }
+
+        [Test]
+        public void AfterTestingTest()
+        {
+            path += "\\AfterTesting\\bin";
+            runner.Execute(path);
+
+            foreach (var test in runner.TestInformation)
+            {
+                Assert.IsTrue(test.IsPassed);
+                Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
+            }
+
+            Assert.AreEqual(2, runner.TestInformation.Count());
+        }
+
+        [Test]
+        public void BeforeClassTestingTest()
+        {
+            path += "\\BeforeClassTesting\\bin";
+            runner.Execute(path);
+
+            foreach (var test in runner.TestInformation)
+            {
+                Assert.IsTrue(test.IsPassed);
+                Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
+            }
+
+            Assert.AreEqual(1, runner.TestInformation.Count());
+        }
+
+        [Test]
+        public void AfterClassTestingTest()
+        {
+            path += "\\AfterClassTesting\\bin";
+            runner.Execute(path);
+
+            foreach (var test in runner.TestInformation)
+            {
+                Assert.IsTrue(test.IsPassed);
+                Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
+            }
+
+            Assert.AreEqual(2, runner.TestInformation.Count());
         }
 
         private string path;

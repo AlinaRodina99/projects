@@ -3,18 +3,22 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
-using MyNUnit;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
 
 namespace MyNUnit
 {
+    /// <summary>
+    /// Class for running of tests.
+    /// </summary>
     public class TestRunner
     {
         public ConcurrentBag<TestInfo> TestInformation { get; private set; } = new ConcurrentBag<TestInfo>();
-        private readonly object locker = new object();
 
+        /// <summary>
+        /// Method for reporting of test results.
+        /// </summary>
         public void PrintResult()
         {
             foreach (var test in TestInformation)
@@ -35,8 +39,17 @@ namespace MyNUnit
             }
         }
 
-        public void Run(string path)
+        /// <summary>
+        /// Method that loads all assemblies.
+        /// </summary>
+        /// <param name="path">Path where assemblies are located.</param>
+        public void Execute(string path)
         {
+            if (!Directory.Exists(path))
+            {
+                throw new TestRunException("This directory does not exist!");
+            }
+
             var assemblies = new List<Assembly>();
             var files = Directory.GetFiles(path, "*.dll", SearchOption.AllDirectories)
                 .Where(x => x.Substring(x.LastIndexOf('\\') + 1) != "Attributes.dll").ToList();
@@ -47,7 +60,9 @@ namespace MyNUnit
                 assemblies.Add(Assembly.LoadFrom(file));
             }
 
-            foreach (var assembly in assemblies)
+            var distinctAssemblies = assemblies.Distinct();
+
+            foreach (var assembly in distinctAssemblies)
             {
                 var types = assembly.GetTypes();
 
@@ -60,33 +75,67 @@ namespace MyNUnit
             Parallel.ForEach(listOfTypes, t => RunTests(t));
         }
 
-
+        /// <summary>
+        /// Method to run tests for current type.
+        /// </summary>
+        /// <param name="type">Current type.</param>
         private void RunTests(Type type)
         {
             var constructor = type.GetConstructor(new Type[] { });
+
             if (constructor == null)
             {
-                throw new ArgumentException("Type must have constructor without parameters!");
+                throw new TestRunException("Type must have constructor without parameters!");
             }
             
             var instance = Activator.CreateInstance(type);
             var methods = type.GetMethods();
             var lists = FillLists(methods);
-            var beforeClassList = lists.beforeClassMethods;
-            var beforeList = lists.beforeMethods;
-            var testsList = lists.testMethods;
-            var afterList = lists.afterMethods;
-            var afterClassList = lists.afterClassMethods;
+            var beforeClassList = lists.BeforeClassMethods;
+            var beforeList = lists.BeforeMethods;
+            var testsList = lists.TestMethods;
+            var afterList = lists.AfterMethods;
+            var afterClassList = lists.AfterClassMethods;
 
-            Parallel.ForEach(beforeClassList, m => m?.Invoke(null, null));
-            Parallel.ForEach(testsList, (m) =>
+            try
             {
-                var test = new TestInfo(type, instance, m, beforeList, afterList);
-                TestInformation.Add(test);
-            });
-            Parallel.ForEach(afterClassList, m => m?.Invoke(null, null));
+                Parallel.ForEach(beforeClassList, m => m?.Invoke(null, null));
+            }
+            catch (AggregateException exception)
+            {
+                throw new TestRunException(exception.Message, exception);
+            }
+
+            try
+            {
+                Parallel.ForEach(testsList, (m) =>
+                {
+                    var test = new TestInfo(type, instance, m, beforeList, afterList);
+                    test.Run();
+                    TestInformation.Add(test);
+                });
+            }
+            catch (AggregateException exception)
+            {
+                throw new TestRunException(exception.Message, exception);
+            }
+
+            try
+            {
+                Parallel.ForEach(afterClassList, m => m?.Invoke(null, null));
+            }
+            catch (AggregateException exception)
+            {
+                throw new TestRunException(exception.Message, exception);
+            }
         }
 
+        /// <summary>
+        /// Method to fill lists of necessary methods.
+        /// </summary>
+        /// <param name="methods">Methods that are defined in current type.
+        /// </param>
+        /// <returns></returns>
         private ListsOfMethods FillLists(MethodInfo[] methods)
         {
             var lists = new ListsOfMethods();
@@ -104,27 +153,27 @@ namespace MyNUnit
 
                     if (typeOfAttribute == typeof(BeforeClassAttribute))
                     {
-                        lists.beforeClassMethods.Add(method);
+                        lists.BeforeClassMethods.Add(method);
                     }
 
                     if (typeOfAttribute == typeof(BeforeAttribute))
                     {
-                        lists.beforeMethods.Add(method);
+                        lists.BeforeMethods.Add(method);
                     }
 
                     if (typeOfAttribute == typeof(TestAttribute))
                     {
-                        lists.testMethods.Add(method);
+                        lists.TestMethods.Add(method);
                     }
 
                     if (typeOfAttribute == typeof(AfterAttribute))
                     {
-                        lists.afterMethods.Add(method);
+                        lists.AfterMethods.Add(method);
                     }
 
                     if (typeOfAttribute == typeof(AfterClassAttribute))
                     {
-                        lists.afterClassMethods.Add(method);
+                        lists.AfterClassMethods.Add(method);
                     }
                 }
             }

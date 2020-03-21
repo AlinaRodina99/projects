@@ -11,35 +11,35 @@ namespace MyNUnit
         /// <summary>
         /// Methods that run before testing class.
         /// </summary>
-        public List<MethodInfo> beforeClassMethods { get; private set; }
+        public List<MethodInfo> BeforeClassMethods { get; private set; }
 
         /// <summary>
         /// Methods that run before each method in testing class.
         /// </summary>
-        public List<MethodInfo> beforeMethods { get; private set; }
+        public List<MethodInfo> BeforeMethods { get; private set; }
 
         /// <summary>
         /// Methods of testing class.
         /// </summary>
-        public List<MethodInfo> testMethods { get; private set; }
+        public List<MethodInfo> TestMethods { get; private set; }
 
         /// <summary>
         /// Methods that run after each method in testing class.
         /// </summary>
-        public List<MethodInfo> afterMethods { get; private set; }
+        public List<MethodInfo> AfterMethods { get; private set; }
 
         /// <summary>
         /// Methods that run after testing class.
         /// </summary>
-        public List<MethodInfo> afterClassMethods { get; private set; }
+        public List<MethodInfo> AfterClassMethods { get; private set; }
 
         public ListsOfMethods()
         {
-            beforeClassMethods = new List<MethodInfo>();
-            beforeMethods = new List<MethodInfo>();
-            testMethods = new List<MethodInfo>();
-            afterMethods = new List<MethodInfo>();
-            afterClassMethods = new List<MethodInfo>();
+            BeforeClassMethods = new List<MethodInfo>();
+            BeforeMethods = new List<MethodInfo>();
+            TestMethods = new List<MethodInfo>();
+            AfterMethods = new List<MethodInfo>();
+            AfterClassMethods = new List<MethodInfo>();
         }
     }
 }

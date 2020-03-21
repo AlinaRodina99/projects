@@ -17,32 +17,70 @@ namespace MyNUnit
         private MethodInfo testMethod;
         private readonly object instance;
 
-        public string ClassName { get; private set; }
+        /// <summary>
+        /// Property for class in which method was defined.
+        /// </summary>
+        public string ClassName { get; set; }
 
-        public string Name { get; private set; }
+        /// <summary>
+        /// Name of the method.
+        /// </summary>
+        public string Name { get; set; }
 
-        public TimeSpan RunningTime { get; private set; } = TimeSpan.Zero;
+        /// <summary>
+        /// Time while test was executing.
+        /// </summary>
+        public TimeSpan RunningTime { get; set; } = TimeSpan.Zero;
 
-        public bool IsPassed { get; private set; } = false;
+        /// <summary>
+        /// Bool property tp know whether test was passed or not.
+        /// </summary>
+        public bool IsPassed { get; set; } = false;
 
-        public string IgnoreReason { get; private set; }
+        /// <summary>
+        /// Reason why test was ignored.
+        /// </summary>
+        public string IgnoreReason { get; set; }
 
-        public bool IsIgnored { get; private set; } = false;
+        /// <summary>
+        /// Property to know whether test was ignored or not.
+        /// </summary>
+        public bool IsIgnored { get; set; } = false;
 
         public TestInfo(Type type, object instance, MethodInfo testMethod, List<MethodInfo> beforeMethods, List<MethodInfo> afterMethods)
         {
+            if (testMethod.ReturnType != typeof(void))
+            {
+                throw new AggregateException("Test method must not return anything!");
+            }
+
+            if (testMethod.GetParameters().Length != 0)
+            {
+                throw new AggregateException("Test method can not have parameters!");
+            }
+
             this.beforeMethods = beforeMethods;
             this.testMethod = testMethod;
             this.afterMethods = afterMethods;
             this.instance = instance;
             Name = testMethod.Name;
             ClassName = type.Name;
-            Run();
         }
 
+        /// <summary>
+        /// Method to run each test method.
+        /// </summary>
         public void Run()
         {
-            Parallel.ForEach(beforeMethods, m => m?.Invoke(instance, null));
+            try
+            {
+                Parallel.ForEach(beforeMethods, m => m?.Invoke(instance, null));
+            }
+            catch (AggregateException exception)
+            {
+                throw exception;
+            }
+
             var testAttribute = testMethod.GetCustomAttribute<TestAttribute>();
 
             if (testAttribute.Ignore != null)
@@ -53,6 +91,7 @@ namespace MyNUnit
             }
 
             var timer = new Stopwatch();
+
             try
             {
                 timer.Start();
@@ -66,10 +105,13 @@ namespace MyNUnit
                 timer.Stop();
                 RunningTime = timer.Elapsed;
                 var exception = e.InnerException.GetType();
-                if (testAttribute.ExpectedException != exception)
+
+                if (testAttribute.ExpectedException == exception)
                 {
-                    IsPassed = false;
+                    IsPassed = true;
                 }
+
+                IsPassed = false;
             }
 
             Parallel.ForEach(afterMethods, m => m?.Invoke(instance, null));
