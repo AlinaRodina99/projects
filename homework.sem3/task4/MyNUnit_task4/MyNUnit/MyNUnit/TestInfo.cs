@@ -113,7 +113,15 @@ namespace MyNUnit
                 }
             }
 
-            Parallel.ForEach(afterMethods, m => m?.Invoke(instance, null));
+            try
+            {
+                Parallel.ForEach(afterMethods, m => m?.Invoke(instance, null));
+            }
+            catch (AggregateException exception)
+            {
+                throw exception;
+            }
+
             testMethod = null;
             beforeMethods = null;
             afterMethods = null;
