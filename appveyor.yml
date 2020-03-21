@@ -2,13 +2,13 @@
 image: Visual Studio 2019 
 
 before_build:
-  - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+  - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
   
 build:
-   project: homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+   project: homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
 
 test_script:
-  - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+  - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
 
 
 

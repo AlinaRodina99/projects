@@ -7,9 +7,9 @@ before_install:
     - sudo apt-get install nuget
 
 install:
-    - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+    - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
 
 script:
-    - dotnet build homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
-    - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit_task4.sln
+    - dotnet build homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+    - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
 
