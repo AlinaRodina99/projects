@@ -1,12 +1,12 @@
-image: Visual Studio 2019 Preview
+image: Visual Studio 2019 
 
 before_build:
-  - nuget restore homework.sem3/Tests/TicTacToe_test2/TicTacToe_test2.sln
+  - nuget restore homework.sem4/homework1/hw1/hw1.sln
   
 build:
-   project: homework.sem3/Tests/TicTacToe_test2/TicTacToe_test2.sln
+   project: homework.sem4/homework1/hw1/hw1.sln
 
 test_script:
-  - dotnet test homework.sem3/Tests/TicTacToe_test2/TicTacToe_test2.sln
+  - dotnet test homework.sem4/homework1/hw1/hw1.sln
 
 

@@ -1,10 +1,14 @@
 language: csharp
-solution: homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
+
+mono: none
+dotnet: 3.0
+
+before_install:
+    - sudo apt-get install nuget
 
 install:
-  - nuget restore homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
-  - nuget install NUnit.Console -Version 3.9.0 -OutputDirectory testrunner
+    - nuget restore homework.sem4/homework1/hw1/hw1.sln
 
 script:
-  - msbuild /p:Configuration=Release homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
-  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./TestsOfLazy/bin/Release/TestsOfLazy.dll
+    - dotnet build homework.sem4/homework1/hw1/hw1.sln
+    - dotnet test homework.sem4/homework1/hw1/hw1.sln
