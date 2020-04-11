@@ -72,15 +72,6 @@ namespace MyNUnit
         /// </summary>
         public void Run()
         {
-            try
-            {
-                Parallel.ForEach(beforeMethods, m => m?.Invoke(instance, null));
-            }
-            catch (AggregateException exception)
-            {
-                throw exception;
-            }
-
             var testAttribute = testMethod.GetCustomAttribute<TestAttribute>();
 
             if (testAttribute.Ignore != null)
@@ -88,6 +79,15 @@ namespace MyNUnit
                 IgnoreReason = testAttribute.Ignore;
                 IsIgnored = true;
                 return;
+            }
+
+            try
+            {
+                Parallel.ForEach(beforeMethods, m => m?.Invoke(instance, null));
+            }
+            catch (AggregateException exception)
+            {
+                throw exception;
             }
 
             var timer = new Stopwatch();

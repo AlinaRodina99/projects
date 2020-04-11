@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Linq;
+using AfterTesting;
 
 namespace MyNUnit.Tests
 {
@@ -96,7 +97,7 @@ namespace MyNUnit.Tests
                 Assert.IsTrue(test.RunningTime > TimeSpan.Zero);
             }
 
-            Assert.AreEqual(2, runner.TestInformation.Count());
+            Assert.AreEqual(1, runner.TestInformation.Count());
         }
 
         [Test]

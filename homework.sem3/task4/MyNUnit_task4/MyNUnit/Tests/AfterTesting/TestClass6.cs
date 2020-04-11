@@ -1,34 +1,19 @@
 ﻿using System;
 using Attributes;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace AfterTesting
 {
     public class TestClass6
     {
-        private volatile string testString = "Test";
+        private int result = 0;
+        public int Result { get; private set; }
 
         [Test]
-        public void CheckTestString1()
-        {
-            if (testString != "Test")
-            {
-                throw new Exception();
-            }
-        }
+        public void CalculateResult1() => result = 3 + 2;
 
         [After]
-        public void After() => testString = "Test passed";
-
-        [Test]
-        public void CheckString2()
-        {
-            Thread.Sleep(1000);
-
-            if (testString != "Test passed")
-            {
-                throw new Exception();
-            }
-        }
+        public void After() => Result = result;
     }
 }

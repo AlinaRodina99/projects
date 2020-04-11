@@ -55,10 +55,7 @@ namespace MyNUnit
                 .Where(x => x.Substring(x.LastIndexOf('\\') + 1) != "Attributes.dll").ToList();
             var listOfTypes = new List<Type>();
 
-            foreach (var file in files)
-            {
-                assemblies.Add(Assembly.LoadFrom(file));
-            }
+            Parallel.ForEach(files, f => assemblies.Add(Assembly.LoadFrom(f)));
 
             var distinctAssemblies = assemblies.Distinct();
 
@@ -81,21 +78,10 @@ namespace MyNUnit
         /// <param name="type">Current type.</param>
         private void RunTests(Type type)
         {
-            var constructor = type.GetConstructor(new Type[] { });
-
-            if (constructor == null)
-            {
-                throw new TestRunException("Type must have constructor without parameters!");
-            }
-            
-            var instance = Activator.CreateInstance(type);
             var methods = type.GetMethods();
             var lists = FillLists(methods);
             var beforeClassList = lists.BeforeClassMethods;
-            var beforeList = lists.BeforeMethods;
-            var testsList = lists.TestMethods;
-            var afterList = lists.AfterMethods;
-            var afterClassList = lists.AfterClassMethods;
+            var constructor = type.GetConstructor(new Type[] { });
 
             try
             {
@@ -106,10 +92,21 @@ namespace MyNUnit
                 throw new TestRunException(exception.Message, exception);
             }
 
+            if (constructor == null)
+            {
+                throw new TestRunException("Type must have constructor without parameters!");
+            }
+
+            var beforeList = lists.BeforeMethods;
+            var testsList = lists.TestMethods;
+            var afterList = lists.AfterMethods;
+            var afterClassList = lists.AfterClassMethods;
+
             try
             {
                 Parallel.ForEach(testsList, (m) =>
                 {
+                    var instance = Activator.CreateInstance(type);
                     var test = new TestInfo(type, instance, m, beforeList, afterList);
                     test.Run();
                     TestInformation.Add(test);
