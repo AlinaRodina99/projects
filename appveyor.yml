@@ -1,11 +1,13 @@
-image: Visual Studio 2019
+
+image: Visual Studio 2019 
 
 before_build:
-  - nuget restore homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
-
+  - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+  
 build:
-   project: homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
+   project: homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
 
 test_script:
-  - dotnet test homework.sem3/task1/Lazy_sem3.task1/Lazy_sem3.task1.sln
+  - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+
 
