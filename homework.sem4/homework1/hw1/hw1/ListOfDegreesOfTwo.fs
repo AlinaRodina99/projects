@@ -13,13 +13,15 @@ let listOfDegreesOfTwo n m =
         recursivePowOfTwo 1 1 
 
     let rec recursiveListOfDegreesOfTwo n m i newList =
-        if (n < 0) || (m < 0) then
-            None
-        else if m < n && i = n + m - 1 then
-            Some(powOfTwo (n) :: newList)
-        else if i = n - 1 then
+        if i = n - 1 then
             Some(newList)
         else 
-            recursiveListOfDegreesOfTwo n m (i - 1) (powOfTwo (i) :: newList)
-    recursiveListOfDegreesOfTwo n m (n + m) []
+            recursiveListOfDegreesOfTwo n m (i - 1) (newList.Head / 2 :: newList)
+
+    if (n < 0) || (m < 0) then
+        None
+    else 
+        recursiveListOfDegreesOfTwo n m (n + m) [powOfTwo (n + m)]
+
+
 
