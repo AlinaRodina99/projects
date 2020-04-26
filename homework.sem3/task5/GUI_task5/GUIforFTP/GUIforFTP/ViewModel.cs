@@ -47,9 +47,16 @@ namespace GUIforFTP
                 return;
             }
 
-            client = new Client(port, ServerAddress);
-            isConnected = true;
-            FolderList.Add(new ManagerElement(RootFolder, true));
+            try
+            {
+                client = new Client(port, ServerAddress);
+                isConnected = true;
+                FolderList.Add(new ManagerElement(RootFolder, true));
+            }
+            catch (AggregateException exception)
+            {
+                MessageForUser = $"{ exception.Message }";
+            }
         }
 
         public async Task OpenFolder(ManagerElement listElement)
@@ -79,13 +86,18 @@ namespace GUIforFTP
                         }
                     }
                 }
-                catch (SocketException)
+                catch (AggregateException exception)
                 {
-                    MessageForUser = "";
+                    MessageForUser = $"{ exception.Message }";
                 }
             }
 
             return;
+        }
+
+        public async Task Back()
+        {
+
         }
 
         public class ManagerElement 

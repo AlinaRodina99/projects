@@ -13,9 +13,8 @@ namespace GUIforFTP
     /// </summary>
     public class Client
     {
-        private readonly TcpClient tcpClient;
-        private readonly StreamWriter writer;
-        private readonly StreamReader reader;
+        private readonly string host;
+        private readonly int port;
 
         /// <summary>
         /// Constructor to create client.
@@ -29,9 +28,8 @@ namespace GUIforFTP
                 throw new ArgumentOutOfRangeException("Port should be from 0 to 65535");
             }
 
-            tcpClient = new TcpClient(host, port);
-            writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
-            reader = new StreamReader(tcpClient.GetStream());
+            this.port = port;
+            this.host = host;
         }
 
         /// <summary>
@@ -40,8 +38,12 @@ namespace GUIforFTP
         /// <param name="path">Specified path.</param>
         public async Task<List<(string name, string type)>> List(string path)
         {
+            var tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(host, port);
             try
             {
+                var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+                var reader = new StreamReader(tcpClient.GetStream());
                 using (writer)
                 {
                     await writer.WriteLineAsync($"1 {path}");
@@ -74,11 +76,9 @@ namespace GUIforFTP
             }
             finally
             {
-                tcpClient.Close();
+                tcpClient?.Close();
             }
         }
-
-        public void Close() => tcpClient.Close();
 
         /// <summary>
         /// Method that makes request for get function.
@@ -86,8 +86,12 @@ namespace GUIforFTP
         /// <param name="path">Specified path.</param>
         public async Task<(long, byte[])> Get(string path)
         {
+            var tcpClient = new TcpClient();
+            await tcpClient.ConnectAsync(host, port);
             try
             {
+                var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
+                var reader = new StreamReader(tcpClient.GetStream());
                 using (writer)
                 {
                     await writer.WriteLineAsync("2 " + path);

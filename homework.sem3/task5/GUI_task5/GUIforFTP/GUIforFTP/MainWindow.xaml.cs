@@ -25,12 +25,7 @@ namespace GUIforFTP
 
         private async void ChoosenElement(object sender, SelectionChangedEventArgs e) => await (DataContext as ViewModel).OpenFolder((ManagerElement)folderList.SelectedItem);
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void folderList_Selected(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -76,10 +76,6 @@ namespace ServerApp
             {
                 Console.WriteLine(exception.Message);
             }
-            finally
-            {
-                tcpListener.Stop();
-            }
         }
 
         /// <summary>

@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <Button Content="Back" Click="Button_Click"/>
+            <Button Content="Back" Click="Back_Click"/>
         </WrapPanel>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Folder manager" TextAlignment="Center" FontSize="40"/>
