@@ -2,13 +2,14 @@
 image: Visual Studio 2019 
 
 before_build:
-  - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+  - nuget restore homework.sem3/task2/MyThreadPool/MyThreadPool.sln
   
 build:
-   project: homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+   project: homework.sem3/task2/MyThreadPool/MyThreadPool.sln
 
 test_script:
-  - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+  - dotnet test homework.sem3/task2/MyThreadPool/MyThreadPool.sln
+
 
 
 

@@ -1,15 +1,11 @@
 language: csharp
 
 mono: none
-dotnet: 3.1.101
-
-before_install:
-    - sudo apt-get install nuget
-
-install:
-    - nuget restore homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
-
-script:
-    - dotnet build homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
-    - dotnet test homework.sem3/task4/MyNUnit_task4/MyNUnit/MyNUnit.sln
+dotnet: 3.0
+before_build:
+- nuget restore homework.sem3/task2/MyThreadPool/MyThreadPool.sln
+build:
+- dotnet build homework.sem3/task2/MyThreadPool/MyThreadPool.sln
+test_script:
+- dotnet test homework.sem3/task2/MyThreadPool/MyThreadPool.sln
 
