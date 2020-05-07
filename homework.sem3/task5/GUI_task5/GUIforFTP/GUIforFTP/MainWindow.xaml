@@ -5,58 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUIforFTP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="listTemplate">
             <WrapPanel>
-                <Image Source="{Binding Path=IsFileOrDir, Mode=TwoWay}" Width="30" Height="30"/>
-                <TextBlock Text="{Binding Path=ElementName, Mode=TwoWay}" FontSize="15"/>
+                <Image Source="{Binding Path=ImagePath}" Width="30" Height="30"/>
+                <TextBlock Text="{Binding Path=ElementName}" FontSize="15"/>
+            </WrapPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="downloadingListTemplate">
+            <WrapPanel>
+                <Image Source="{Binding Path=CurrentDownloadingProcess}" Width="30" Height="30"/>
+                <TextBlock Text="{Binding Path=ElementName}" FontSize="15"/>
             </WrapPanel>
         </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="0.4*"/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.1*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-            <Button Content="Back" Click="Back_Click"/>
-        </WrapPanel>
+        <Button Grid.Column="1" Grid.Row="1" Content="Back" Click="Back_Click" HorizontalAlignment="Right" Height="30" Width="30" VerticalAlignment="Top"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Folder manager" TextAlignment="Center" FontSize="40"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Text="Folder manager" TextAlignment="Center" FontSize="40"/>
 
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <TextBlock Text="Enter port" Background="AntiqueWhite"/>
+            <TextBlock Text="Enter port"/>
             <TextBox  x:Name="boxForPort" Text="{Binding Path=Port, Mode=TwoWay}"/>
-            <TextBlock Text="Enter server address" Background="AntiqueWhite"/>
+            <TextBlock Text="Enter server address"/>
             <TextBox x:Name="boxForServerAddress" Text="{Binding Path=ServerAddress, Mode=TwoWay}"/>
             <Button Content="Connect" FontSize="20" Margin="0 5 5 0" Click="Connect_Click"/>
         </StackPanel>
 
-        <ScrollViewer Grid.Row="1" Grid.Column="1">
+        <ScrollViewer Grid.Row="1" Grid.Column="2">
             <ListBox x:Name="folderList" ItemTemplate="{StaticResource listTemplate}" ItemsSource="{Binding Path=FolderList}" 
                      SelectionChanged="ChoosenElement"/>
         </ScrollViewer>
 
-        <ScrollViewer Grid.Row="2" Grid.Column="1">
-            <ListBox>
-                
-            </ListBox>
+        <ScrollViewer Grid.Row="3" Grid.Column="2">
+            <ListBox x:Name="downloadedList" ItemsSource="{Binding Path=DownloadingFolderList}" 
+                     ItemTemplate="{StaticResource downloadingListTemplate}"/>
         </ScrollViewer>
 
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <Button Content="Download" FontSize="20" Margin="0 0 5 0"/>
-            <Button Content="Download all" FontSize="20" Margin="0 5 5 0"/>
+        <StackPanel Grid.Row="3" Grid.Column="0">
+            <TextBlock Text="Enter folder to download files" HorizontalAlignment="Left"/>
+            <TextBox x:Name="boxForEnteringFolderToDownloadFiles" Text="{Binding Path=FolderForDownloading}"/>
+            <TextBlock Text="Enter file to download" HorizontalAlignment="Left"/>
+            <TextBox x:Name="boxForEnteringFile" Text="{Binding Path=FileForDownloading}"/>
+            <Button Content="Download" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0" Click="Download_Click"/>
+            <Button Content="Download all files" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0"/>
         </StackPanel>
 
-        <Label Grid.Row="2" Grid.Column="2" Content="Help" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="20">
+        <Label Grid.Row="0" Grid.Column="3" Content="Help" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20">
             <Label.ToolTip>
                 <StackPanel>
                     <TextBlock>How can I connect to the server?</TextBlock>
@@ -69,6 +79,6 @@
             </Label.ToolTip>
         </Label>
 
-        <TextBlock x:Name="messageBlock" Grid.Column="0" Grid.Row="2" Text=""/>
+        <TextBlock x:Name="messageBlock" Grid.Column="3" Grid.Row="2" Text=""/>
     </Grid>
 </Window>

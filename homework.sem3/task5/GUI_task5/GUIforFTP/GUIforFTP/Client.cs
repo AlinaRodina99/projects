@@ -84,7 +84,7 @@ namespace GUIforFTP
         /// Method that makes request for get function.
         /// </summary>
         /// <param name="path">Specified path.</param>
-        public async Task<(long, byte[])> Get(string path)
+        public async Task Get(string path, string newPath)
         {
             var tcpClient = new TcpClient();
             await tcpClient.ConnectAsync(host, port);
@@ -100,20 +100,20 @@ namespace GUIforFTP
                         var size = Convert.ToInt32(await reader.ReadLineAsync());
                         if (size == -1)
                         {
-                            Console.WriteLine("This path does not exist!");
-                            return (-1, null);
+                            throw new FtpClientException("This path does not exist!");
                         }
 
-                        var content = new byte[size];
-                        await reader.BaseStream.ReadAsync(content, 0, size);
-                        return (size, content);
+                        var fileResult = new FileStream(newPath, FileMode.Create, FileAccess.Write);
+                        await reader.BaseStream.CopyToAsync(fileResult);
+
+                        fileResult.Flush();
+                        fileResult.Close();
                     }
                 }
             }
             catch (SocketException exception)
             {
                 Console.WriteLine(exception.Message);
-                return (-1, null);
             }
             finally
             {

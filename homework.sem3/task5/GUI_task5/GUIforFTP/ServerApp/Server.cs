@@ -124,9 +124,9 @@ namespace ServerApp
 
             await writer.WriteLineAsync($"{new FileInfo(path).Length}");
 
-            using (var stream = File.Open(path, FileMode.Open))
+            using (var file = File.OpenRead(path))
             {
-                await stream.CopyToAsync(writer.BaseStream);
+                await file.CopyToAsync(writer.BaseStream);
             }
         }
 
