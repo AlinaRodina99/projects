@@ -18,7 +18,7 @@
     <Compile Include="FindNumberInListTests.fs" />
     <Compile Include="ListOfDegreesOfTwoTests.fs" />
     <Compile Include="ReverseListTest.fs" />
-    <Compile Include="FibonachhiTests.fs" />
+    <Compile Include="FibonacciTests.fs" />
     <Compile Include="FactorialTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
