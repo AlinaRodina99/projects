@@ -1,9 +1,8 @@
 ﻿module ListOfDegreesOfTwo
 
-///function to get list like this [2^n; 2^n+1; ...;2^n+m]
+///<summary> Function to make the list of powers of two based on values of n and m, the list will look like this: [2^n; 2^(n+1); ... ; 2^(n+m)].</summary>
 let listOfDegreesOfTwo n m =
     
-    ///auxiliary function of raising two to a power
     let powOfTwo n =
         let rec recursivePowOfTwo acc i =
             match n with 

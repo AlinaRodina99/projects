@@ -2,6 +2,7 @@ module hw1.Tests
 
 open NUnit.Framework
 open Factorial
+open FsUnit
 
 [<Test>]
 [<TestCase(6, 3)>]
@@ -10,8 +11,8 @@ open Factorial
 [<TestCase(1, 1)>]
 [<TestCase(1, 0)>]
 let FactorialSimpleTest expected x =
-    Assert.AreEqual(Some(expected), factorial x)
+    factorial x |> should equal (Some(expected))
 
 [<Test>]
 let FactorialOfNegativeNumbersTest () =
-    Assert.AreEqual(None, factorial -1)
+    factorial -1 |> should equal (None)]

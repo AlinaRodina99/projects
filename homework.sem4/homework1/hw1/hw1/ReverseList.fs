@@ -1,9 +1,9 @@
 ﻿module ReverseList
 
-///function to reverse list
+///<summary> Function to reverse list.</summary>
 let reverseList list =
     let rec recursiveReverseList list newList =
         match list with 
-        | _ when list = [] -> Some(newList)
-        | _ -> recursiveReverseList (List.tail list) ((List.head list) :: newList)
+        | [] -> Some(newList)
+        | hd :: tl -> recursiveReverseList tl (hd :: newList)
     recursiveReverseList list []

@@ -1,14 +1,11 @@
 ﻿module FindNumberInList
 
-///function to find the first position in the list of the specified number
+///<summary> Function finds certain number in list.</summary>
 let findNumber x list =
     let rec recursiveFindNumber acc list =
-        if list = [] then
-           None
-        else if List.head list = x then
-             Some(acc)
-        else if List.tail list = [] then
-             Some(-1)
-        else 
-           recursiveFindNumber (acc + 1) (List.tail list)
+        match list with
+        | [] -> None
+        | _ when List.head list = x -> Some(acc)
+        | _ when List.tail list = [] -> Some(-1)
+        | _ -> recursiveFindNumber (acc + 1) (List.tail list)
     recursiveFindNumber 0 list

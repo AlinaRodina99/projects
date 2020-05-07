@@ -1,6 +1,6 @@
 ﻿module Factorial
 
-///function to calculate the factorial of the number
+///<summary> Function to calculate factorial of a certain number.</summary>
 let factorial x =
     let rec recursiveFactorial x acc =
         match x with 
