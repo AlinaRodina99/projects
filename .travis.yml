@@ -12,3 +12,4 @@ install:
 script:
     - dotnet build homework.sem4/homework1/hw1/hw1.sln
     - dotnet test homework.sem4/homework1/hw1/hw1.sln
+
