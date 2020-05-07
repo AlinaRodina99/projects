@@ -1,4 +1,4 @@
-﻿module Fibonachhi
+﻿module Fibonacci
 
 ///<summary> Function to find certain Fibonacci number.</summary>
 let fibonacci n =

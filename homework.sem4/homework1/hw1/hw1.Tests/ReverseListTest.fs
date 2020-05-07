@@ -11,5 +11,5 @@ let ``Reverse list several tests`` () =
     reverseList [5; 6; 7] |> should equal (Some([7; 6; 5]))
     reverseList [8; 67; 3; 1] |> should equal (Some([1; 3; 67; 8]))
 
-let ReverseEmptyList () =
+let ``Reverse empty list`` () =
     reverseList [] |> should equal (Some([]))
