@@ -12,7 +12,7 @@ let listOfDegreesOfTwo n m =
         recursivePowOfTwo 1 1 
 
     let rec recursiveListOfDegreesOfTwo n m i newList =
-        if i = n - 1 then
+        if i = n then
             Some(newList)
         else 
             recursiveListOfDegreesOfTwo n m (i - 1) (newList.Head / 2 :: newList)
