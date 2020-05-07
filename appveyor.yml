@@ -2,6 +2,7 @@
 image: Visual Studio 2019 
 
 before_build:
+
   - nuget restore homework.sem4/homework1/hw1/hw1.sln
   
 build:
@@ -9,6 +10,7 @@ build:
 
 test_script:
   - dotnet test homework.sem4/homework1/hw1/hw1.sln
+
 
 
 
