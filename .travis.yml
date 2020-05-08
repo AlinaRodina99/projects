@@ -2,10 +2,14 @@ language: csharp
 
 mono: none
 dotnet: 3.0
-before_build:
-- nuget restore homework.sem3/task2/MyThreadPool/MyThreadPool.sln
-build:
-- dotnet build homework.sem3/task2/MyThreadPool/MyThreadPool.sln
-test_script:
-- dotnet test homework.sem3/task2/MyThreadPool/MyThreadPool.sln
+
+before_install:
+    - sudo apt-get install nuget
+
+install:
+    - nuget restore homework.sem4/homework1/hw1/hw1.sln
+
+script:
+    - dotnet build homework.sem4/homework1/hw1/hw1.sln
+    - dotnet test homework.sem4/homework1/hw1/hw1.sln
 
