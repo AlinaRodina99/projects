@@ -18,7 +18,6 @@ namespace GUIforFTP
 
             var model = new ViewModel(path);
 
-
             DataContext = model;
         }
 
@@ -28,6 +27,10 @@ namespace GUIforFTP
 
         private async void Back_Click(object sender, RoutedEventArgs e) => await (DataContext as ViewModel).Back();
 
-        private async void Download_Click(object sender, RoutedEventArgs e) => await (DataContext as ViewModel).DownloadOneFile(boxForEnteringFolderToDownloadFiles.Text);
+        private async void Download_Click(object sender, RoutedEventArgs e) => await (DataContext as ViewModel).DownloadOneFile(boxForEnteringFile.Text);
+        
+        private async void Download_All_Click(object sender, RoutedEventArgs e) => await (DataContext as ViewModel).DownloadAllFilesInFolder();
+
+        private void ClearDownloadingList_Click(object sender, RoutedEventArgs e) => (DataContext as ViewModel).ClearDownloadingList();
     }
 }

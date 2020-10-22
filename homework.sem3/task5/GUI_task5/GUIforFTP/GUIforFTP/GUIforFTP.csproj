@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FtpClientException1.cs" />
+    <Compile Include="FtpClientException.cs" />
     <Compile Include="IManagerElement.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">

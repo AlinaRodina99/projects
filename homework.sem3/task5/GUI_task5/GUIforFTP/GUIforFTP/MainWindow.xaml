@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GUIforFTP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="800">
+        Title="FolderManager" Height="550" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="listTemplate">
             <WrapPanel>
@@ -35,7 +34,7 @@
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Column="1" Grid.Row="1" Content="Back" Click="Back_Click" HorizontalAlignment="Right" Height="30" Width="30" VerticalAlignment="Top"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Back" Click="Back_Click" HorizontalAlignment="Right" Height="195" Width="30" VerticalAlignment="Top"/>
 
         <TextBlock Grid.Row="0" Grid.Column="2" Text="Folder manager" TextAlignment="Center" FontSize="40"/>
 
@@ -59,11 +58,11 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0">
             <TextBlock Text="Enter folder to download files" HorizontalAlignment="Left"/>
-            <TextBox x:Name="boxForEnteringFolderToDownloadFiles" Text="{Binding Path=FolderForDownloading}"/>
+            <TextBox x:Name="boxForEnteringFolderToDownloadFiles" Text="{Binding Path=FolderForDownloading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBlock Text="Enter file to download" HorizontalAlignment="Left"/>
-            <TextBox x:Name="boxForEnteringFile" Text="{Binding Path=FileForDownloading}"/>
+            <TextBox x:Name="boxForEnteringFile" Text="{Binding Path=FileForDownloading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="Download" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0" Click="Download_Click"/>
-            <Button Content="Download all files" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0"/>
+            <Button Content="Download all files" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0" Click="Download_All_Click"/>
         </StackPanel>
 
         <Label Grid.Row="0" Grid.Column="3" Content="Help" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20">
@@ -78,6 +77,8 @@
                 </StackPanel>
             </Label.ToolTip>
         </Label>
+
+        <Button Grid.Column="1" Grid.Row="3" Content="Clear" HorizontalAlignment="Right" Height="195" Width="30" Click="ClearDownloadingList_Click"/>
 
         <TextBlock x:Name="messageBlock" Grid.Column="3" Grid.Row="2" Text=""/>
     </Grid>
