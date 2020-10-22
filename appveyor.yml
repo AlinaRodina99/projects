@@ -1,10 +1,13 @@
-image: Visual Studio 2019
+image: Visual Studio 2019 
+
 before_build:
-- nuget restore homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+
+  - nuget restore homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+  
 build:
-project: homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+   project: homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+
 test_script:
-- nunit3-console homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln \
---result=myresults.xml;format=AppVeyor
+  - dotnet test homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
 
 
