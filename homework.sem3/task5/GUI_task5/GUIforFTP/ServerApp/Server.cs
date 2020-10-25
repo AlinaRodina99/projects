@@ -7,6 +7,9 @@ using System.Threading;
 
 namespace ServerApp
 {
+    /// <summary>
+    /// Class that represents server that client connects to.
+    /// </summary>
     public class Server 
     {
         private readonly TcpListener tcpListener;

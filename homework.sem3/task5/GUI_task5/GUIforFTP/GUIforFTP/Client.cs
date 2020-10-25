@@ -20,12 +20,12 @@ namespace GUIforFTP
         /// Constructor to create client.
         /// </summary>
         /// <param name="port">Port of the server.</param>
-        /// <param name="host">Localhost.</param>
+        /// <param name="host">Localhost on default mode..</param>
         public Client(int port, string host = "localhost")
         {
             if (port < IPEndPoint.MinPort || port > IPEndPoint.MaxPort)
             {
-                throw new ArgumentOutOfRangeException("Port should be from 0 to 65535");
+                throw new ArgumentOutOfRangeException($"Port should be from { IPEndPoint.MinPort } to { IPEndPoint.MaxPort}");
             }
 
             this.port = port;
@@ -61,7 +61,17 @@ namespace GUIforFTP
                         {
                             var file = await reader.ReadLineAsync();
                             var isDir = await reader.ReadLineAsync();
-                            var fileAndIsDir = (file, isDir);
+                            (string, string) fileAndIsDir = (null, null);
+
+                            if (Convert.ToBoolean(isDir))
+                            {
+                                fileAndIsDir = (file, "Folder");
+                            }
+                            else
+                            {
+                                fileAndIsDir = (file, "File");
+                            }
+
                             list.Add(fileAndIsDir);
                         }
                     }

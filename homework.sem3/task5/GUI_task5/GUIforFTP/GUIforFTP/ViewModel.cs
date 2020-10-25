@@ -17,7 +17,6 @@ namespace GUIforFTP
         private int port;
         private bool isConnected = false;
         private static string path;
-        private string fileForDownloading;
         private string folderForDownloading;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -53,24 +52,11 @@ namespace GUIforFTP
         }
 
         /// <summary>
-        /// Property for the file which client wants to download.
-        /// </summary>
-        public string FileForDownloading
-        {
-            get { return fileForDownloading; }
-            set
-            {
-                fileForDownloading = value;
-                OnPropertyChanged("FileForDownloading");
-            }
-        }
-
-        /// <summary>
         /// Property for the folder which client wants to use for downloadings.
         /// </summary>
         public string FolderForDownloading
         {
-            get { return folderForDownloading; }
+            get => folderForDownloading; 
             set
             {
                 folderForDownloading = value;
@@ -99,7 +85,7 @@ namespace GUIforFTP
 
         public void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        
+
         /// <summary>
         /// Method to connect with server.
         /// </summary>
@@ -115,7 +101,7 @@ namespace GUIforFTP
             {
                 client = new Client(port, ServerAddress);
                 isConnected = true;
-                FolderList.Add(new ManagerElement(RootFolder, true));
+                FolderList.Add(new ManagerElement(RootFolder, ManagerElement.TypeOfElement.Folder));
             }
             catch (AggregateException exception)
             {
@@ -127,9 +113,9 @@ namespace GUIforFTP
         /// Method to open folder in folder manager.
         /// </summary>
         /// <param name="listElement">Element in folder manager: file or folder</param>
-        public async Task OpenFolder(ManagerElement listElement)
+        public async Task OpenFolderOrLoad(ManagerElement listElement)
         {
-            if (listElement != null && listElement.Type)
+            if (listElement != null && listElement.Type == ManagerElement.TypeOfElement.Folder)
             {
                 if (CurrentFolder == null)
                 {
@@ -157,11 +143,18 @@ namespace GUIforFTP
 
                     if (currentFolderList != null)
                     {
-                        FolderList.Clear();
+                        ClearFolderList();
 
                         foreach (var (name, type) in currentFolderList)
                         {
-                            FolderList.Add(new ManagerElement(SubstringEndOfPath(name), Convert.ToBoolean(type)));
+                            if (type == "File")
+                            {
+                                FolderList.Add(new ManagerElement(SubstringEndOfPath(name), ManagerElement.TypeOfElement.File));
+                            }
+                            else
+                            {
+                                FolderList.Add(new ManagerElement(SubstringEndOfPath(name), ManagerElement.TypeOfElement.Folder));
+                            }
                         }
                     }
                 }
@@ -170,14 +163,18 @@ namespace GUIforFTP
                     MessageBox.Show($"{ exception.Message }");
                 }
             }
-
-            return;
+            else
+            {
+                if (listElement != null)
+                {
+                    await DownloadOneFile(listElement.ElementName);
+                }
+            }
         }
 
         /// <summary>
         /// Method to leave the current folder.
         /// </summary>
-        /// <returns></returns>
         public async Task Back()
         {
             if (!isConnected)
@@ -194,7 +191,7 @@ namespace GUIforFTP
             if (CurrentFolder == RootFolder)
             {
                 FolderList.Clear();
-                FolderList.Add(new ManagerElement(RootFolder, true, false));
+                FolderList.Add(new ManagerElement(RootFolder, ManagerElement.TypeOfElement.Folder, false));
                 return;
             }
 
@@ -203,12 +200,12 @@ namespace GUIforFTP
             if (temp.LastIndexOf('\\') >= 0)
             {
                 CurrentFolder = SubstringBeginOfPath(temp);
-                await OpenFolder(new ManagerElement(SubstringEndOfPath(temp), true));
+                await OpenFolderOrLoad(new ManagerElement(SubstringEndOfPath(temp), ManagerElement.TypeOfElement.Folder));
             }
             else
             {
                 CurrentFolder = temp;
-                await OpenFolder(new ManagerElement(CurrentFolder, true));
+                await OpenFolderOrLoad(new ManagerElement(CurrentFolder, ManagerElement.TypeOfElement.Folder));
             }
         }
 
@@ -218,28 +215,9 @@ namespace GUIforFTP
         /// <param name="file">File that client wants to download.</param>
         public async Task DownloadOneFile(string file)
         {
-            if (!isConnected)
+            if (FolderForDownloading == null)
             {
-                MessageBox.Show("You must connect before clicking on Download button.");
-                return;
-            }
-
-            if (CurrentFolder == null)
-            {
-                MessageBox.Show("You must open root folder before clicking on Download button.");
-                return;
-            }
-
-            if (!File.Exists(SubstringBeginOfPath(path) +  "\\" + CurrentFolder + "\\" + file))
-            {
-                MessageBox.Show("Such file does not exist in the current folder. Try again.");
-                FileForDownloading = null;
-                return;
-            }
-
-            if (file == "" || file == null)
-            {
-                MessageBox.Show("You must enter the file before clicking on Download button.");
+                MessageBox.Show("You must write folder for downloads!");
                 return;
             }
 
@@ -249,15 +227,14 @@ namespace GUIforFTP
                 Directory.CreateDirectory(newPath);
             }
 
-            var newFile = new ManagerElement(file, false, true);
+            var newFile = new ManagerElement(file, ManagerElement.TypeOfElement.File, true);
             DownloadingFolderList.Add(newFile);
 
             await client.Get(SubstringBeginOfPath(path) + $"\\{ CurrentFolder }" + $"\\{ file }", newPath + $"{ file }");
 
             DownloadingFolderList.Remove(newFile);
-            DownloadingFolderList.Add(new ManagerElement(file, false, false));
-            FileForDownloading = null;
-            await OpenFolder(new ManagerElement(CurrentFolder, true));
+            DownloadingFolderList.Add(new ManagerElement(file, ManagerElement.TypeOfElement.File, false));
+            await OpenFolderOrLoad(new ManagerElement(CurrentFolder, ManagerElement.TypeOfElement.Folder));
         }
 
         /// <summary>
@@ -274,11 +251,18 @@ namespace GUIforFTP
             if (CurrentFolder == null)
             {
                 MessageBox.Show("You must open root folder before clicking on DownloadAll button.");
+                return;
+            }
+
+            if (FolderForDownloading == null)
+            {
+                MessageBox.Show("You must write folder for downloads!");
+                return;
             }
 
             for (var i = 0; i < FolderList.Count; ++i)
             {
-                if (!FolderList[i].Type)
+                if (FolderList[i].Type == ManagerElement.TypeOfElement.File)
                 {
                     await DownloadOneFile(FolderList[i].ElementName);
                 }
@@ -298,15 +282,27 @@ namespace GUIforFTP
         /// <summary>
         /// Class that represents manager element: file or folder.
         /// </summary>
-        public class ManagerElement 
+        public class ManagerElement
         {
-            public string ElementName { get; set;}
+            public string ElementName { get; set; }
 
             /// <summary>
-            /// Property to know whether element is folder or not. True-folder, false-file.
+            /// Property to know whether element is folder or file.
             /// </summary>
-            public bool Type { get; set; }
+            public TypeOfElement Type { get; set; }
 
+            /// <summary>
+            /// Types of manager element.
+            /// </summary>
+            public enum TypeOfElement
+            {
+                File,
+                Folder
+            }
+
+            /// <summary>
+            /// Path to the icon for folder or file to draw it on window.
+            /// </summary>
             public string ImagePath { get; set; }
 
             /// <summary>
@@ -314,13 +310,21 @@ namespace GUIforFTP
             /// </summary>
             public string CurrentDownloadingProcess { get; set; }
 
-            public ManagerElement(string name, bool type, bool isDownloading = false)
+            public ManagerElement(string name, TypeOfElement type, bool isDownloading = false)
             {
                 ElementName = name;
                 Type = type;
                 var currentPath = path.Substring(0, path.LastIndexOf('\\'));
                 CurrentDownloadingProcess = isDownloading ? $"{ currentPath }\\Icons\\downloading.jpg" : $"{ currentPath }\\Icons\\downloaded.jpg";
-                ImagePath = type ? $"{ currentPath }\\Icons\\folder.jpg" : $"{ currentPath }\\Icons\\file.jpg";
+
+                if (type == TypeOfElement.File)
+                {
+                    ImagePath = $"{ currentPath }\\Icons\\file.jpg";
+                }
+                else
+                {
+                    ImagePath = $"{ currentPath }\\Icons\\folder.jpg";
+                }
             }
         }
     }
