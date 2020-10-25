@@ -68,9 +68,9 @@
                     <TextBlock>How can I connect to the server?</TextBlock>
                     <TextBlock>Enter port and server address and click on "Connect" button.</TextBlock>
                     <TextBlock>How can I download the file?</TextBlock>
-                    <TextBlock>Choose the file in folder window and click on "Download" button.</TextBlock>
+                    <TextBlock>Enter folder for downloads and choose file in window.</TextBlock>
                     <TextBlock>How can I download several files?</TextBlock>
-                    <TextBlock>Choose files in folder widnow and click on "Download all" button.</TextBlock>
+                    <TextBlock>Enter folder for downloads and click on "Download all files" button.</TextBlock>
                 </StackPanel>
             </Label.ToolTip>
         </Label>
