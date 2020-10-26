@@ -127,10 +127,6 @@ namespace GUIforFTP
                 {
                     Console.WriteLine(exception.Message);
                 }
-                finally
-                {
-                    tcpClient.Close();
-                }
             }
         }
     }
