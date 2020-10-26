@@ -5,6 +5,8 @@ using System.IO;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace GUIforFTP
 {
@@ -222,6 +224,17 @@ namespace GUIforFTP
             }
 
             var newPath = CurrentFolder + $"\\{ FolderForDownloading }\\";
+            var invalidChars = new char[10] { '\\', '/', '?', ':', '"', '*', '<', '>', '|', '.' };
+
+            foreach (var symbol in FolderForDownloading.ToCharArray().ToList())
+            {
+                if (invalidChars.ToList().Contains(symbol))
+                {
+                    MessageBox.Show("Folder name should not contain next symbols: \\ | / ? : * \" < > .");
+                    return;
+                }
+            }
+
             if (!Directory.Exists(newPath))
             {
                 Directory.CreateDirectory(newPath);
@@ -284,6 +297,9 @@ namespace GUIforFTP
         /// </summary>
         public class ManagerElement
         {
+            /// <summary>
+            /// Property for the name of file or folder.
+            /// </summary>
             public string ElementName { get; set; }
 
             /// <summary>

@@ -23,7 +23,7 @@ namespace ServerApp
         {
             if (port < IPEndPoint.MinPort || port > IPEndPoint.MaxPort)
             {
-                throw new ArgumentOutOfRangeException("Port should be from 0 to 65535");
+                throw new ArgumentOutOfRangeException($"Port should be from { IPEndPoint.MinPort } to { IPEndPoint.MaxPort }"); 
             }
 
             tcpListener = new TcpListener(IPAddress.Any, port);
@@ -55,23 +55,26 @@ namespace ServerApp
             {
                 using (var stream = tcpClient.GetStream())
                 {
-                    var reader = new StreamReader(stream);
-                    var writer = new StreamWriter(stream) { AutoFlush = true };
-
-                    var request = await reader.ReadLineAsync();
-                    var requestArgs = ParseRequest(request);
-
-                    switch (requestArgs[0])
+                    using (var reader = new StreamReader(stream))
                     {
-                        case "1":
-                            await List(requestArgs[1], writer);
-                            break;
-                        case "2":
-                            await Get(requestArgs[1], writer);
-                            break;
-                        default:
-                            Console.WriteLine("Wrong command!");
-                            break;
+                        using (var writer = new StreamWriter(stream) { AutoFlush = true }) 
+                        { 
+                            var request = await reader.ReadLineAsync();
+                            var requestArgs = ParseRequest(request);
+
+                            switch (requestArgs[0])
+                            {
+                                case "1":
+                                    await List(requestArgs[1], writer);
+                                    break;
+                                case "2":
+                                    await Get(requestArgs[1], writer);
+                                    break;
+                                default:
+                                    Console.WriteLine("Wrong command!");
+                                    break;
+                            }
+                        }
                     }
                 }
             }

@@ -38,55 +38,56 @@ namespace GUIforFTP
         /// <param name="path">Specified path.</param>
         public async Task<List<(string name, string type)>> List(string path)
         {
-            var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
-            try
+            using (var tcpClient = new TcpClient())
             {
-                var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
-                var reader = new StreamReader(tcpClient.GetStream());
-                using (writer)
+                await tcpClient.ConnectAsync(host, port);
+                try
                 {
-                    await writer.WriteLineAsync($"1 {path}");
-                    var list = new List<(string, string)>();
-                    using (reader)
+                    using (var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true })
                     {
-                        var size = await reader.ReadLineAsync();
-                        if (size == "-1")
+                        await writer.WriteLineAsync($"1 {path}");
+                        var list = new List<(string, string)>();
+                        using (var reader = new StreamReader(tcpClient.GetStream()))
                         {
-                            Console.WriteLine("Such directory does not exist!");
-                            return null;
-                        }
-                        
-                        for (var i = 0; i < Convert.ToInt32(size); ++i)
-                        {
-                            var file = await reader.ReadLineAsync();
-                            var isDir = await reader.ReadLineAsync();
-                            (string, string) fileAndIsDir = (null, null);
-
-                            if (Convert.ToBoolean(isDir))
+                            var size = await reader.ReadLineAsync();
+                            if (size == "-1")
                             {
-                                fileAndIsDir = (file, "Folder");
-                            }
-                            else
-                            {
-                                fileAndIsDir = (file, "File");
+                                Console.WriteLine("Such directory does not exist!");
+                                return null;
                             }
 
-                            list.Add(fileAndIsDir);
+                            for (var i = 0; i < Convert.ToInt32(size); ++i)
+                            {
+                                var file = await reader.ReadLineAsync();
+                                var isDir = await reader.ReadLineAsync();
+                                (string, string) fileAndIsDir = (null, null);
+
+                                if (Convert.ToBoolean(isDir))
+                                {
+                                    fileAndIsDir = (file, "Folder");
+                                }
+                                else
+                                {
+                                    fileAndIsDir = (file, "File");
+                                }
+
+                                list.Add(fileAndIsDir);
+                            }
                         }
+
+                        return list;
                     }
-
-                    return list;
                 }
-            }
-            catch (SocketException exception)
-            {
-                Console.WriteLine(exception.Message);
-                return null;
-            }
-            finally
-            {
-                tcpClient?.Close();
+
+                catch (SocketException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                    return null;
+                }
+                finally
+                {
+                    tcpClient?.Close();
+                }
             }
         }
 
@@ -96,38 +97,40 @@ namespace GUIforFTP
         /// <param name="path">Specified path.</param>
         public async Task Get(string path, string newPath)
         {
-            var tcpClient = new TcpClient();
-            await tcpClient.ConnectAsync(host, port);
-            try
+            using (var tcpClient = new TcpClient())
             {
-                var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true };
-                var reader = new StreamReader(tcpClient.GetStream());
-                using (writer)
+                await tcpClient.ConnectAsync(host, port);
+                try
                 {
-                    await writer.WriteLineAsync("2 " + path);
-                    using (reader)
+                    using (var writer = new StreamWriter(tcpClient.GetStream()) { AutoFlush = true })
                     {
-                        var size = Convert.ToInt32(await reader.ReadLineAsync());
-                        if (size == -1)
+                        await writer.WriteLineAsync("2 " + path);
+                        using (var reader = new StreamReader(tcpClient.GetStream()))
                         {
-                            throw new FtpClientException("This path does not exist!");
+                            var size = Convert.ToInt32(await reader.ReadLineAsync());
+                            if (size == -1)
+                            {
+                                throw new FtpClientException("This path does not exist!");
+                            }
+
+                            using (var fileResult = new FileStream(newPath, FileMode.Create, FileAccess.Write))
+                            {
+                                await reader.BaseStream.CopyToAsync(fileResult);
+
+                                fileResult.Flush();
+                                fileResult.Close();
+                            }
                         }
-
-                        var fileResult = new FileStream(newPath, FileMode.Create, FileAccess.Write);
-                        await reader.BaseStream.CopyToAsync(fileResult);
-
-                        fileResult.Flush();
-                        fileResult.Close();
                     }
                 }
-            }
-            catch (SocketException exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
-            finally
-            {
-                tcpClient.Close();
+                catch (SocketException exception)
+                {
+                    Console.WriteLine(exception.Message);
+                }
+                finally
+                {
+                    tcpClient.Close();
+                }
             }
         }
     }
