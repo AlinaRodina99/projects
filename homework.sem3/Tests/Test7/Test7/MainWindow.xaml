@@ -17,19 +17,19 @@
 
         <StackPanel Grid.Row="0">
             <TextBlock Text="Enter first number" FontSize="15" HorizontalAlignment="Center"/>
-            <TextBox x:Name="boxForFirstNumber" Text="{Binding Path=BoxForFirstNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="boxForFirstNumber_TextChanged"/>
+            <TextBox x:Name="boxForFirstNumber" Text="{Binding Path=BoxForFirstNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="BoxForFirstNumber_TextChanged"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1">
             <TextBlock Text="Enter second number" FontSize="15" HorizontalAlignment="Center"/>
-            <TextBox x:Name="boxForSecondNumber" Text="{Binding Path=BoxForSecondNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="boxForSecondNumber_TextChanged"/>
+            <TextBox x:Name="boxForSecondNumber" Text="{Binding Path=BoxForSecondNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="BoxForSecondNumber_TextChanged"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2">
-            <Button x:Name="plus" Height="25" Width="50" HorizontalAlignment="Left" Content="+" Command="{Binding GetAdd}"/>
-            <Button x:Name="a" Height="25" Width="50" HorizontalAlignment="Left" Content="-" Command="{Binding GetSubtraction}"/>
-            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="/" Command="{Binding GetMultiplication}"/>
-            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="*" Command="{Binding GetDivision}"/>
+            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="+" Command="{Binding GetAdd}"/>
+            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="-" Command="{Binding GetSubtraction}"/>
+            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="/" Command="{Binding GetDivision}"/>
+            <Button Height="25" Width="50" HorizontalAlignment="Left" Content="*" Command="{Binding GetMultiplication}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3">

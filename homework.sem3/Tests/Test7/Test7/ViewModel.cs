@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace Test7
@@ -35,7 +34,15 @@ namespace Test7
         {
             if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null)
             {
-                Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                try
+                {
+                    Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show($"{exception.Message}");
+                    return;
+                }
             }
         }
 
@@ -46,7 +53,15 @@ namespace Test7
         {
             if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null)
             {
-                Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                try
+                {
+                    Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                }
+                catch (AggregateException exception)
+                {
+                    MessageBox.Show($"{exception.Message}");
+                    return;
+                }
             }
         }
 
@@ -58,12 +73,6 @@ namespace Test7
             get => boxForFirstNumber;
             set
             {
-                if (!Double.TryParse(boxForFirstNumber, out double result))
-                {
-                    MessageBox.Show("Неверный формат числа.");
-                    return;
-                }
-
                 boxForFirstNumber = value;
                 OnPropertyChanged();
             }
@@ -77,12 +86,6 @@ namespace Test7
             get => boxForSecondNumber;
             set
             {
-                if (!Double.TryParse(boxForFirstNumber, out double result))
-                {
-                    MessageBox.Show("Неверный формат числа.");
-                    return;
-                }
-
                 boxForSecondNumber = value;
                 OnPropertyChanged();
             }
@@ -117,7 +120,15 @@ namespace Test7
                     }
 
                     currentOperand = "+";
-                    Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                    try
+                    {
+                        Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                    }
+                    catch (AggregateException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
                 }));
             }
         }
@@ -138,7 +149,16 @@ namespace Test7
                     }
 
                     currentOperand = "-";
-                    Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                    try
+                    {
+                        Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                    }
+                    catch (AggregateException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
+
                 }));
             }
         }
@@ -159,7 +179,15 @@ namespace Test7
                     }
 
                     currentOperand = "*";
-                    Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                    try
+                    {
+                        Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                    }
+                    catch (AggregateException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
                 }));
             }
         }
@@ -180,7 +208,15 @@ namespace Test7
                     }
 
                     currentOperand = "/";
-                    Answer = calculator.Calculate(currentOperand, Convert.ToDouble(boxForSecondNumber), Convert.ToDouble(boxForFirstNumber)).ToString();
+                    try
+                    {
+                        Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
+                    }
+                    catch (AggregateException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
                 }));
             }
         }

@@ -20,20 +20,22 @@ namespace Test7
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            var viewModel = new ViewModel();
+            viewModel = new ViewModel();
 
             DataContext = viewModel;
         }
-        private void boxForFirstNumber_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxForFirstNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             (DataContext as ViewModel).ChangedFirstNumber();
         }
 
-        private void boxForSecondNumber_TextChanged(object sender, TextChangedEventArgs e)
+        private void BoxForSecondNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             (DataContext as ViewModel).ChangedSecondNumber();
         }

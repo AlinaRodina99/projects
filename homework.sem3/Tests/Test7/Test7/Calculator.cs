@@ -11,25 +11,48 @@ namespace Test7
         /// Method that calculates expression.
         /// </summary>
         /// <returns>Answer to expression.</returns>
-        public double Calculate(string operation, double firstNumber, double secondNumber)
+        public double Calculate(string operation, string firstNumber, string secondNumber)
         {
+            double answer;
+
+            if (!CheckNumber(firstNumber) || !CheckNumber(secondNumber))
+            {
+                throw new ArgumentException("Неверный формат числа.");
+            }
+
             switch (operation)
             {
                 case "+":
-                    return secondNumber + firstNumber;
+                    answer = Convert.ToDouble(secondNumber) + Convert.ToDouble(firstNumber);
+                    break;
                 case "-":
-                    return secondNumber - firstNumber;
+                    answer =  Convert.ToDouble(secondNumber) - Convert.ToDouble(firstNumber);
+                    break;
                 case "*":
-                    return secondNumber * firstNumber;
+                    answer = Convert.ToDouble(secondNumber) * Convert.ToDouble(firstNumber);
+                    break;
                 case "/":
-                    if (firstNumber == 0)
+                    if (Convert.ToDouble(firstNumber) == 0)
                     {
-                        throw new DivideByZeroException();
+                        throw new DivideByZeroException("На ноль делить нельзя.");
                     }
-                    return secondNumber / firstNumber;
+                    answer = Convert.ToDouble(secondNumber) / Convert.ToDouble(firstNumber);
+                    break;
                 default:
                     throw new InvalidOperationException();
             }
+
+            return answer;
+        }
+
+        private bool CheckNumber(string number)
+        {
+            if (!double.TryParse(number, out double _) || number.Substring(1).Contains("-"))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
