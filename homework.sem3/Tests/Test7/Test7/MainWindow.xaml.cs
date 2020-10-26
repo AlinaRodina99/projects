@@ -28,10 +28,14 @@ namespace Test7
 
             DataContext = viewModel;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void boxForFirstNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
+            (DataContext as ViewModel).ChangedFirstNumber();
+        }
 
+        private void boxForSecondNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            (DataContext as ViewModel).ChangedSecondNumber();
         }
     }
 }
