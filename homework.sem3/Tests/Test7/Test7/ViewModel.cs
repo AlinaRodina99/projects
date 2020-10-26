@@ -19,7 +19,7 @@ namespace Test7
         private RelayCommand gettingAdd;
         private RelayCommand gettingSubtraction;
         private RelayCommand gettingMultiplication;
-        private RelayCommand gettingDivision;   
+        private RelayCommand gettingDivision;
 
 
         static ViewModel()
@@ -32,13 +32,13 @@ namespace Test7
         /// </summary>
         public void ChangedFirstNumber()
         {
-            if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null)
+            if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null && boxForFirstNumber != "" && boxForFirstNumber != "-")
             {
                 try
                 {
                     Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
                 }
-                catch (Exception exception)
+                catch (ArgumentException exception)
                 {
                     MessageBox.Show($"{exception.Message}");
                     return;
@@ -51,13 +51,13 @@ namespace Test7
         /// </summary>
         public void ChangedSecondNumber()
         {
-            if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null)
+            if (boxForFirstNumber != null && boxForSecondNumber != null && currentOperand != null && boxForSecondNumber != "" && boxForSecondNumber != "-")
             {
                 try
                 {
                     Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
                 }
-                catch (AggregateException exception)
+                catch (ArgumentException exception)
                 {
                     MessageBox.Show($"{exception.Message}");
                     return;
@@ -124,11 +124,17 @@ namespace Test7
                     {
                         Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
                     }
-                    catch (AggregateException exception)
+                    catch (ArgumentException exception)
                     {
                         MessageBox.Show($"{exception.Message}");
                         return;
                     }
+                    catch (InvalidOperationException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
+
                 }));
             }
         }
@@ -153,12 +159,16 @@ namespace Test7
                     {
                         Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
                     }
-                    catch (AggregateException exception)
+                    catch (ArgumentException exception)
                     {
                         MessageBox.Show($"{exception.Message}");
                         return;
                     }
-
+                    catch (InvalidOperationException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
                 }));
             }
         }
@@ -183,7 +193,12 @@ namespace Test7
                     {
                         Answer = calculator.Calculate(currentOperand, boxForSecondNumber, boxForFirstNumber).ToString();
                     }
-                    catch (AggregateException exception)
+                    catch (ArgumentException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
+                    catch (InvalidOperationException exception)
                     {
                         MessageBox.Show($"{exception.Message}");
                         return;
@@ -217,13 +232,21 @@ namespace Test7
                         MessageBox.Show($"{exception.Message}");
                         return;
                     }
+                    catch(DivideByZeroException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
+                    catch(InvalidOperationException exception)
+                    {
+                        MessageBox.Show($"{exception.Message}");
+                        return;
+                    }
                 }));
             }
         }
-    
 
-
-       public void OnPropertyChanged([CallerMemberName] string prop = "") =>
+        public void OnPropertyChanged([CallerMemberName] string prop = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
     }
