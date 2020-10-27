@@ -89,27 +89,19 @@ namespace GUIforFTP.Tests
         public void DownloadOneFileTest()
         {
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            viewModel.PathToDownload = "Downloaded_file";
+            viewModel.PathToDownload = "C:\\Users\\alnar\\Desktop";
             viewModel.DownloadOneFile("test.txt").Wait();
-            Assert.AreEqual("Downloaded_file", viewModel.FolderList[5].ElementName);
-            Assert.IsTrue(condition: viewModel.FolderList[5].Type.ToString() == ViewModel.ManagerElement.TypeOfElement.Folder.ToString());
-            viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("Downloaded_file", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            Assert.AreEqual("test.txt", viewModel.FolderList[0].ElementName);
+            var aa = viewModel.DownloadingFolderList;
+            Assert.IsTrue(viewModel.DownloadingFolderList.Count == 1);
         }
 
         [TestMethod]
         public void DownloadAllFilesTest()
         {
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            viewModel.PathToDownload = "My_downloads";
+            viewModel.PathToDownload = "C:\\Users\\alnar\\Desktop";
             viewModel.DownloadAllFilesInFolder().Wait();
-            Assert.AreEqual("My_downloads", viewModel.FolderList[6].ElementName);
-            Assert.IsTrue(viewModel.FolderList[6].Type.ToString() == ViewModel.ManagerElement.TypeOfElement.Folder.ToString());
-            viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("My_downloads", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            Assert.AreEqual("CLR_via_CSharp_3rd_Edition_Jeffrey_Richter.pdf", viewModel.FolderList[0].ElementName);
-            Assert.AreEqual("demidovich_sbornik.pdf", viewModel.FolderList[1].ElementName);
-            Assert.AreEqual("group_theory.pdf", viewModel.FolderList[2].ElementName);
-            Assert.AreEqual("test.txt", viewModel.FolderList[3].ElementName);
+            Assert.IsTrue(viewModel.DownloadingFolderList.Count == 4);
         }
     }
 }
