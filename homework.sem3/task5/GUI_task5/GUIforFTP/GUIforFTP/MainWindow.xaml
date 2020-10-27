@@ -58,7 +58,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0">
             <TextBlock Text="Enter folder to download files" HorizontalAlignment="Left"/>
-            <TextBox x:Name="boxForEnteringFolderToDownloadFiles" Text="{Binding Path=FolderForDownloading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox x:Name="boxForEnteringFolderToDownloadFiles" Text="{Binding Path=PathToDownload, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Content="Download all files" HorizontalContentAlignment="Left" FontSize="15" Margin="0 5 5 0" Click="Download_All_Click"/>
         </StackPanel>
 

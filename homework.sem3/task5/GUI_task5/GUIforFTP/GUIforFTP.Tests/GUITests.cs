@@ -89,7 +89,7 @@ namespace GUIforFTP.Tests
         public void DownloadOneFileTest()
         {
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            viewModel.FolderForDownloading = "Downloaded_file";
+            viewModel.PathToDownload = "Downloaded_file";
             viewModel.DownloadOneFile("test.txt").Wait();
             Assert.AreEqual("Downloaded_file", viewModel.FolderList[5].ElementName);
             Assert.IsTrue(condition: viewModel.FolderList[5].Type.ToString() == ViewModel.ManagerElement.TypeOfElement.Folder.ToString());
@@ -101,7 +101,7 @@ namespace GUIforFTP.Tests
         public void DownloadAllFilesTest()
         {
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
-            viewModel.FolderForDownloading = "My_downloads";
+            viewModel.PathToDownload = "My_downloads";
             viewModel.DownloadAllFilesInFolder().Wait();
             Assert.AreEqual("My_downloads", viewModel.FolderList[6].ElementName);
             Assert.IsTrue(viewModel.FolderList[6].Type.ToString() == ViewModel.ManagerElement.TypeOfElement.Folder.ToString());

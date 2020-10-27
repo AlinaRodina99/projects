@@ -19,7 +19,7 @@ namespace GUIforFTP
         private int port;
         private bool isConnected = false;
         private static string path;
-        private string folderForDownloading;
+        private string pathToDownload;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,13 +56,13 @@ namespace GUIforFTP
         /// <summary>
         /// Property for the folder which client wants to use for downloadings.
         /// </summary>
-        public string FolderForDownloading
+        public string PathToDownload
         {
-            get => folderForDownloading; 
+            get => pathToDownload; 
             set
             {
-                folderForDownloading = value;
-                OnPropertyChanged("FolderForDownloading");
+                pathToDownload = value;
+                OnPropertyChanged();
             }
         }
 
@@ -217,33 +217,23 @@ namespace GUIforFTP
         /// <param name="file">File that client wants to download.</param>
         public async Task DownloadOneFile(string file)
         {
-            if (FolderForDownloading == null)
+            if (PathToDownload == null)
             {
-                MessageBox.Show("You must write folder for downloads!");
+                MessageBox.Show("You must write path for downloads!");
                 return;
             }
 
-            var newPath = CurrentFolder + $"\\{ FolderForDownloading }\\";
-            var invalidChars = new char[10] { '\\', '/', '?', ':', '"', '*', '<', '>', '|', '.' };
-
-            foreach (var symbol in FolderForDownloading.ToCharArray().ToList())
+            if (!Directory.Exists(PathToDownload))
             {
-                if (invalidChars.ToList().Contains(symbol))
-                {
-                    MessageBox.Show("Folder name should not contain next symbols: \\ | / ? : * \" < > .");
-                    return;
-                }
-            }
-
-            if (!Directory.Exists(newPath))
-            {
-                Directory.CreateDirectory(newPath);
+                MessageBox.Show("Such path does not exist or contains invalid chars!");
+                PathToDownload = null;
+                return;
             }
 
             var newFile = new ManagerElement(file, ManagerElement.TypeOfElement.File, true);
             DownloadingFolderList.Add(newFile);
 
-            await client.Get(SubstringBeginOfPath(path) + $"\\{ CurrentFolder }" + $"\\{ file }", newPath + $"{ file }");
+            await client.Get(SubstringBeginOfPath(path) + $"\\{ CurrentFolder }" + $"\\{ file }", PathToDownload + $"\\{ file }");
 
             DownloadingFolderList.Remove(newFile);
             DownloadingFolderList.Add(new ManagerElement(file, ManagerElement.TypeOfElement.File, false));
@@ -267,9 +257,9 @@ namespace GUIforFTP
                 return;
             }
 
-            if (FolderForDownloading == null)
+            if (PathToDownload == null)
             {
-                MessageBox.Show("You must write folder for downloads!");
+                MessageBox.Show("You must write path for downloads!");
                 return;
             }
 
