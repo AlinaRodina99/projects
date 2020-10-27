@@ -91,7 +91,7 @@ namespace GUIforFTP.Tests
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
             viewModel.PathToDownload = "C:\\Users\\alnar\\Desktop";
             viewModel.DownloadOneFile("test.txt").Wait();
-            Assert.IsTrue(viewModel.DownloadingFolderList.Count == 1);
+            Assert.AreEqual(1, viewModel.DownloadingFolderList.Count);
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace GUIforFTP.Tests
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
             viewModel.PathToDownload = "C:\\Users\\alnar\\Desktop";
             viewModel.DownloadAllFilesInFolder().Wait();
-            Assert.IsTrue(viewModel.DownloadingFolderList.Count == 4);
+            Assert.AreEqual(4, viewModel.DownloadingFolderList.Count);
         }
     }
 }
