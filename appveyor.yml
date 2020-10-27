@@ -1,16 +1,10 @@
-
 image: Visual Studio 2019 
 
 before_build:
-
-  - nuget restore homework.sem4/homework1/hw1/hw1.sln
+  - nuget restore homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
   
-build:
-   project: homework.sem4/homework1/hw1/hw1.sln
-
-test_script:
-  - dotnet test homework.sem4/homework1/hw1/hw1.sln
-
+build_script:
+  - msbuild homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
 
 
 
