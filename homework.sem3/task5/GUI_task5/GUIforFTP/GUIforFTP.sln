@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIforFTP", "GUIforFTP\GUIforFTP.csproj", "{F06B84DC-2B9A-4FD7-BB7C-D70BFF86E657}"
+	ProjectSection(ProjectDependencies) = postProject
+		{880CC73B-B104-45AF-B805-968576C2DAC2} = {880CC73B-B104-45AF-B805-968576C2DAC2}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerApp", "ServerApp\ServerApp.csproj", "{880CC73B-B104-45AF-B805-968576C2DAC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8356F655-75D7-4D82-AE43-B10B1E5BD190}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIforFTP.Tests", "GUIforFTP.Tests\GUIforFTP.Tests.csproj", "{39C6E7E2-C858-451B-89B5-0891A049BD51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F06B84DC-2B9A-4FD7-BB7C-D70BFF86E657}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F06B84DC-2B9A-4FD7-BB7C-D70BFF86E657}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F06B84DC-2B9A-4FD7-BB7C-D70BFF86E657}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F06B84DC-2B9A-4FD7-BB7C-D70BFF86E657}.Release|Any CPU.Build.0 = Release|Any CPU
+		{880CC73B-B104-45AF-B805-968576C2DAC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880CC73B-B104-45AF-B805-968576C2DAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880CC73B-B104-45AF-B805-968576C2DAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880CC73B-B104-45AF-B805-968576C2DAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39C6E7E2-C858-451B-89B5-0891A049BD51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C6E7E2-C858-451B-89B5-0891A049BD51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C6E7E2-C858-451B-89B5-0891A049BD51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C6E7E2-C858-451B-89B5-0891A049BD51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {78046DB7-0258-410F-9D20-FA9FB4E6CA86}
+	EndGlobalSection
+EndGlobal
