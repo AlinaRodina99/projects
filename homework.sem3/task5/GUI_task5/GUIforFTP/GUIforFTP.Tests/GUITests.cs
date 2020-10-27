@@ -91,7 +91,6 @@ namespace GUIforFTP.Tests
             viewModel.OpenFolderOrLoad(new ViewModel.ManagerElement("TestFiles", ViewModel.ManagerElement.TypeOfElement.Folder, false)).Wait();
             viewModel.PathToDownload = "C:\\Users\\alnar\\Desktop";
             viewModel.DownloadOneFile("test.txt").Wait();
-            var aa = viewModel.DownloadingFolderList;
             Assert.IsTrue(viewModel.DownloadingFolderList.Count == 1);
         }
 
