@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace GUIforFTP
 {
     /// <summary>
-    /// Сlass that binds the model and view.
+    /// Сlass that links the model and view.
     /// </summary>
     public class ViewModel : INotifyPropertyChanged
     {
