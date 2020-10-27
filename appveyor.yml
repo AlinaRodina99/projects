@@ -1,10 +1,11 @@
 image: Visual Studio 2019 
 
 before_build:
-  - nuget restore homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+
+  - nuget restore homework.sem3\Tests\Test7\Test7.sln
   
 build_script:
-  - msbuild homework.sem3\task5\GUI_task5\GUIforFTP\GUIforFTP.sln
+  - msbuild homework.sem3\Tests\Test7\Test7.sln
 
 
 
